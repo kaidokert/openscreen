@@ -122,18 +122,25 @@ ErrorOr<IPAddress> ParseV6(const std::string& s) {
   const std::string scan_input = ExpandIPv6DoubleColon(s);
   uint16_t hextets[8];
   int chars_scanned;
+  uint scope_id = 0;
   // Note: sscanf()'s parsing for %x allows leading whitespace; so the invalid
   // presence of whitespace must be explicitly checked too.
   if (std::any_of(s.begin(), s.end(), [](char c) { return std::isspace(c); }) ||
-      sscanf(scan_input.c_str(),
-             "%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16
-             ":%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16 "%n",
-             &hextets[0], &hextets[1], &hextets[2], &hextets[3], &hextets[4],
-             &hextets[5], &hextets[6], &hextets[7], &chars_scanned) != 8 ||
+      (sscanf(scan_input.c_str(),
+              "%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16
+              ":%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16 "%%%u%n",
+              &hextets[0], &hextets[1], &hextets[2], &hextets[3], &hextets[4],
+              &hextets[5], &hextets[6], &hextets[7], &scope_id,
+              &chars_scanned) != 9 &&
+       sscanf(scan_input.c_str(),
+              "%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16
+              ":%4" SCNx16 ":%4" SCNx16 ":%4" SCNx16 "%n",
+              &hextets[0], &hextets[1], &hextets[2], &hextets[3], &hextets[4],
+              &hextets[5], &hextets[6], &hextets[7], &chars_scanned) != 8) ||
       chars_scanned != static_cast<int>(scan_input.size())) {
     return Error::Code::kInvalidIPV6Address;
   }
-  return IPAddress(hextets);
+  return IPAddress(hextets, scope_id);
 }
 
 }  // namespace
@@ -259,6 +266,9 @@ std::ostream& operator<<(std::ostream& out, const IPAddress& address) {
       out << separator;
     }
     out << std::setw(value_width) << static_cast<int>(values[i]);
+  }
+  if (address.IsV6() && address.scope_id() > 0) {
+    out << '%' << std::dec << address.scope_id();
   }
   return out;
 }

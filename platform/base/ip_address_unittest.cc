@@ -160,6 +160,27 @@ TEST(IPAddressTest, V6ParseBasic) {
   EXPECT_THAT(bytes, ElementsAreArray({0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67,
                                        0x89, 0x98, 0x76, 0x54, 0x32, 0x10, 0xfe,
                                        0xdb, 0xca}));
+  EXPECT_EQ(address.value().scope_id(), 0u);
+}
+
+TEST(IPAddressTest, V6ParseLinkLocal) {
+  uint8_t bytes[16] = {};
+  ErrorOr<IPAddress> address1 = IPAddress::Parse("fe80::dccc:1bff:fe4f:6aee");
+  ASSERT_TRUE(address1);
+  address1.value().CopyToV6(bytes);
+  EXPECT_THAT(bytes, ElementsAreArray({0xfe, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                       0x00, 0xdc, 0xcc, 0x1b, 0xff, 0xfe, 0x4f,
+                                       0x6a, 0xee}));
+  EXPECT_EQ(address1.value().scope_id(), 0u);
+
+  ErrorOr<IPAddress> address2 =
+      IPAddress::Parse("fe80::dccc:1bff:fe4f:6aee%10");
+  ASSERT_TRUE(address2);
+  address2.value().CopyToV6(bytes);
+  EXPECT_THAT(bytes, ElementsAreArray({0xfe, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00,
+                                       0x00, 0xdc, 0xcc, 0x1b, 0xff, 0xfe, 0x4f,
+                                       0x6a, 0xee}));
+  EXPECT_EQ(address2.value().scope_id(), 10u);
 }
 
 TEST(IPAddressTest, V6ParseDoubleColon) {
@@ -171,12 +192,14 @@ TEST(IPAddressTest, V6ParseDoubleColon) {
   EXPECT_THAT(bytes, ElementsAreArray({0xab, 0xcd, 0xef, 0x01, 0x23, 0x45, 0x67,
                                        0x89, 0x98, 0x76, 0x54, 0x32, 0x00, 0x00,
                                        0xdb, 0xca}));
+  EXPECT_EQ(address1.value().scope_id(), 0u);
   ErrorOr<IPAddress> address2 = IPAddress::Parse("abcd::10fe:dbca");
   ASSERT_TRUE(address2);
   address2.value().CopyToV6(bytes);
   EXPECT_THAT(bytes, ElementsAreArray({0xab, 0xcd, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0xfe,
                                        0xdb, 0xca}));
+  EXPECT_EQ(address2.value().scope_id(), 0u);
 
   ErrorOr<IPAddress> address3 = IPAddress::Parse("::10fe:dbca");
   ASSERT_TRUE(address3);
@@ -184,6 +207,7 @@ TEST(IPAddressTest, V6ParseDoubleColon) {
   EXPECT_THAT(bytes, ElementsAreArray({0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x10, 0xfe,
                                        0xdb, 0xca}));
+  EXPECT_EQ(address3.value().scope_id(), 0u);
 
   ErrorOr<IPAddress> address4 = IPAddress::Parse("10fe:dbca::");
   ASSERT_TRUE(address4);
@@ -191,6 +215,7 @@ TEST(IPAddressTest, V6ParseDoubleColon) {
   EXPECT_THAT(bytes, ElementsAreArray({0x10, 0xfe, 0xdb, 0xca, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00}));
+  EXPECT_EQ(address4.value().scope_id(), 0u);
 }
 
 TEST(IPAddressTest, V6SmallValues) {
@@ -201,6 +226,7 @@ TEST(IPAddressTest, V6SmallValues) {
   EXPECT_THAT(bytes, ElementsAreArray({0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00}));
+  EXPECT_EQ(address1.value().scope_id(), 0u);
 
   ErrorOr<IPAddress> address2 = IPAddress::Parse("::1");
   ASSERT_TRUE(address2);
@@ -208,6 +234,7 @@ TEST(IPAddressTest, V6SmallValues) {
   EXPECT_THAT(bytes, ElementsAreArray({0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x01}));
+  EXPECT_EQ(address2.value().scope_id(), 0u);
 
   ErrorOr<IPAddress> address3 = IPAddress::Parse("::2:1");
   ASSERT_TRUE(address3);
@@ -215,6 +242,7 @@ TEST(IPAddressTest, V6SmallValues) {
   EXPECT_THAT(bytes, ElementsAreArray({0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02,
                                        0x00, 0x01}));
+  EXPECT_EQ(address3.value().scope_id(), 0u);
 }
 
 TEST(IPAddressTest, V6ParseFailures) {
@@ -255,6 +283,7 @@ TEST(IPAddressTest, V6ParseThreeDigitValue) {
   EXPECT_THAT(bytes, ElementsAreArray({0x0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                                        0x01, 0x23}));
+  EXPECT_EQ(address.value().scope_id(), 0u);
 }
 
 TEST(IPAddressTest, IPEndpointBoolOperator) {
@@ -427,5 +456,15 @@ TEST(IPAddressTest, OstreamOperatorForIPv4) {
   oss << IPAddress{23, 45, 67, 89};
   EXPECT_EQ("23.45.67.89", oss.str());
 }
+
+TEST(IPAddressTest, IPV6ToString) {
+  IPAddress address1( {0x0102, 0x0304, 0x0506, 0x0708, 0x090a, 0x0b0c, 0x0d0e, 0x0f10}, 10);
+
+  std::ostringstream name;
+  name << address1;
+
+  EXPECT_EQ("0102:0304:0506:0708:090a:0b0c:0d0e:0f10%10",
+            name.str());
+} 
 
 }  // namespace openscreen

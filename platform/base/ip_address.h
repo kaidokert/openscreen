@@ -37,7 +37,7 @@ class IPAddress {
 
   constexpr IPAddress() : version_(Version::kV4), bytes_({}) {}
 
-  // `bytes` contains 4 octets for IPv4, or 8 hextets (16 bytes of big-endian
+  // |bytes| contains 4 octets for IPv4, or 8 hextets (16 bytes of big-endian
   // shorts) for IPv6.
   IPAddress(Version version, const uint8_t* bytes);
 
@@ -63,7 +63,8 @@ class IPAddress {
                   hextets[6],
                   hextets[7]) {}
 
-  explicit constexpr IPAddress(const uint16_t (&hextets)[8])
+  explicit constexpr IPAddress(const uint16_t (&hextets)[8],
+                               const uint16_t scope_id = 0)
       : IPAddress(hextets[0],
                   hextets[1],
                   hextets[2],
@@ -71,7 +72,8 @@ class IPAddress {
                   hextets[4],
                   hextets[5],
                   hextets[6],
-                  hextets[7]) {}
+                  hextets[7],
+                  scope_id) {}
 
   constexpr IPAddress(uint16_t h0,
                       uint16_t h1,
@@ -80,7 +82,8 @@ class IPAddress {
                       uint16_t h4,
                       uint16_t h5,
                       uint16_t h6,
-                      uint16_t h7)
+                      uint16_t h7,
+                      const uint16_t scope_id = 0)
       : version_(Version::kV6),
         bytes_{{
             static_cast<uint8_t>(h0 >> 8),
@@ -99,7 +102,8 @@ class IPAddress {
             static_cast<uint8_t>(h6),
             static_cast<uint8_t>(h7 >> 8),
             static_cast<uint8_t>(h7),
-        }} {}
+        }},
+        scope_id_(scope_id) {}
 
   constexpr IPAddress(const IPAddress& o) noexcept = default;
   constexpr IPAddress(IPAddress&& o) noexcept = default;
@@ -124,7 +128,7 @@ class IPAddress {
   bool IsV4() const { return version_ == Version::kV4; }
   bool IsV6() const { return version_ == Version::kV6; }
 
-  // These methods assume `x` is the appropriate size, but due to various
+  // These methods assume |x| is the appropriate size, but due to various
   // callers' casting needs we can't check them like the constructors above.
   // Callers should instead make any necessary checks themselves.
   void CopyToV4(uint8_t* x) const;
@@ -138,9 +142,12 @@ class IPAddress {
   // IPv6 address (e.g. "abcd::1234").
   static ErrorOr<IPAddress> Parse(const std::string& s);
 
+  uint scope_id() const { return scope_id_; }
+
  private:
   Version version_;
   std::array<uint8_t, 16> bytes_;
+  uint scope_id_ = 0;
 };
 
 struct IPEndpoint {

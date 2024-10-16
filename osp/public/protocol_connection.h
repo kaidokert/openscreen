@@ -30,6 +30,11 @@ class ProtocolConnection {
  public:
   class Observer {
    public:
+    Observer() = default;
+    Observer(const Observer&) = delete;
+    Observer& operator=(const Observer&) = delete;
+    Observer(Observer&&) noexcept = delete;
+    Observer& operator=(Observer&&) noexcept = delete;
     virtual ~Observer() = default;
 
     // Called when `connection` is no longer available, either because the

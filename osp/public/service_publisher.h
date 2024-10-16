@@ -12,7 +12,6 @@
 #include "osp/public/timestamp.h"
 #include "platform/base/error.h"
 #include "platform/base/interface_info.h"
-#include "platform/base/macros.h"
 
 namespace openscreen::osp {
 
@@ -43,6 +42,11 @@ class ServicePublisher {
 
   class Observer {
    public:
+    Observer() = default;
+    Observer(const Observer&) = delete;
+    Observer& operator=(const Observer&) = delete;
+    Observer(Observer&&) noexcept = delete;
+    Observer& operator=(Observer&&) noexcept = delete;
     virtual ~Observer() = default;
 
     // Called when the state becomes kRunning.
@@ -93,6 +97,11 @@ class ServicePublisher {
     bool IsValid() const;
   };
 
+  ServicePublisher();
+  ServicePublisher(const ServicePublisher&) = delete;
+  ServicePublisher& operator=(const ServicePublisher&) = delete;
+  ServicePublisher(ServicePublisher&&) noexcept = delete;
+  ServicePublisher& operator=(ServicePublisher&&) noexcept = delete;
   virtual ~ServicePublisher();
 
   // Sets the service configuration for this publisher.
@@ -131,14 +140,10 @@ class ServicePublisher {
   const Error& last_error() const { return last_error_; }
 
  protected:
-  ServicePublisher();
-
   State state_;
   Error last_error_;
   std::vector<Observer*> observers_;
   Config config_;
-
-  OSP_DISALLOW_COPY_AND_ASSIGN(ServicePublisher);
 };
 
 }  // namespace openscreen::osp

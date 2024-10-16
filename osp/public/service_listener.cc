@@ -11,6 +11,7 @@ bool ServiceListener::Config::IsValid() const {
 }
 
 ServiceListener::ServiceListener() : state_(State::kStopped) {}
+
 ServiceListener::~ServiceListener() = default;
 
 void ServiceListener::SetConfig(const Config& config) {

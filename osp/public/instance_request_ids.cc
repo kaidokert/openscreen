@@ -7,6 +7,7 @@
 namespace openscreen::osp {
 
 InstanceRequestIds::InstanceRequestIds(Role role) : role_(role) {}
+
 InstanceRequestIds::~InstanceRequestIds() = default;
 
 uint64_t InstanceRequestIds::GetNextRequestId(uint64_t instance_id) {

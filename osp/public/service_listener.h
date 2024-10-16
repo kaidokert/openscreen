@@ -13,7 +13,6 @@
 #include "osp/public/timestamp.h"
 #include "platform/base/error.h"
 #include "platform/base/interface_info.h"
-#include "platform/base/macros.h"
 
 namespace openscreen::osp {
 
@@ -54,6 +53,11 @@ class ServiceListener {
 
   class Observer {
    public:
+    Observer() = default;
+    Observer(const Observer&) = delete;
+    Observer& operator=(const Observer&) = delete;
+    Observer(Observer&&) noexcept = delete;
+    Observer& operator=(Observer&&) noexcept = delete;
     virtual ~Observer() = default;
 
     // Called when the state becomes kRunning.
@@ -89,6 +93,11 @@ class ServiceListener {
     bool IsValid() const;
   };
 
+  ServiceListener();
+  ServiceListener(const ServiceListener&) = delete;
+  ServiceListener& operator=(const ServiceListener&) = delete;
+  ServiceListener(ServiceListener&&) noexcept = delete;
+  ServiceListener& operator=(ServiceListener&&) noexcept = delete;
   virtual ~ServiceListener();
 
   // Sets the service configuration for this listener.
@@ -138,14 +147,10 @@ class ServiceListener {
   virtual const std::vector<ServiceInfo>& GetReceivers() const = 0;
 
  protected:
-  ServiceListener();
-
   State state_;
   Error last_error_;
   std::vector<Observer*> observers_;
   Config config_;
-
-  OSP_DISALLOW_COPY_AND_ASSIGN(ServiceListener);
 };
 
 }  // namespace openscreen::osp

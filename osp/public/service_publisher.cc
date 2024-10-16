@@ -12,12 +12,12 @@ bool ServicePublisher::Config::IsValid() const {
          connection_server_port > 0 && !network_interfaces.empty();
 }
 
+ServicePublisher::ServicePublisher() : state_(State::kStopped) {}
+
 ServicePublisher::~ServicePublisher() = default;
 
 void ServicePublisher::SetConfig(const Config& config) {
   config_ = config;
 }
-
-ServicePublisher::ServicePublisher() : state_(State::kStopped) {}
 
 }  // namespace openscreen::osp

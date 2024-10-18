@@ -33,6 +33,193 @@
       "message": "Hi, @mfoltz@chromium.org, can you help review this first? thanks.",
       "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dde21855_0d17d950",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "Thanks, this is a nice cleanup!  A few things to fix",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6f36ef9e_7decb437",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "FYI, if the copy operators are deleted, the move operators are implicitly deleted too.  It can\u0027t hurt to be explicit though.",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5b87cd06_3712580f",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "I would just return the underlying pointer here as it\u0027s just an accessor, and we are not wanting the caller to take ownership.",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "748f214f_f640f8f6",
+        "filename": "osp/impl/quic/open_screen_session_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "The Chromium style guide asks to minimize code in headers, which means declaring default constructors in headers and defining them in the .cc\n\nhttps://chromium.googlesource.com/chromium/src/+/refs/heads/main/styleguide/c++/c++-dos-and-donts.md#minimize-code-in-headers",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "06e96076_0134f072",
+        "filename": "osp/impl/quic/open_screen_session_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "Same guidance applies to destructors",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a86c903_3759d748",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "Slightly better to return const std::string\u0026 here",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "daf10231_870e2d9c",
+        "filename": "osp/impl/quic/testing/quic_test_support.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "Nit: delete extra newline\n\nhttps://google.github.io/styleguide/cppguide.html#Vertical_Whitespace",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4d5dd958_b8bd4c26",
+        "filename": "osp/impl/receiver_list.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "82d37647_1668877a",
+        "filename": "osp/impl/service_publisher_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d1732b2c_f72a0e5b",
+        "filename": "osp/public/instance_request_ids.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6def8fb8_134d422f",
+        "filename": "osp/public/network_service_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-18T19:02:36Z",
+      "side": 1,
+      "message": "Let\u0027s keep this private as this object is supposed to be a singleton with process lifetime (thus ctor and dtor are private)",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

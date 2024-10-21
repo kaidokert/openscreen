@@ -104,6 +104,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0aa55830_a8243898",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-21T16:40:42Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "12360946_54df3745",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "748f214f_f640f8f6",
@@ -205,6 +223,24 @@
       "side": 1,
       "message": "Done",
       "parentUuid": "0a86c903_3759d748",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1ad55ef_90dc322b",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-21T16:40:42Z",
+      "side": 1,
+      "message": "Sorry, I changed my mind here.  I didn\u0027t realize that this was overriding a virtual method, and we don\u0027t want to force all overrides to allocate storage for the string.  Can you revert to returning `std::string`?",
+      "parentUuid": "eac1c9c3_8cd70cd8",
       "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },

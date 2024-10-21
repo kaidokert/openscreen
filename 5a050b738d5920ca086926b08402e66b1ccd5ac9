@@ -88,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "12360946_54df3745",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-21T05:16:11Z",
+      "side": 1,
+      "message": "Thanks, we need to reset `connection_` on line 593, so reference is returned here.",
+      "parentUuid": "5b87cd06_3712580f",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "748f214f_f640f8f6",
         "filename": "osp/impl/quic/open_screen_session_base.h",
         "patchSetId": 3
@@ -99,6 +117,24 @@
       "writtenOn": "2024-10-18T19:02:36Z",
       "side": 1,
       "message": "The Chromium style guide asks to minimize code in headers, which means declaring default constructors in headers and defining them in the .cc\n\nhttps://chromium.googlesource.com/chromium/src/+/refs/heads/main/styleguide/c++/c++-dos-and-donts.md#minimize-code-in-headers",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "503e600e_4187c48c",
+        "filename": "osp/impl/quic/open_screen_session_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-21T05:16:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "748f214f_f640f8f6",
       "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -120,6 +156,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2d0d9f31_d0e7890a",
+        "filename": "osp/impl/quic/open_screen_session_base.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-21T05:16:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "06e96076_0134f072",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0a86c903_3759d748",
@@ -133,6 +187,24 @@
       "writtenOn": "2024-10-18T19:02:36Z",
       "side": 1,
       "message": "Slightly better to return const std::string\u0026 here",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eac1c9c3_8cd70cd8",
+        "filename": "osp/impl/quic/quic_server.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-21T05:16:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0a86c903_3759d748",
       "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -154,6 +226,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "871d7b37_970e079d",
+        "filename": "osp/impl/quic/testing/quic_test_support.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-21T05:16:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "daf10231_870e2d9c",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4d5dd958_b8bd4c26",
@@ -167,6 +257,24 @@
       "writtenOn": "2024-10-18T19:02:36Z",
       "side": 1,
       "message": "Ditto",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4705d7f9_0e9c25dd",
+        "filename": "osp/impl/receiver_list.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-21T05:16:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4d5dd958_b8bd4c26",
       "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -188,6 +296,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4d289647_751ac4c4",
+        "filename": "osp/impl/service_publisher_impl.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-21T05:16:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "82d37647_1668877a",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d1732b2c_f72a0e5b",
@@ -205,6 +331,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e0a67bb_ec08c0de",
+        "filename": "osp/public/instance_request_ids.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-21T05:16:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d1732b2c_f72a0e5b",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6def8fb8_134d422f",
@@ -218,6 +362,24 @@
       "writtenOn": "2024-10-18T19:02:36Z",
       "side": 1,
       "message": "Let\u0027s keep this private as this object is supposed to be a singleton with process lifetime (thus ctor and dtor are private)",
+      "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9ad15418_8acebf22",
+        "filename": "osp/public/network_service_manager.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-21T05:16:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6def8fb8_134d422f",
       "revId": "5a050b738d5920ca086926b08402e66b1ccd5ac9",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }

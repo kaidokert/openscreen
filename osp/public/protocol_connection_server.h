@@ -30,7 +30,7 @@ class ProtocolConnectionServer : public ProtocolConnectionEndpoint {
 
   // Returns the alphanumeric and unguessable token. The token is sent to the
   // client as a DNS TXT record. Client uses the token for authentication.
-  virtual std::string GetAuthToken() = 0;
+  virtual const std::string& GetAuthToken() = 0;
 };
 
 }  // namespace openscreen::osp

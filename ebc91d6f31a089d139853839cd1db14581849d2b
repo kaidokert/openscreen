@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bea4fc10_e4605a1e",
+        "filename": "osp/impl/message_demuxer.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-24T09:00:00Z",
+      "side": 0,
+      "message": "I don\u0027t we can use Span here, because we need to modify the size of the underlying container, which can not be achieved through Span.",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 72
+      },
+      "revId": "ebc91d6f31a089d139853839cd1db14581849d2b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

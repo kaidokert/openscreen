@@ -109,6 +109,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a2cd5407_8bc1e819",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-10-31T22:12:38Z",
+      "side": 1,
+      "message": "The design doc is in progress but I can\u0027t give an exact date to complete.  Hopefully next week.  I think it would make sense for me to work on the framework for authentication once the design is done.  Then merge in the code that is already landed or in your other CL.  I  may need help with that in the future.\n\n\nI agree it would be useful to start looking at the Chrome integration side.  The design doc for the MediaRouter is here.  \n\nhttps://chromium.googlesource.com/chromium/src/+/HEAD/docs/media/media_router.md\n\nOnce you have a chance to review that and some of the existing code can we schedule a meeting.  IT would be much easier to agree on a design up front before a bunch of code is written.",
+      "parentUuid": "7051822a_b3dda61c",
+      "revId": "83b6c348a7e5b3fc828883d4045320644f4400a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7632ea3_8de0dca4",
         "filename": "osp/demo/osp_demo.cc",
         "patchSetId": 5

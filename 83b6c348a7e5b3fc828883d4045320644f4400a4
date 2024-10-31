@@ -91,6 +91,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7051822a_b3dda61c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-10-31T02:19:33Z",
+      "side": 1,
+      "message": "Hi, mark. It seems we still need some time to figure out the authentacation related things. After discussing with my boss, I decided to first spend some time investigating Media Router related codes and figuring out how we can integrate OSP into MediaRoute. What do you think?",
+      "parentUuid": "8116c7bf_45d227a2",
+      "revId": "83b6c348a7e5b3fc828883d4045320644f4400a4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e7632ea3_8de0dca4",
         "filename": "osp/demo/osp_demo.cc",
         "patchSetId": 5

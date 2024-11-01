@@ -33,6 +33,397 @@
       "message": "I am in the process of reviewing this.",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ba1e3e87_97a20bcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Overall looks like a good start, I need some help mapping the computation functions onto the steps in the RFC so I can dig in and check the computations.\n\n\nI will ask the author of the boringssl SPAKE2 implementation if it is useful for us.  It may be based on an older version of the algorithm as the original code was written in 2016.\n\nhttps://commondatastorage.googleapis.com/chromium-boringssl-docs/curve25519.h.html#SPAKE2",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "12fc82a9_0a3e3bd6",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Please #include \u003cvector\u003e, \u003ccstdint\u003e, etc. for other std types used here.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d5bf1fd3_21f86516",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Please update includes used here, e.g. for OSP messages, OSP_CHECK",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dc0d49e_cf829fec",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "What exactly is this computing?  The public values pA and pB are different for Alice and Bob.  Can you add comments referring to the variables defined in the RFC so I can understand which computation this is implementing?\n\nhttps://datatracker.ietf.org/doc/html/rfc9382",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "54093444_34c3f7e8",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Can you add a TODO to store the NID in a shared constant?\n\nThat way the curve ID will be shared between this code and the code that generates new certificates in AgentCertificate.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c33371ae_e900733f",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Can you store this in a bssl:UniquePtr?",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8c82ddb8_151a0c77",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Ditto with bssl::UniquePtr",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f6b342c_fc08041b",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Ditto with bssl::UniquePtr",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "887b46be_711fcf9a",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Is this computing the transcript over the entire session for confirmation?  it seems to be missing some data.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1c20dfa3_367aaa3d",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Ditto for bssl::UniquePtr",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb887409_d4140555",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "The specification never uses the agent certificate\u0027s private key in any part of the SPAKE2 computation.   The Agent Fingerprint is used as input to M and N.\n\n- It looks like the terminology in the RFC has shifted again.  What used to be called A and B is now M and N it seems.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "07265d1e_fb696f55",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Please mention that the class is specific to SPAKE2 and link the section of the OSP spec and the SPAKE2 RFC:\n\nhttps://w3c.github.io/openscreenprotocol/#authentication-with-spake2\n\nhttps://datatracker.ietf.org/doc/html/rfc9382",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5123fc93_1f64595a",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "The authentication protocol does not generate an instance name or instance_id.  Those are already known by the discovery and connection steps of the protocol.  So I am wondering why this class is sending the data to a delegate.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4cb99846_b776005c",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Please document what these methods are for.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5316f39e_329e2646",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Please use the typedef declared in agent_certificate.h when passing an agent fingerprint.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fb5030cf_f82c5932",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "I would normally expect one instance of this class to exist each time the authentication protocol is run and to be destroyed once authentication is complete.   In fact, using the same object for multiple agents runs the risk of mixing data between authentication sessions, which we don\u0027t want.\n\nPassing the instance_id once in the constructor and using it once instead of to each method would make this API simpler.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "be97bef2_49945701",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "I was going to suggest calling this `SetPreSharedKey` because that is what the OSP spec uses.  But the SPAKE2 RFC uses the term \"password\", so this is fine too.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36f12eb0_9ffca92a",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Please use an initializer here.\n```suggestion\n    std::array\u003cuint8_t, 64\u003e shared_key \u003d {};\n```",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d722f43b_355fa8bf",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "See my comment above about not storing data for more than one agent in the same object.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72a77833_bce2a638",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "See comment above about using the typedef.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0bc6b02f_a4e59769",
+        "filename": "osp/public/authentication_bob.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Would it make sense to pass the Error to `delegate_.OnAuthenticationFailed()`",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "377c7778_25541401",
+        "filename": "osp/public/authentication_bob.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "Or is this computing the M or N value?",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ceb58ab7_94de97ff",
+        "filename": "osp/public/authentication_bob.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-01T23:13:00Z",
+      "side": 1,
+      "message": "I would just put these messages into an Error object, pass them to the delegate_, and allow the delegate_ to log them if it wants to.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

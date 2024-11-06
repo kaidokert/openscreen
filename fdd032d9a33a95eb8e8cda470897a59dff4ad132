@@ -69,6 +69,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4786734f_76eb59ee",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "12fc82a9_0a3e3bd6",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d5bf1fd3_21f86516",
@@ -86,6 +104,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbca47e6_25320811",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d5bf1fd3_21f86516",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dc0d49e_cf829fec",
@@ -99,6 +135,24 @@
       "writtenOn": "2024-11-01T23:13:00Z",
       "side": 1,
       "message": "What exactly is this computing?  The public values pA and pB are different for Alice and Bob.  Can you add comments referring to the variables defined in the RFC so I can understand which computation this is implementing?\n\nhttps://datatracker.ietf.org/doc/html/rfc9382",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2182de37_d1034beb",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "In fact, I am not very familiar with SPAKE2. I wrote the codes after doing some research. There may be some mistakes or omissions because I didn\u0027t find a good reference. It would be great to get some professional advice on this.",
+      "parentUuid": "4dc0d49e_cf829fec",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -137,6 +191,42 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4b21adb8_3b3e37d9",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c33371ae_e900733f",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b46a521a_4f4fbab4",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "54093444_34c3f7e8",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8c82ddb8_151a0c77",
@@ -154,6 +244,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "60dbb360_7f09a970",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8c82ddb8_151a0c77",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f6b342c_fc08041b",
@@ -167,6 +275,24 @@
       "writtenOn": "2024-11-01T23:13:00Z",
       "side": 1,
       "message": "Ditto with bssl::UniquePtr",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6d3e275d_a65ddc28",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5f6b342c_fc08041b",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -190,6 +316,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "249289e2_4a30236d",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t quit understand what this means.",
+      "parentUuid": "887b46be_711fcf9a",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1c20dfa3_367aaa3d",
         "filename": "osp/public/authentication_base.cc",
         "patchSetId": 1
@@ -201,6 +345,24 @@
       "writtenOn": "2024-11-01T23:13:00Z",
       "side": 1,
       "message": "Ditto for bssl::UniquePtr",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "208fae9b_b43138f1",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "I think we can\u0027t bssl::UniquePtr here, because we need to get address of this pointer on line 107.",
+      "parentUuid": "1c20dfa3_367aaa3d",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -224,6 +386,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5ea91c71_509a44f5",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "I have added some comments about these methods, please take a look again.",
+      "parentUuid": "fb887409_d4140555",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "07265d1e_fb696f55",
         "filename": "osp/public/authentication_base.h",
         "patchSetId": 1
@@ -235,6 +415,24 @@
       "writtenOn": "2024-11-01T23:13:00Z",
       "side": 1,
       "message": "Please mention that the class is specific to SPAKE2 and link the section of the OSP spec and the SPAKE2 RFC:\n\nhttps://w3c.github.io/openscreenprotocol/#authentication-with-spake2\n\nhttps://datatracker.ietf.org/doc/html/rfc9382",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "61d5ba5b_16371055",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07265d1e_fb696f55",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -273,6 +471,42 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7f840acb_67244619",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "This method is useless now because we have not determined how to integrate authentication, so I remove this.",
+      "parentUuid": "4cb99846_b776005c",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbd50e27_2625b962",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5123fc93_1f64595a",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5316f39e_329e2646",
@@ -290,6 +524,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "42aac192_df084280",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5316f39e_329e2646",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb5030cf_f82c5932",
@@ -303,6 +555,24 @@
       "writtenOn": "2024-11-01T23:13:00Z",
       "side": 1,
       "message": "I would normally expect one instance of this class to exist each time the authentication protocol is run and to be destroyed once authentication is complete.   In fact, using the same object for multiple agents runs the risk of mixing data between authentication sessions, which we don\u0027t want.\n\nPassing the instance_id once in the constructor and using it once instead of to each method would make this API simpler.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bdda3f6e_deb9f331",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "```I would normally expect one instance of this class to exist each time the authentication protocol is run and to be destroyed once authentication is complete. In fact, using the same object for multiple agents runs the risk of mixing data between authentication sessions, which we don\u0027t want.```\nIs it possible that the agent authenticates with two other agents simultaneously. if so, there should be two instances of this class instead of maintaining information about the two agents in one instance, right?\n\n```Passing the instance_id once in the constructor and using it once instead of to each method would make this API simpler.```\nYes, this will be simpler if above statement is correct.",
+      "parentUuid": "fb5030cf_f82c5932",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -341,6 +611,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "8353eb2a_a321c768",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "36f12eb0_9ffca92a",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d722f43b_355fa8bf",
@@ -354,6 +642,24 @@
       "writtenOn": "2024-11-01T23:13:00Z",
       "side": 1,
       "message": "See my comment above about not storing data for more than one agent in the same object.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "449db341_968f0db3",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "please see above comments.",
+      "parentUuid": "d722f43b_355fa8bf",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -375,6 +681,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07d5495b_a3e31f10",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72a77833_bce2a638",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "0bc6b02f_a4e59769",
@@ -388,6 +712,24 @@
       "writtenOn": "2024-11-01T23:13:00Z",
       "side": 1,
       "message": "Would it make sense to pass the Error to `delegate_.OnAuthenticationFailed()`",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae405a63_9b73f0cc",
+        "filename": "osp/public/authentication_bob.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Thanks for the suggestion, done.",
+      "parentUuid": "0bc6b02f_a4e59769",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -409,6 +751,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "58409219_d830542a",
+        "filename": "osp/public/authentication_bob.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "I have added some comments about these methods, PTAL.",
+      "parentUuid": "377c7778_25541401",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "ceb58ab7_94de97ff",
@@ -422,6 +782,24 @@
       "writtenOn": "2024-11-01T23:13:00Z",
       "side": 1,
       "message": "I would just put these messages into an Error object, pass them to the delegate_, and allow the delegate_ to log them if it wants to.",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5f3fdca0_b4cf3c27",
+        "filename": "osp/public/authentication_bob.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-06T09:11:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ceb58ab7_94de97ff",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }

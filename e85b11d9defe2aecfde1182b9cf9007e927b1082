@@ -16,6 +16,24 @@
       "message": "Hi Jordan. I bumped into an issue with the new getopt library usage. This fixes the namespace on the global variables. I could have also worked around the issue with `using namespace get_opt;` in these files. LMK if that is preferable!",
       "revId": "e85b11d9defe2aecfde1182b9cf9007e927b1082",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8c81b4c_6c36031d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1498402
+      },
+      "writtenOn": "2024-11-11T22:56:02Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "0bb2416f_f3a07b63",
+      "revId": "e85b11d9defe2aecfde1182b9cf9007e927b1082",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

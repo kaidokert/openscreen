@@ -159,6 +159,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36582241_ddd654b9",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-26T16:07:38Z",
+      "side": 1,
+      "message": "Ok.  I am familiar with the protocol, but have not implemented it myself, so in order to verify that the implementation is correct it is helpful to be able to match up steps in the code with the steps in the RFC.  The other area that needs to be examined carefully is that the cryptographic routines in boringssl are being used correctly, and that may require studying the existing implementation in bssl more closely.",
+      "parentUuid": "2182de37_d1034beb",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "54093444_34c3f7e8",
         "filename": "osp/public/authentication_base.cc",
         "patchSetId": 1
@@ -332,6 +350,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "97e629be_a40423cd",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-26T16:07:38Z",
+      "side": 1,
+      "message": "This must be KcA and/or KcB instead.",
+      "parentUuid": "249289e2_4a30236d",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1c20dfa3_367aaa3d",
@@ -367,6 +403,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "91e5e5cb_599b67e9",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-26T16:07:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "208fae9b_b43138f1",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "fb887409_d4140555",
@@ -398,6 +452,24 @@
       "side": 1,
       "message": "I have added some comments about these methods, please take a look again.",
       "parentUuid": "fb887409_d4140555",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b958cb7e_5e42b05b",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-26T16:07:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "5ea91c71_509a44f5",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
@@ -577,6 +649,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "767a4773_69fea29f",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-26T16:07:38Z",
+      "side": 1,
+      "message": "\u003e Is it possible that the agent authenticates with two other agents simultaneously. \n\nYes\n\n\u003e if so, there should be two instances of this class\n\nYes",
+      "parentUuid": "bdda3f6e_deb9f331",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "be97bef2_49945701",
@@ -660,6 +750,24 @@
       "side": 1,
       "message": "please see above comments.",
       "parentUuid": "d722f43b_355fa8bf",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0b29760_347dc166",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-11-26T16:07:38Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "449db341_968f0db3",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },

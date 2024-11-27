@@ -175,6 +175,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2ab78c0a_607e58be",
+        "filename": "osp/public/authentication_base.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-27T03:13:07Z",
+      "side": 1,
+      "message": "Thanks, I will merge this first as it already works. Considering that our authentication framework has not yet been determined, these codes will definitely need to be modified later. Let\u0027s refine this implementation step by step.",
+      "parentUuid": "36582241_ddd654b9",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "54093444_34c3f7e8",
@@ -663,6 +681,24 @@
       "side": 1,
       "message": "\u003e Is it possible that the agent authenticates with two other agents simultaneously. \n\nYes\n\n\u003e if so, there should be two instances of this class\n\nYes",
       "parentUuid": "bdda3f6e_deb9f331",
+      "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c29c99b0_4f887236",
+        "filename": "osp/public/authentication_base.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-11-27T03:13:07Z",
+      "side": 1,
+      "message": "Acknowledged",
+      "parentUuid": "767a4773_69fea29f",
       "revId": "fdd032d9a33a95eb8e8cda470897a59dff4ad132",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },

@@ -23,7 +23,7 @@ using testing::ElementsAreArray;
 
 namespace {
 
-constexpr std::chrono::seconds kTtl{120};
+constexpr std::chrono::seconds kTtl = 120;
 
 template <class T>
 void TestCopyAndMove(const T& value) {
@@ -72,9 +72,9 @@ TEST(MdnsDomainNameTest, Construct) {
 TEST(MdnsDomainNameTest, Compare) {
   DomainName first{"testing", "local"};
   DomainName second{"TeStInG", "LOCAL"};
-  DomainName third{"testing"};
-  DomainName fourth{"testing.local"};
-  DomainName fifth{"Testing.Local"};
+  DomainName third = "testing";
+  DomainName fourth = "testing.local";
+  DomainName fifth = "Testing.Local";
 
   EXPECT_EQ(first, second);
   EXPECT_TRUE(first >= second);

@@ -20,7 +20,7 @@ constexpr TraceHierarchyParts kAllParts = static_cast<TraceHierarchyParts>(
     TraceHierarchyParts::kCurrent);
 constexpr TraceHierarchyParts kParentAndRoot = static_cast<TraceHierarchyParts>(
     TraceHierarchyParts::kRoot | TraceHierarchyParts::kParent);
-constexpr TraceId kEmptyId = TraceId{0};
+constexpr TraceId kEmptyId = TraceId = 0;
 #endif
 
 using ::testing::_;

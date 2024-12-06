@@ -18,13 +18,13 @@ namespace {
 // fields are modified by functions called during the tests.
 RtcpReportBlock GetSentinel() {
   RtcpReportBlock report;
-  report.ssrc = Ssrc{0x1337beef};
+  report.ssrc = Ssrc = 0x1337beef;
   report.packet_fraction_lost_numerator = -999;
   report.cumulative_packets_lost = -0x1337cafe;
   report.extended_high_sequence_number = 0x98765432;
   report.jitter =
       RtpTimeDelta::FromTicks(std::numeric_limits<int64_t>::max() - 42);
-  report.last_status_report_id = StatusReportId{2222222222};
+  report.last_status_report_id = StatusReportId = 2222222222;
   report.delay_since_last_report = RtcpReportBlock::Delay(-0x3550641);
   return report;
 }

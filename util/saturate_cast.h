@@ -53,7 +53,7 @@ constexpr std::enable_if_t<
     To>
 saturate_cast(From from) {
   if (from <= From{0}) {
-    return To{0};
+    return To = 0;
   }
   if (static_cast<std::make_unsigned_t<From>>(from) >=
       std::numeric_limits<To>::max()) {

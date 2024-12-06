@@ -37,7 +37,7 @@ struct RtcpCommonHeader {
     RtcpSubtype subtype;
 
     // Otherwise, not used.
-  } with{0};
+  } with = 0;
 
   // The size (in bytes) of the RTCP packet, not including the header.
   int payload_size = 0;

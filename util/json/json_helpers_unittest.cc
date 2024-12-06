@@ -30,7 +30,7 @@ bool TryParseDummy(const Json::Value& value, Dummy* out) {
   if (!TryParseInt(value, &value_out)) {
     return false;
   }
-  *out = Dummy{value_out};
+  *out = Dummy = value_out;
   return true;
 }
 

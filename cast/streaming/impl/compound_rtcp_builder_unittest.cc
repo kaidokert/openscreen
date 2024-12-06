@@ -25,8 +25,8 @@ using testing::StrictMock;
 namespace openscreen::cast {
 namespace {
 
-constexpr Ssrc kSenderSsrc{1};
-constexpr Ssrc kReceiverSsrc{2};
+constexpr Ssrc kSenderSsrc = 1;
+constexpr Ssrc kReceiverSsrc = 2;
 
 class CompoundRtcpBuilderTest : public testing::Test {
  public:
@@ -84,7 +84,7 @@ TEST_F(CompoundRtcpBuilderTest, WithReceiverReportBlock) {
   original.cumulative_packets_lost = 2;
   original.extended_high_sequence_number = 3;
   original.jitter = RtpTimeDelta::FromTicks(4);
-  original.last_status_report_id = StatusReportId{0x05060708};
+  original.last_status_report_id = StatusReportId = 0x05060708;
   original.delay_since_last_report = RtcpReportBlock::Delay(9);
   builder()->IncludeReceiverReportInNextPacket(original);
 

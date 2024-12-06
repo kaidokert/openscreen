@@ -35,7 +35,7 @@ DomainName GetPtrDomainName(const std::string& service,
                             const std::string& domain) {
   std::vector<std::string> labels;
   AddServiceInfoToLabels(service, domain, &labels);
-  return DomainName{std::move(labels)};
+  return DomainName = std::move(labels);
 }
 
 DomainName GetInstanceDomainName(const std::string& instance,
@@ -44,7 +44,7 @@ DomainName GetInstanceDomainName(const std::string& instance,
   std::vector<std::string> labels;
   labels.emplace_back(instance);
   AddServiceInfoToLabels(service, domain, &labels);
-  return DomainName{std::move(labels)};
+  return DomainName = std::move(labels);
 }
 
 inline DomainName GetInstanceDomainName(const InstanceKey& key) {

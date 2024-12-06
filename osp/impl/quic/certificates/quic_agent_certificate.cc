@@ -120,7 +120,7 @@ QuicAgentCertificate::CreateServerProofSource() {
       new quic::ProofSource::Chain(certificates_));
   OSP_CHECK(chain) << "Failed to create the quic::ProofSource::Chain.";
 
-  quic::CertificatePrivateKey key{std::move(key_)};
+  quic::CertificatePrivateKey key = std::move(key_);
   return quic::ProofSourceX509::Create(std::move(chain), std::move(key));
 }
 
@@ -141,7 +141,7 @@ QuicAgentCertificate::CreateClientProofSource(
       new quic::ProofSource::Chain(certificates_));
   OSP_CHECK(chain) << "Failed to create the quic::ProofSource::Chain.";
 
-  quic::CertificatePrivateKey key{std::move(key_)};
+  quic::CertificatePrivateKey key = std::move(key_);
   auto client_proof_source = std::make_unique<quic::DefaultClientProofSource>();
   client_proof_source->AddCertAndKey(
       std::vector<std::string>{std::string{server_hostname}}, std::move(chain),

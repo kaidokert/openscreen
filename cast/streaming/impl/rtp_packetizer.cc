@@ -71,7 +71,7 @@ ByteBuffer RtpPacketizer::GeneratePacket(const EncryptedFrame& frame,
     packet_size += kAdaptiveLatencyHeaderSize;
   }
   int data_chunk_size = max_payload_size();
-  const int data_chunk_start = data_chunk_size * int{packet_id};
+  const int data_chunk_start = data_chunk_size* int = packet_id;
   if (is_last_packet) {
     data_chunk_size = static_cast<int>(frame.data.size()) - data_chunk_start;
   }

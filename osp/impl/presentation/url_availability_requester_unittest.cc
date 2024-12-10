@@ -50,7 +50,6 @@ class UrlAvailabilityRequesterTest : public Test {
         task_runner_(fake_clock_),
         quic_bridge_(task_runner_, FakeClock::now) {
     info1_ = {instance_name_,
-              friendly_name_,
               quic_bridge_.kFingerprint,
               quic_bridge_.kAuthToken,
               1,
@@ -137,7 +136,6 @@ class UrlAvailabilityRequesterTest : public Test {
   std::string url1_{"https://example.com/foo.html"};
   std::string url2_{"https://example.com/bar.html"};
   std::string instance_name_{quic_bridge_.kInstanceName};
-  std::string friendly_name_{"turtle"};
   ServiceInfo info1_;
 };
 

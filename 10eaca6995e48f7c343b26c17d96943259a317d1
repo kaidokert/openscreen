@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a5999940_d7779ed2",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-12-11T02:11:24Z",
+      "side": 1,
+      "message": "I have a question here: `friendly_name` is passed in by the user, so we can not guarantee that it is unique. However, mDNS requires `instance_name` to be unique. In mDNS, conflict resolution procedure is used to guarantee this (in current OSP implementation, if an instance name is already used, a sequence number will be added to the instance name to form a new instance name),\n\nSo there is such a situation: user pass in `friently_name\u003dTestName` but it is used already. so what users actully use is `TestName2`. Will this cause confusion to users?",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 549,
+        "endChar": 50
+      },
+      "revId": "10eaca6995e48f7c343b26c17d96943259a317d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

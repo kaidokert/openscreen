@@ -24,6 +24,30 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "a1db32b0_79e225cd",
+        "filename": "osp/demo/osp_demo.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 549,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-12-11T18:30:05Z",
+      "side": 1,
+      "message": "This is a good question.  This is the way DNS-SD service advertisement has worked for a long time for printers and other devices.\n\nThere is nothing preventing two distinct agents from giving themselves the same display name and thus introducing a conflict in both the DNS-SD instance name and the `display-name` provided through the `agent-info` message.  Unless we want to change how display/instance names are assigned, the best we can do is to flag this situation in the UI.\n\nFiled https://github.com/w3c/openscreenprotocol/issues/358 to discuss possible spec changes.",
+      "parentUuid": "a5999940_d7779ed2",
+      "range": {
+        "startLine": 549,
+        "startChar": 0,
+        "endLine": 549,
+        "endChar": 50
+      },
+      "revId": "10eaca6995e48f7c343b26c17d96943259a317d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "4dfc3007_8e677248",
@@ -37,6 +61,24 @@
       "writtenOn": "2024-12-11T09:34:42Z",
       "side": 1,
       "message": "Should these be brace initialized now? And can the constructor be marked constexpr?",
+      "revId": "10eaca6995e48f7c343b26c17d96943259a317d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "af6628f3_0473dcd1",
+        "filename": "osp/impl/receiver_list_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-12-11T18:30:05Z",
+      "side": 1,
+      "message": "Changed to assignment initialization.\n\nThis is a struct, there is no ctor.",
+      "parentUuid": "4dfc3007_8e677248",
       "revId": "10eaca6995e48f7c343b26c17d96943259a317d1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }

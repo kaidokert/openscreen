@@ -22,6 +22,23 @@
       },
       "revId": "10eaca6995e48f7c343b26c17d96943259a317d1",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dfc3007_8e677248",
+        "filename": "osp/impl/receiver_list_unittest.cc",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2024-12-11T09:34:42Z",
+      "side": 1,
+      "message": "Should these be brace initialized now? And can the constructor be marked constexpr?",
+      "revId": "10eaca6995e48f7c343b26c17d96943259a317d1",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

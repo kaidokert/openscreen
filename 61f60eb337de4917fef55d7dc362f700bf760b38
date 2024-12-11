@@ -22,6 +22,30 @@
       },
       "revId": "61f60eb337de4917fef55d7dc362f700bf760b38",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "45db9e59_98190371",
+        "filename": "osp/public/osp_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-12-11T18:11:28Z",
+      "side": 1,
+      "message": "Fixed typo, thanks.\n\nThis is used by an agent to notify other agents that the agent metadata has changed.\n\nhttps://w3c.github.io/openscreenprotocol/network.html#discovery",
+      "parentUuid": "27d6de1e_3a85d324",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 46
+      },
+      "revId": "61f60eb337de4917fef55d7dc362f700bf760b38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

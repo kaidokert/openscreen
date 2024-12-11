@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "27d6de1e_3a85d324",
+        "filename": "osp/public/osp_constants.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-12-11T01:31:02Z",
+      "side": 1,
+      "message": "Hi, mark. What is the `kMetadataValue` used for?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 46
+      },
+      "revId": "61f60eb337de4917fef55d7dc362f700bf760b38",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

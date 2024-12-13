@@ -18,7 +18,7 @@
 
 namespace openscreen::cast {
 
-static constexpr std::chrono::seconds kRequestTimeout = std::chrono::seconds(5);
+constexpr std::chrono::seconds kRequestTimeout = std::chrono::seconds(5);
 
 CastPlatformClient::CastPlatformClient(VirtualConnectionRouter& router,
                                        ClockNowFunctionPtr clock,

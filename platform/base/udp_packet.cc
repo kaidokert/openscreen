@@ -28,6 +28,6 @@ UdpPacket::~UdpPacket() = default;
 UdpPacket& UdpPacket::operator=(UdpPacket&& other) = default;
 
 // static
-const UdpPacket::size_type UdpPacket::kUdpMaxPacketSize = 1 << 16;
+constexpr UdpPacket::size_type UdpPacket::kUdpMaxPacketSize = 1 << 16;
 
 }  // namespace openscreen

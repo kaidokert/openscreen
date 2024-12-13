@@ -19,8 +19,8 @@
 
 namespace openscreen::cast {
 
-const char kMirroringDisplayName[] = "Chrome Mirroring";
-const char kRemotingRpcNamespace[] = "urn:x-cast:com.google.cast.remoting";
+constexpr char kMirroringDisplayName[] = "Chrome Mirroring";
+constexpr char kRemotingRpcNamespace[] = "urn:x-cast:com.google.cast.remoting";
 
 MirroringApplication::MirroringApplication(TaskRunner& task_runner,
                                            const IPAddress& interface_address,
@@ -37,7 +37,7 @@ MirroringApplication::~MirroringApplication() {
   OSP_CHECK(!current_session_);
 }
 
-const std::vector<std::string>& MirroringApplication::GetAppIds() const {
+constexpr std::vector<std::string>& MirroringApplication::GetAppIds() const {
   return app_ids_;
 }
 

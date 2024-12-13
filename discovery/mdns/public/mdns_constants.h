@@ -37,12 +37,12 @@ namespace openscreen::discovery {
 // Default multicast port used by mDNS protocol. On some systems there may be
 // multiple processes binding to same port, so prefer to allow address re-use.
 // See RFC 6762, Section 2
-constexpr uint16_t kDefaultMulticastPort = 5353;
+inline constexpr uint16_t kDefaultMulticastPort = 5353;
 
 // IPv4 group address for sending mDNS messages, given as byte array in
 // network-order. This is a link-local multicast address, so messages will not
 // be forwarded outside local network. See RFC 6762, section 3.
-constexpr IPAddress kDefaultMulticastGroupIPv4{224, 0, 0, 251};
+inline constexpr IPAddress kDefaultMulticastGroupIPv4{224, 0, 0, 251};
 
 // IPv6 group address for sending mDNS messages. This is a link-local
 // multicast address, so messages will not be forwarded outside local network.
@@ -106,7 +106,7 @@ constexpr size_t kMaxMulticastMessageSize = 1500 - 20 - 8;
 // by default. When enabled, the responder will be able to receive messages from
 // that group; when disabled, only the default MDNS multicast group will be
 // enabled.
-constexpr bool kDefaultSupportSiteLocalGroup = true;
+inline constexpr bool kDefaultSupportSiteLocalGroup = true;
 
 // ============================================================================
 // Message Header
@@ -153,13 +153,13 @@ enum class MessageType {
   Response = 1,
 };
 
-constexpr uint16_t kFlagResponse = 0x8000;
-constexpr uint16_t kFlagAA = 0x0400;
-constexpr uint16_t kFlagTC = 0x0200;
-constexpr uint16_t kOpcodeMask = 0x7800;
-constexpr uint16_t kRcodeMask = 0x000F;
+inline constexpr uint16_t kFlagResponse = 0x8000;
+inline constexpr uint16_t kFlagAA = 0x0400;
+inline constexpr uint16_t kFlagTC = 0x0200;
+inline constexpr uint16_t kOpcodeMask = 0x7800;
+inline constexpr uint16_t kRcodeMask = 0x000F;
 
-constexpr MessageType GetMessageType(uint16_t flags) {
+inline constexpr MessageType GetMessageType(uint16_t flags) {
   // RFC 6762 Section 18.2
   return (flags & kFlagResponse) ? MessageType::Response : MessageType::Query;
 }
@@ -178,7 +178,7 @@ constexpr uint16_t MakeFlags(MessageType type, bool is_truncated) {
   return flags;
 }
 
-constexpr bool IsValidFlagsSection(uint16_t flags) {
+inline constexpr bool IsValidFlagsSection(uint16_t flags) {
   // RFC 6762 Section 18.3 and Section 18.11
   return (flags & (kOpcodeMask | kRcodeMask)) == 0;
 }
@@ -191,9 +191,9 @@ constexpr bool IsValidFlagsSection(uint16_t flags) {
 
 // Maximum number of octets allowed in a single domain name including the
 // terminating character octet
-constexpr size_t kMaxDomainNameLength = 256;
+inline constexpr size_t kMaxDomainNameLength = 256;
 // Maximum number of octets allowed in a single domain name label.
-constexpr size_t kMaxLabelLength = 63;
+inline constexpr size_t kMaxLabelLength = 63;
 
 // To allow for message compression, domain names can fall under the following
 // categories:
@@ -217,26 +217,26 @@ constexpr size_t kMaxLabelLength = 63;
 //  | 1  1|               OFFSET                    |
 //  +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
 
-constexpr uint8_t kLabelTermination = 0x00;
-constexpr uint8_t kLabelTypeMask = 0xC0;
-constexpr uint8_t kLabelDirect = 0x00;
-constexpr uint8_t kLabelPointer = 0xC0;
-constexpr uint8_t kLabelLengthMask = 0x3F;
-constexpr uint16_t kLabelOffsetMask = 0x3FFF;
+inline constexpr uint8_t kLabelTermination = 0x00;
+inline constexpr uint8_t kLabelTypeMask = 0xC0;
+inline constexpr uint8_t kLabelDirect = 0x00;
+inline constexpr uint8_t kLabelPointer = 0xC0;
+inline constexpr uint8_t kLabelLengthMask = 0x3F;
+inline constexpr uint16_t kLabelOffsetMask = 0x3FFF;
 
-constexpr bool IsTerminationLabel(uint8_t label) {
+inline constexpr bool IsTerminationLabel(uint8_t label) {
   return label == kLabelTermination;
 }
 
-constexpr bool IsDirectLabel(uint8_t label) {
+inline constexpr bool IsDirectLabel(uint8_t label) {
   return (label & kLabelTypeMask) == kLabelDirect;
 }
 
-constexpr bool IsPointerLabel(uint8_t label) {
+inline constexpr bool IsPointerLabel(uint8_t label) {
   return (label & kLabelTypeMask) == kLabelPointer;
 }
 
-constexpr uint8_t GetDirectLabelLength(uint8_t label) {
+inline constexpr uint8_t GetDirectLabelLength(uint8_t label) {
   return label & kLabelLengthMask;
 }
 
@@ -248,7 +248,7 @@ constexpr bool IsValidPointerLabelOffset(size_t offset) {
   return offset <= kLabelOffsetMask;
 }
 
-constexpr uint16_t MakePointerLabel(uint16_t offset) {
+inline constexpr uint16_t MakePointerLabel(uint16_t offset) {
   return (uint16_t(kLabelPointer) << 8) | (offset & kLabelOffsetMask);
 }
 
@@ -335,7 +335,7 @@ inline std::ostream& operator<<(std::ostream& output, DnsType type) {
   }
 }
 
-constexpr std::array<DnsType, 7> kSupportedDnsTypes = {
+inline constexpr std::array<DnsType, 7> kSupportedDnsTypes = {
     DnsType::kA,   DnsType::kPTR,  DnsType::kTXT, DnsType::kAAAA,
     DnsType::kSRV, DnsType::kNSEC, DnsType::kANY};
 
@@ -361,7 +361,7 @@ enum class ResponseType {
 
 // These are the default TTL values for supported DNS Record types  as specified
 // by RFC 6762 section 10.
-constexpr std::chrono::seconds kPtrRecordTtl(120);
+inline constexpr std::chrono::seconds kPtrRecordTtl(120);
 constexpr std::chrono::seconds kSrvRecordTtl(120);
 constexpr std::chrono::seconds kARecordTtl(120);
 constexpr std::chrono::seconds kAAAARecordTtl(120);
@@ -375,10 +375,10 @@ constexpr std::chrono::seconds kTXTRecordTtl(120);
 // designated as the "unicast-response bit", as described in
 // https://tools.ietf.org/html/rfc6762#section-5.4
 constexpr uint16_t kClassMask = 0x7FFF;
-constexpr uint16_t kClassMsbMask = 0x8000;
-constexpr uint16_t kClassMsbShift = 0xF;
+inline constexpr uint16_t kClassMsbMask = 0x8000;
+inline constexpr uint16_t kClassMsbShift = 0xF;
 
-constexpr DnsClass GetDnsClass(uint16_t rrclass) {
+inline constexpr DnsClass GetDnsClass(uint16_t rrclass) {
   return static_cast<DnsClass>(rrclass & kClassMask);
 }
 
@@ -421,12 +421,12 @@ constexpr uint32_t kDefaultRecordTTLSeconds = 255;
 // separated by '=', so the size of the key + value + '=' should not exceed
 // the maximum allowed size.
 // See: https://tools.ietf.org/html/rfc6763#section-6.1
-constexpr size_t kTXTMaxEntrySize = 255;
+inline constexpr size_t kTXTMaxEntrySize = 255;
 // Placeholder RDATA for "empty" TXT records that contains only a single
 // zero length byte. This is required since TXT records CANNOT have empty
 // RDATA sections.
 // See RFC: https://tools.ietf.org/html/rfc6763#section-6.1
-constexpr uint8_t kTXTEmptyRdata = 0;
+inline constexpr uint8_t kTXTEmptyRdata = 0;
 
 // ============================================================================
 // Probing Constants
@@ -434,12 +434,12 @@ constexpr uint8_t kTXTEmptyRdata = 0;
 
 // RFC 6762 section 8.1 specifies that a probe should wait 250 ms between
 // subsequent probe queries.
-constexpr Clock::duration kDelayBetweenProbeQueries =
+inline constexpr Clock::duration kDelayBetweenProbeQueries =
     Clock::to_duration(std::chrono::milliseconds(250));
 
 // RFC 6762 section 8.1 specifies that the probing phase should send out probe
 // requests 3 times before treating the probe as completed.
-constexpr int kProbeIterationCountBeforeSuccess = 3;
+inline constexpr int kProbeIterationCountBeforeSuccess = 3;
 
 // ============================================================================
 // OPT Pseudo-Record Constants
@@ -454,12 +454,12 @@ constexpr int kProbeIterationCountBeforeSuccess = 3;
 //     2: | DO|                           Z                               |
 //        +---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+---+
 
-constexpr uint32_t kExtendedRcodeMask = 0xFF000000;
-constexpr int kExtendedRcodeShift = 24;
-constexpr uint32_t kVersionMask = 0x00FF0000;
-constexpr int kVersionShift = 16;
-constexpr uint32_t kDnssecOkBitMask = 0x00008000;
-constexpr uint8_t kVersionBadvers = 0x10;
+inline constexpr uint32_t kExtendedRcodeMask = 0xFF000000;
+inline constexpr int kExtendedRcodeShift = 24;
+inline constexpr uint32_t kVersionMask = 0x00FF0000;
+inline constexpr int kVersionShift = 16;
+inline constexpr uint32_t kDnssecOkBitMask = 0x00008000;
+inline constexpr uint8_t kVersionBadvers = 0x10;
 
 }  // namespace openscreen::discovery
 

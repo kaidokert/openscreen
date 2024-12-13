@@ -40,8 +40,8 @@
 
 namespace {
 
-const char* kReceiverLogFilename = "_recv_fifo";
-const char* kControllerLogFilename = "_cntl_fifo";
+constexpr char* kReceiverLogFilename = "_recv_fifo";
+constexpr char* kControllerLogFilename = "_cntl_fifo";
 
 bool g_done = false;
 bool g_dump_services = false;

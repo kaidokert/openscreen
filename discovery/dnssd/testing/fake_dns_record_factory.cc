@@ -23,25 +23,25 @@ MdnsRecord FakeDnsRecordFactory::CreateFullyPopulatedSrvRecord(uint16_t port) {
 constexpr uint16_t FakeDnsRecordFactory::kPortNum;
 
 // static
-const uint8_t FakeDnsRecordFactory::kV4AddressOctets[4] = {192, 168, 0, 0};
+constexpr uint8_t FakeDnsRecordFactory::kV4AddressOctets[4] = {192, 168, 0, 0};
 
 // static
-const uint16_t FakeDnsRecordFactory::kV6AddressHextets[8] = {
+constexpr uint16_t FakeDnsRecordFactory::kV6AddressHextets[8] = {
     0x0102, 0x0304, 0x0506, 0x0708, 0x090a, 0x0b0c, 0x0d0e, 0x0f10};
 
 // static
-const char FakeDnsRecordFactory::kInstanceName[] = "instance";
+constexpr char FakeDnsRecordFactory::kInstanceName[] = "instance";
 
 // static
-const char FakeDnsRecordFactory::kServiceName[] = "_srv-name._udp";
+constexpr char FakeDnsRecordFactory::kServiceName[] = "_srv-name._udp";
 
 // static
-const char FakeDnsRecordFactory::kServiceNameProtocolPart[] = "_udp";
+constexpr char FakeDnsRecordFactory::kServiceNameProtocolPart[] = "_udp";
 
 // static
-const char FakeDnsRecordFactory::kServiceNameServicePart[] = "_srv-name";
+constexpr char FakeDnsRecordFactory::kServiceNameServicePart[] = "_srv-name";
 
 // static
-const char FakeDnsRecordFactory::kDomainName[] = "local";
+constexpr char FakeDnsRecordFactory::kDomainName[] = "local";
 
 }  // namespace openscreen::discovery

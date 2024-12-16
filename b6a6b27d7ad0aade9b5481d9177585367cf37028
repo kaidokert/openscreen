@@ -16,6 +16,41 @@
       "message": "Hi, mark. I think here are some deps issue.\n\nEmbedder deps on src/osp/public and classes in src/osp/public dep on definations in message_demuxer.cc, so we need to move it to src/osp/public. Otherwise there will be linking problems. However, message_demuxer.cc deps on quic_connection.h which is in src/osp/impl, but src/osp/public can not deps on src/osp/impl. Do you have any good idea?\n\nAnother question I can think of is how we can deps on osp transport parts in chromium? QUIC related codes are in src/osp/impl/quic, we can\u0027t directly deps on this target in chromium.",
       "revId": "b6a6b27d7ad0aade9b5481d9177585367cf37028",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c8f74528_2a8f4d7d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-12-16T17:28:09Z",
+      "side": 1,
+      "message": "Can you list what symbols in message_demuxer.cc need to be made available?  Chromium will need to link against the osp/impl target to be able to access the implementations of classes in osp/public, so we need to expand the visiblity of osp/impl.",
+      "parentUuid": "4271a6da_cde0d003",
+      "revId": "b6a6b27d7ad0aade9b5481d9177585367cf37028",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d2cb1cf6_ee638538",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2024-12-16T17:28:09Z",
+      "side": 1,
+      "message": "I don\u0027t think th",
+      "revId": "b6a6b27d7ad0aade9b5481d9177585367cf37028",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

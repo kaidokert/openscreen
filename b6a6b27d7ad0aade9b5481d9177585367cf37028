@@ -51,6 +51,24 @@
       "message": "I don\u0027t think th",
       "revId": "b6a6b27d7ad0aade9b5481d9177585367cf37028",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0953a79_64106122",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-12-17T01:54:28Z",
+      "side": 1,
+      "message": "The MessageCallback and MessageWatch classes defined in message_demuxer.h/.cc are needed by AgentCertificate related classes. So we will eventually make Chromium depends on osp/impl?\n\nI also would like to ask here: do we really need the ServiceListenerImpl class? it seems ServiceListenerImpl does not implement too many functions but only introduces the Delegate interdace. So we can move the Delegate interdace from ServiceListenerImpl to ServiceListener and delete ServiceListenerImpl. Clients can use ServiceListener directly and implement a delegate to integrate with their own service discovery code. Is it reasonable?",
+      "parentUuid": "c8f74528_2a8f4d7d",
+      "revId": "b6a6b27d7ad0aade9b5481d9177585367cf37028",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

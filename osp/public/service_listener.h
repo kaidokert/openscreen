@@ -27,30 +27,6 @@ class ServiceListener {
     kSuspended,
   };
 
-  // Holds a set of metrics, captured over a specific range of time, about the
-  // behavior of a ServiceListener instance.
-  struct Metrics {
-    // The range of time over which the metrics were collected; end_timestamp >
-    // start_timestamp
-    timestamp_t start_timestamp = 0;
-    timestamp_t end_timestamp = 0;
-
-    // The number of packets and bytes sent over the timestamp range.
-    uint64_t num_packets_sent = 0;
-    uint64_t num_bytes_sent = 0;
-
-    // The number of packets and bytes received over the timestamp range.
-    uint64_t num_packets_received = 0;
-    uint64_t num_bytes_received = 0;
-
-    // The maximum number of receivers discovered over the timestamp range.  The
-    // latter two fields break this down by receivers advertising ipv4 and ipv6
-    // endpoints.
-    size_t num_receivers = 0;
-    size_t num_ipv4_receivers = 0;
-    size_t num_ipv6_receivers = 0;
-  };
-
   class Observer {
    public:
     Observer();
@@ -79,9 +55,6 @@ class ServiceListener {
 
     // Reports an error.
     virtual void OnError(const Error&) = 0;
-
-    // Reports metrics.
-    virtual void OnMetrics(Metrics) = 0;
   };
 
   struct Config {

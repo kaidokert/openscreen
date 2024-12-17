@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7b75969_73ce31d0",
+        "filename": "osp/public/BUILD.gn",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1363709
+      },
+      "writtenOn": "2024-12-17T06:37:50Z",
+      "side": 1,
+      "message": "What confused me here is some .cc files are listed here, but the others are listed in osp/impl with the correspoding .h files listed here. So what is the standard? To me, it is better to list \"message_demuxer.cc\" here.",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 27
+      },
+      "revId": "9bf12fedbd0c545d3517fcb403a08a35aee09411",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

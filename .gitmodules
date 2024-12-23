@@ -46,7 +46,7 @@
 	gclient-condition = not build_with_chromium
 [submodule "third_party/libfuzzer/src"]
 	path = third_party/libfuzzer/src
-	url = https://chromium.googlesource.com/chromium/llvm-project/compiler-rt/lib/fuzzer
+	url = https://chromium.googlesource.com/external/github.com/llvm/llvm-project/compiler-rt/lib/fuzzer
 	gclient-condition = not build_with_chromium
 [submodule "third_party/libc++/src"]
 	path = third_party/libc++/src

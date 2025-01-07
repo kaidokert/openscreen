@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9580687a_7f1a1aa1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-01-07T21:53:01Z",
+      "side": 1,
+      "message": "Do we anticipate problems from us not adopting C++20? Bummer about the roll.",
+      "revId": "377f38136d42fa6506ae75908a154fc59a27f8d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

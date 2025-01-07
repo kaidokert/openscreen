@@ -16,6 +16,24 @@
       "message": "Do we anticipate problems from us not adopting C++20? Bummer about the roll.",
       "revId": "377f38136d42fa6506ae75908a154fc59a27f8d4",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8e01418b_817c7fd2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-01-07T22:01:08Z",
+      "side": 1,
+      "message": "Not for us; however it may cause problems for WebKit and Mozilla, which haven\u0027t adopted C++20 yet.  WebRTC is in the same boat.",
+      "parentUuid": "9580687a_7f1a1aa1",
+      "revId": "377f38136d42fa6506ae75908a154fc59a27f8d4",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ],
   "submitRequirementResults": [

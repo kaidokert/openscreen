@@ -163,6 +163,8 @@ if (build_with_chromium) {
       "src/absl/debugging/internal/address_is_readable.h",
       "src/absl/debugging/internal/demangle.cc",
       "src/absl/debugging/internal/demangle.h",
+      "src/absl/debugging/internal/demangle_rust.cc",
+      "src/absl/debugging/internal/demangle_rust.h",
       "src/absl/debugging/internal/elf_mem_image.cc",
       "src/absl/debugging/internal/elf_mem_image.h",
       "src/absl/debugging/internal/examine_stack.cc",

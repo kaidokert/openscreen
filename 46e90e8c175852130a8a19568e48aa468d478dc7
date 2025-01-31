@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "caee2e71_1937ab38",
+        "filename": "docs/continuous_build.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339017
+      },
+      "writtenOn": "2025-01-31T18:57:59Z",
+      "side": 1,
+      "message": "I put crrev.com/c/6216862 as child CL but the bot still ran with 20.04 [1] and thus still ran into the gcc version error. I guess we need to land this CL before we can verify it fixes the issue. We can always revert if it doesn\u0027t, though upgrading the OS sounds like a good idea anyway\n\n\n[1] Infra \u003e Backend task \u003e Dimensions\nhttps://ci.chromium.org/ui/p/openscreen/builders/try/linux_x64_gcc/b8724202307275460721/infra",
+      "revId": "46e90e8c175852130a8a19568e48aa468d478dc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

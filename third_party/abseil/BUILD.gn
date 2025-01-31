@@ -71,6 +71,14 @@ if (build_with_chromium) {
     public_configs = [ ":abseil_config" ]
   }
 
+  config("gcc_nowrapv_config") {
+    if (is_win) {
+      cflags = [ "/clang:-fno-wrapv" ]
+    } else {
+      cflags = [ "-fno-wrapv" ]
+    }
+  }
+
   # NOTE: StrFormat is specifically excluded from the Abseil source set due
   # to binary size concerns.
   source_set("abseil") {
@@ -114,6 +122,9 @@ if (build_with_chromium) {
 
     configs += [ ":private_abseil_config" ]
     public_configs = [ ":abseil_config" ]
+    if (!is_clang) {
+      configs += [ ":gcc_nowrapv_config" ]
+    }
     public_deps = [ ":internal" ]
   }
 
@@ -161,12 +172,19 @@ if (build_with_chromium) {
       "src/absl/crc/internal/crc_x86_arm_combined.cc",
       "src/absl/debugging/internal/address_is_readable.cc",
       "src/absl/debugging/internal/address_is_readable.h",
+      "src/absl/debugging/internal/bounded_utf8_length_sequence.h",
+      "src/absl/debugging/internal/decode_rust_punycode.cc",
+      "src/absl/debugging/internal/decode_rust_punycode.h",
       "src/absl/debugging/internal/demangle.cc",
       "src/absl/debugging/internal/demangle.h",
+      "src/absl/debugging/internal/demangle_rust.cc",
+      "src/absl/debugging/internal/demangle_rust.h",
       "src/absl/debugging/internal/elf_mem_image.cc",
       "src/absl/debugging/internal/elf_mem_image.h",
       "src/absl/debugging/internal/examine_stack.cc",
       "src/absl/debugging/internal/examine_stack.h",
+      "src/absl/debugging/internal/utf8_for_code_point.cc",
+      "src/absl/debugging/internal/utf8_for_code_point.h",
       "src/absl/debugging/internal/vdso_support.cc",
       "src/absl/debugging/internal/vdso_support.h",
       "src/absl/flags/internal/commandlineflag.cc",

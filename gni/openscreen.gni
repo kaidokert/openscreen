@@ -34,7 +34,7 @@ openscreen_add_configs = [ openscreen_path_prefix + ":features" ]
 # need to be able to refer to each other.
 openscreen_add_public_configs = [ openscreen_path_prefix + ":include_dirs" ]
 
-if (is_debug) {
+if (is_debug && is_clang) {
   openscreen_remove_configs +=
       [ "//build/config/compiler:default_optimization" ]
   openscreen_add_configs += [ "//build/config/compiler:no_optimize" ]

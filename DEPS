@@ -187,9 +187,7 @@ deps = {
   # tags.  Chromium has forked abseil for reasons and it seems to be rolled
   # frequently, but LTS should generally be safe for interop with Chromium code.
   'third_party/abseil/src': {
-    'url': Var('chromium_git') +
-      '/external/github.com/abseil/abseil-cpp.git' + '@' +
-      '53e6dae02bf0d9a5a1d304a3d637c083376b86a1',  # 2024-03-06
+    'url': 'https://github.com/victorvianna/abseil-cpp.git@84fd85fcd869a321e2d5822d48c2c4a912ec63b9',  # 2025-01-30
     'condition': 'not build_with_chromium',
   },
 

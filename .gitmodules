@@ -42,7 +42,7 @@
 	url = https://chromium.googlesource.com/external/github.com/intel/tinycbor
 [submodule "third_party/abseil/src"]
 	path = third_party/abseil/src
-	url = https://chromium.googlesource.com/external/github.com/abseil/abseil-cpp
+	url = https://github.com/victorvianna/abseil-cpp
 	gclient-condition = not build_with_chromium
 [submodule "third_party/libfuzzer/src"]
 	path = third_party/libfuzzer/src

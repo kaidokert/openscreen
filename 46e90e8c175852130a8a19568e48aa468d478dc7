@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "349f2b05_7743392f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-02-01T02:31:04Z",
+      "side": 1,
+      "message": "Victor, looks like you don\u0027t have SSO set up for submitting Chrome changes? So the newish Review-Enforcement doesn\u0027t pass? Or are you not a committer?\n\nMuyao, mind also LGTMing this review? Two LGTMs from Committers/Googlers? should be sufficient for the review enforcement.\n\nI have not run into this before so this is new.",
+      "revId": "46e90e8c175852130a8a19568e48aa468d478dc7",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "caee2e71_1937ab38",

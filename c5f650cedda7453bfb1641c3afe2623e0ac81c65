@@ -16,6 +16,24 @@
       "message": "Thanks!\n\nOWNERS enforcement is handled automatically or configured elsewhere?",
       "revId": "c5f650cedda7453bfb1641c3afe2623e0ac81c65",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3623be74_8051967f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3408137
+      },
+      "writtenOn": "2025-02-11T23:30:57Z",
+      "side": 1,
+      "message": "IIUC this was covered by your CL https://chromium-review.git.corp.google.com/c/openscreen/+/6254740",
+      "parentUuid": "8cb04456_2aaf6fc4",
+      "revId": "c5f650cedda7453bfb1641c3afe2623e0ac81c65",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

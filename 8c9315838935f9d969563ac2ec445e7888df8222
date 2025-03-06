@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fa3b86d2_bf698e16",
+        "filename": "project.config",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1272455
+      },
+      "writtenOn": "2025-03-06T01:22:33Z",
+      "side": 1,
+      "message": "revert addPatchSet",
+      "revId": "8c9315838935f9d969563ac2ec445e7888df8222",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

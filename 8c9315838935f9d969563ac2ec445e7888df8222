@@ -16,6 +16,24 @@
       "message": "revert addPatchSet",
       "revId": "8c9315838935f9d969563ac2ec445e7888df8222",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4498b6e7_e319fc8e",
+        "filename": "project.config",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 3408137
+      },
+      "writtenOn": "2025-03-06T01:25:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa3b86d2_bf698e16",
+      "revId": "8c9315838935f9d969563ac2ec445e7888df8222",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

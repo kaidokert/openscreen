@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "09b9454d_978ed8ca",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-03-18T17:54:45Z",
+      "side": 1,
+      "message": "Thank you for your contribution Robert, and thank you for adding a unit test.\n\nPlease add your name and email to AUTHORS as part of this CL, where we record all contributors to the library.",
+      "revId": "0daa8f0ff39a2d0717d82eb63db3c9358d33687d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0c6246e_db58b894",
+        "filename": "platform/base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-03-18T17:54:45Z",
+      "side": 1,
+      "message": "Sorry to be pedantic but backticks are preferred over pipes now.\n\nhttps://google.github.io/styleguide/cppguide.html#Function_Comments",
+      "revId": "0daa8f0ff39a2d0717d82eb63db3c9358d33687d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c61d7731_78d18793",
+        "filename": "platform/base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-03-18T17:54:45Z",
+      "side": 1,
+      "message": "Should this be uint32_t since that is the width of the destination in POSIX and Darwin `struct sockaddr_in6`?\n\nhttps://manpages.ubuntu.com/manpages//lunar/man3/sockaddr_in.3type.html\n\nhttps://github.com/apple/darwin-xnu/blob/2ff845c2e033bd0ff64b5b6aa6063a1f8f65aa32/bsd/netinet6/in6.h#L181",
+      "revId": "0daa8f0ff39a2d0717d82eb63db3c9358d33687d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0c804dbf_be37d840",
+        "filename": "platform/base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-03-18T17:54:45Z",
+      "side": 1,
+      "message": "Please use explicit \u003ccstdint\u003e types consistently\n\n```suggestion\n  uint32_t scope_id() const { return scope_id_; }\n```",
+      "revId": "0daa8f0ff39a2d0717d82eb63db3c9358d33687d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a6c91b87_9df69467",
+        "filename": "platform/base/ip_address.h",
+        "patchSetId": 3
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-03-18T17:54:45Z",
+      "side": 1,
+      "message": "```suggestion\n  uint32_t scope_id_ \u003d 0;\n```",
+      "revId": "0daa8f0ff39a2d0717d82eb63db3c9358d33687d",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

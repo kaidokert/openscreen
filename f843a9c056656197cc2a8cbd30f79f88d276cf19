@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2f47e66c_abe3ae87",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3481761
+      },
+      "writtenOn": "2025-04-15T22:29:45Z",
+      "side": 1,
+      "message": "PTAL, this is causing unnecessary warnings when building with the most recent clang",
+      "revId": "f843a9c056656197cc2a8cbd30f79f88d276cf19",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

@@ -84,8 +84,8 @@ struct Audio {
 inline constexpr Resolution kDefaultMinResolution{kMinVideoWidth,
                                                   kMinVideoHeight};
 
-// Currently mirroring only supports 1080P.
-inline constexpr Dimensions kDefaultMaxResolution{1920, 1080,
+// Currently mirroring supports up to Ultra HD / 4k.
+inline constexpr Dimensions kDefaultMaxResolution{3840, 2160,
                                                   kDefaultFrameRate};
 
 // The mirroring spec suggests 300kbps as the absolute minimum bitrate.

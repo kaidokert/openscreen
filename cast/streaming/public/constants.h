@@ -56,15 +56,15 @@ inline constexpr int kRtpVideoTimebase = 90000;
 inline constexpr int kMinVideoHeight = 240;
 inline constexpr int kMinVideoWidth = 320;
 
-// The default frame rate for capture options is 30FPS.
-inline constexpr int kDefaultFrameRate = 30;
+// The default frame rate for capture.
+inline constexpr int kDefaultFrameRate = 60;
 
 // The mirroring spec suggests 300kbps as the absolute minimum bitrate.
 inline constexpr int kDefaultVideoMinBitRate = 300 * 1000;
 
-// Default video max bitrate is based on 1080P @ 30FPS, which can be played back
-// at good quality around 10mbps.
-inline constexpr int kDefaultVideoMaxBitRate = 10 * 1000 * 1000;
+// Default video max bitrate is based on 4k at 60fps, which can be played back
+// at good quality around 18mbps.
+inline constexpr int kDefaultVideoMaxBitRate = 18 * 1000 * 1000;
 
 // The mirroring control protocol specifies 32kbps as the absolute minimum
 // for audio. Depending on the type of audio content (narrowband, fullband,

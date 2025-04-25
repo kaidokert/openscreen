@@ -115,4 +115,13 @@ bool Dimensions::IsSupersetOf(const Dimensions& other) const {
   return ToResolution().IsSupersetOf(other.ToResolution());
 }
 
+std::ostream& operator<<(std::ostream& os, const Resolution& res) {
+  return os << "{width: " << res.width << ", height: " << res.height << "}";
+}
+
+std::ostream& operator<<(std::ostream& os, const Dimensions& dims) {
+  return os << "{width: " << dims.width << ", height: " << dims.height
+            << ", frame_rate: " << dims.frame_rate.ToString() << "}";
+}
+
 }  // namespace openscreen::cast

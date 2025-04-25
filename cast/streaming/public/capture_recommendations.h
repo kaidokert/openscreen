@@ -57,6 +57,8 @@ inline constexpr BitRateLimits kDefaultAudioBitRateLimits{
 // the recommended absolute minimum.
 inline constexpr int kDefaultAudioMinSampleRate = 16000;
 
+inline constexpr int kDefaultMaxFrameRate = 60;
+
 // Audio capture recommendations. Maximum delay is determined by buffer
 // constraints, and capture bit rate may vary between limits as appropriate.
 struct Audio {
@@ -84,9 +86,9 @@ struct Audio {
 inline constexpr Resolution kDefaultMinResolution{kMinVideoWidth,
                                                   kMinVideoHeight};
 
-// Currently mirroring only supports 1080P.
-inline constexpr Dimensions kDefaultMaxResolution{1920, 1080,
-                                                  kDefaultFrameRate};
+// Currently mirroring supports up to Ultra HD / 4k.
+inline constexpr Dimensions kDefaultMaxResolution{3840, 2160,
+                                                  kDefaultMaxFrameRate};
 
 // The mirroring spec suggests 300kbps as the absolute minimum bitrate.
 inline constexpr int kDefaultVideoMinBitRate = 300 * 1000;

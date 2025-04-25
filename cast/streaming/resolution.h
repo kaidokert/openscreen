@@ -62,6 +62,10 @@ struct Dimensions {
   SimpleFraction frame_rate{0, 1};
 };
 
+// Serialization operator helpers.
+std::ostream& operator<<(std::ostream& os, const Resolution& res);
+std::ostream& operator<<(std::ostream& os, const Dimensions& dims);
+
 }  // namespace openscreen::cast
 
 #endif  // CAST_STREAMING_RESOLUTION_H_

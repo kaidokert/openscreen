@@ -16,6 +16,24 @@
       "message": "LGTM.\n\nAny ideas of why bots are failing?",
       "revId": "cf0c7c1cd795e0914f5bbf18ccb4e5506be7d65e",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "501199f4_245ada01",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-05-13T22:48:21Z",
+      "side": 1,
+      "message": "It\u0027s a weird one -- looks to potentially be unrelated?\n\n```\nupdate.py: error: unrecognized arguments: --verify-version\u003d21\n```\n\nThis doesn\u0027t have an issue locally:\n```\n-\u003e % python3 ../openscreen/tools/clang/scripts/update.py --print-revision --verify-version\u003d21\nllvmorg-21-init-6681-g5b36835d-1\n```",
+      "parentUuid": "a5fa6969_ba5860d7",
+      "revId": "cf0c7c1cd795e0914f5bbf18ccb4e5506be7d65e",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

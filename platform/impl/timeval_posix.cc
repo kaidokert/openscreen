@@ -19,4 +19,12 @@ struct timeval ToTimeval(const Clock::duration& timeout) {
   return tv;
 }
 
+struct timespec ToTimespec(const Clock::duration& timeout) {
+  struct timespec ts {};
+  const auto whole_seconds = to_seconds(timeout);
+  ts.tv_sec = whole_seconds.count();
+  ts.tv_nsec = to_nanoseconds(timeout - whole_seconds).count();
+
+  return ts;
+}
 }  // namespace openscreen

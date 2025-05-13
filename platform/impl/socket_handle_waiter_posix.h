@@ -9,8 +9,11 @@
 
 #include <atomic>
 #include <mutex>
+#include <unordered_set>  // For tracking watched FDs
 #include <vector>
 
+#include "build/build_config.h"
+#include "platform/impl/socket_handle_posix.h"
 #include "platform/impl/socket_handle_waiter.h"
 
 namespace openscreen {
@@ -39,6 +42,10 @@ class SocketHandleWaiterPosix : public SocketHandleWaiter {
  private:
   // Atomic so that we can perform atomic exchanges.
   std::atomic_bool is_running_;
+
+  // Used to manage being subscribed to events.
+  int watcher_fd_ = -1;
+  std::unordered_set<int> watched_fds_;
 };
 
 }  // namespace openscreen

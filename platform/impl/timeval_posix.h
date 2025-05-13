@@ -12,6 +12,7 @@
 namespace openscreen {
 
 struct timeval ToTimeval(const Clock::duration& timeout);
+struct timespec ToTimespec(const Clock::duration& timeout);
 
 }  // namespace openscreen
 

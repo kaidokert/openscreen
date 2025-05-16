@@ -25,7 +25,7 @@ SocketHandleWaiterPosix::~SocketHandleWaiterPosix() = default;
 
 ErrorOr<std::vector<SocketHandleWaiterPosix::ReadyHandle>>
 SocketHandleWaiterPosix::AwaitSocketsReady(
-    const std::vector<SocketHandleWaiterPosix::ReadyHandle>& sockets,
+    const std::vector<SocketHandleWaiterPosix::HandleWithSubscription>& sockets,
     const Clock::duration& timeout) {
   int max_fd = -1;
   fd_set read_handles{};
@@ -33,14 +33,20 @@ SocketHandleWaiterPosix::AwaitSocketsReady(
 
   FD_ZERO(&read_handles);
   FD_ZERO(&write_handles);
-  for (const ReadyHandle& ready : sockets) {
-    if (ready.flags & Flags::kReadable) {
-      FD_SET(ready.handle.get().fd, &read_handles);
+  for (const HandleWithSubscription& hws : sockets) {
+    if (hws.ready_handle.flags & Flags::kReadable) {
+      FD_SET(hws.ready_handle.handle.get().fd, &read_handles);
     }
-    if (ready.flags & Flags::kWriteable) {
-      FD_SET(ready.handle.get().fd, &write_handles);
+
+    // Only add the socket to the write_handles list if it is configured for
+    // write events and also has a pending write. This keeps us from polling
+    // select every few nanoseconds.
+    if (hws.ready_handle.flags & Flags::kWritable &&
+        hws.subscription->subscriber->HasPendingWrite(
+            hws.ready_handle.handle)) {
+      FD_SET(hws.ready_handle.handle.get().fd, &write_handles);
     }
-    max_fd = std::max(max_fd, ready.handle.get().fd);
+    max_fd = std::max(max_fd, hws.ready_handle.handle.get().fd);
   }
   if (max_fd < 0) {
     return Error::Code::kIOFailure;
@@ -66,19 +72,18 @@ SocketHandleWaiterPosix::AwaitSocketsReady(
   }
 
   std::vector<ReadyHandle> changed_handles;
-  for (const ReadyHandle& ready : sockets) {
+  for (const HandleWithSubscription& hws : sockets) {
     uint32_t flags = 0;
-    if (FD_ISSET(ready.handle.get().fd, &read_handles)) {
+    if (FD_ISSET(hws.ready_handle.handle.get().fd, &read_handles)) {
       flags |= Flags::kReadable;
     }
-    if (FD_ISSET(ready.handle.get().fd, &write_handles)) {
-      flags |= Flags::kWriteable;
+    if (FD_ISSET(hws.ready_handle.handle.get().fd, &write_handles)) {
+      flags |= Flags::kWritable;
     }
     if (flags) {
-      changed_handles.push_back({ready.handle, flags});
+      changed_handles.push_back({hws.ready_handle.handle, flags});
     }
   }
-
   return changed_handles;
 }
 

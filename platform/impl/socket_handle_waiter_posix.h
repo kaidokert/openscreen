@@ -33,7 +33,7 @@ class SocketHandleWaiterPosix : public SocketHandleWaiter {
   using SocketHandleWaiter::ReadyHandle;
 
   ErrorOr<std::vector<ReadyHandle>> AwaitSocketsReady(
-      const std::vector<ReadyHandle>& sockets,
+      const std::vector<HandleWithSubscription>& sockets,
       const Clock::duration& timeout) override;
 
  private:

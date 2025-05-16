@@ -7,6 +7,7 @@
 #include <memory>
 #include <utility>
 
+#include "platform/impl/socket_handle_waiter.h"
 #include "platform/impl/stream_socket_posix.h"
 #include "platform/impl/tls_connection_posix.h"
 #include "util/osp_logging.h"
@@ -32,8 +33,7 @@ void TlsDataRouterPosix::RegisterConnection(TlsConnectionPosix* connection) {
 
   // We care about both read and write events
   waiter_->Subscribe(this, connection->socket_handle(),
-                     SocketHandleWaiter::Flags::kReadable |
-                         SocketHandleWaiter::Flags::kWriteable);
+                     SocketHandleWaiter::kReadWriteFlags);
 }
 
 void TlsDataRouterPosix::DeregisterConnection(TlsConnectionPosix* connection) {
@@ -65,8 +65,7 @@ void TlsDataRouterPosix::RegisterAcceptObserver(
 
   // We care about both read and write events
   waiter_->Subscribe(this, socket_ptr->socket_handle(),
-                     SocketHandleWaiter::Flags::kReadable |
-                         SocketHandleWaiter::Flags::kWriteable);
+                     SocketHandleWaiter::kReadWriteFlags);
 }
 
 void TlsDataRouterPosix::DeregisterAcceptObserver(SocketObserver* observer) {
@@ -112,13 +111,40 @@ void TlsDataRouterPosix::ProcessReadyHandle(
         if (flags & SocketHandleWaiter::Flags::kReadable) {
           connection->TryReceiveMessage();
         }
-        if (flags & SocketHandleWaiter::Flags::kWriteable) {
+        if (flags & SocketHandleWaiter::Flags::kWritable) {
           connection->SendAvailableBytes();
         }
         return;
       }
     }
   }
+}
+
+bool TlsDataRouterPosix::HasPendingWrite(
+    SocketHandleWaiter::SocketHandleRef handle) {
+  {
+    std::lock_guard<std::mutex> lock(connections_mutex_);
+    for (TlsConnectionPosix* connection : connections_) {
+      if (connection->socket_handle() == handle) {
+        return connection->HasPendingWrite();
+      }
+    }
+  }
+
+  // If we don't have the socket in the connections list, it's probably
+  // an accept socket. Ensure this through a DCHECK to make sure we don't have
+  // an implementation issue, but since it requires locking a mutex and
+  // iterating, don't do it when DCHECKs are disabled.
+#if OSP_DCHECK_IS_ON()
+  {
+    std::unique_lock<std::mutex> accept_lock(accept_socket_mutex_);
+    OSP_DCHECK(std::find_if(accept_socket_mappings_.begin(),
+                            accept_socket_mappings_.end(), [handle](auto pair) {
+                              return pair.first->socket_handle() == handle;
+                            }) != accept_socket_mappings_.end());
+  }
+#endif
+  return false;
 }
 
 bool TlsDataRouterPosix::HasTimedOut(Clock::time_point start_time,

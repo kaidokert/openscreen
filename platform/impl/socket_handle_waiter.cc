@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <atomic>
 
+#include "platform/impl/socket_handle_posix.h"
 #include "util/osp_logging.h"
 #include "util/std_util.h"
 
@@ -106,15 +107,21 @@ void SocketHandleWaiter::ProcessReadyHandles(
 
 Error SocketHandleWaiter::ProcessHandles(Clock::duration timeout) {
   Clock::time_point start_time = now_function_();
-  std::vector<ReadyHandle> handles;
+  std::vector<HandleWithSubscription> handles;
   {
     std::lock_guard<std::mutex> lock(mutex_);
     handles_being_deleted_.clear();
     handle_deletion_block_.notify_all();
     handles.reserve(handle_mappings_.size());
-    for (const auto& pair : handle_mappings_) {
-      handles.push_back({.handle = pair.first, .flags = pair.second.flags});
+    for (auto& pair : handle_mappings_) {
+      handles.push_back(HandleWithSubscription{
+          .ready_handle =
+              ReadyHandle{.handle = pair.first, .flags = pair.second.flags},
+          .subscription = &pair.second});
     }
+  }
+  if (handles.empty()) {
+    return Error::Code::kAgain;
   }
 
   Clock::time_point current_time = now_function_();

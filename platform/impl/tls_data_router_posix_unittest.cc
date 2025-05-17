@@ -24,10 +24,11 @@ class MockNetworkWaiter final : public SocketHandleWaiter {
 
   MockNetworkWaiter() : SocketHandleWaiter(&FakeClock::now) {}
 
-  MOCK_METHOD2(
-      AwaitSocketsReady,
-      ErrorOr<std::vector<ReadyHandle>>(const std::vector<ReadyHandle>&,
-                                        const Clock::duration&));
+  MOCK_METHOD(ErrorOr<std::vector<ReadyHandle>>,
+              AwaitSocketsReady,
+              (const std::vector<HandleWithSubscription>&,
+               const Clock::duration&),
+              (override));
 };
 
 class MockSocket : public StreamSocketPosix {
@@ -130,7 +131,7 @@ TEST_F(TlsNetworkingManagerPosixTest, CallsReadySocket) {
   EXPECT_CALL(connection3, SendAvailableBytes()).Times(0);
   EXPECT_CALL(connection3, TryReceiveMessage()).Times(0);
   network_manager()->ProcessReadyHandle(connection2.socket_handle(),
-                                        SocketHandleWaiter::Flags::kWriteable);
+                                        SocketHandleWaiter::Flags::kWritable);
 }
 
 TEST_F(TlsNetworkingManagerPosixTest, DeregisterTlsConnection) {

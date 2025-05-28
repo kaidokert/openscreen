@@ -33,6 +33,74 @@
       "message": "Thanks for the review!\n\nLooks like there\u0027s a typo in your username in https://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/OWNERS, so it\u0027s not counting you as an owner. I\u0027ll add the suggested owners for now.",
       "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0fa69176_6a2062ec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-05-28T18:57:21Z",
+      "side": 1,
+      "message": "Thanks for the fix, it looks like message_port is owned by the client and we don\u0027t have a good way to ref-count it for use by the library.  Unfortunately std::shared_ptr is banned by the Chromium style guide.",
+      "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "02ddbdab_2ad1b842",
+        "filename": "cast/streaming/public/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-05-28T18:57:21Z",
+      "side": 1,
+      "message": "Typo in OnReceiversDestroying",
+      "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7472628b_a976ee29",
+        "filename": "cast/streaming/public/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-05-28T18:57:21Z",
+      "side": 1,
+      "message": "I don\u0027t think this is necessary as at least in Chromium builds dereferencing a nullptr is not undefined behavior.   But there are tons of places in the OSP code that does this, so I don\u0027t feel strongly about it.",
+      "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "481a7cfa_1f46cfb2",
+        "filename": "cast/streaming/public/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-05-28T18:57:21Z",
+      "side": 1,
+      "message": "Ditto",
+      "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

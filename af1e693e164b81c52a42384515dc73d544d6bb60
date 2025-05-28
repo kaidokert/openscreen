@@ -69,6 +69,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "37f0ec9b_a5f7a42d",
+        "filename": "cast/streaming/public/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1333191
+      },
+      "writtenOn": "2025-05-28T19:12:59Z",
+      "side": 1,
+      "message": "Thanks for catching that! Done.",
+      "parentUuid": "02ddbdab_2ad1b842",
+      "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "7472628b_a976ee29",
@@ -86,6 +104,24 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "158db479_8c055b4d",
+        "filename": "cast/streaming/public/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 350,
+      "author": {
+        "id": 1333191
+      },
+      "writtenOn": "2025-05-28T19:12:59Z",
+      "side": 1,
+      "message": "Good to know. I\u0027ve removed the checks, just to keep the code a little simpler/cleaner.",
+      "parentUuid": "7472628b_a976ee29",
+      "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "481a7cfa_1f46cfb2",
@@ -99,6 +135,24 @@
       "writtenOn": "2025-05-28T18:57:21Z",
       "side": 1,
       "message": "Ditto",
+      "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59fe4888_60569082",
+        "filename": "cast/streaming/public/receiver_session.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 507,
+      "author": {
+        "id": 1333191
+      },
+      "writtenOn": "2025-05-28T19:12:59Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "481a7cfa_1f46cfb2",
       "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }

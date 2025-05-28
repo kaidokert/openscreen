@@ -16,6 +16,23 @@
       "message": "This fix LGTM. I have had to do similar things to ensure destruction order in the past, so I feel good about this approach and hopefully it helps.",
       "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "663a9b6e_50a6ffd3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1333191
+      },
+      "writtenOn": "2025-05-28T18:18:10Z",
+      "side": 1,
+      "message": "Thanks for the review!\n\nLooks like there\u0027s a typo in your username in https://source.chromium.org/chromium/chromium/src/+/main:third_party/openscreen/src/OWNERS, so it\u0027s not counting you as an owner. I\u0027ll add the suggested owners for now.",
+      "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

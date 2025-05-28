@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e56efdd6_536acaa7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-05-28T03:41:11Z",
+      "side": 1,
+      "message": "This fix LGTM. I have had to do similar things to ensure destruction order in the past, so I feel good about this approach and hopefully it helps.",
+      "revId": "af1e693e164b81c52a42384515dc73d544d6bb60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

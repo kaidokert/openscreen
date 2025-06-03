@@ -60,7 +60,7 @@ Url::Url(const std::string& source) {
       return;
     }
   } else {
-    url::ParsePathURL(url, url_length, true, &parsed);
+    parsed = url::ParseNonSpecialURL(std::string_view(url, url_length));
   }
 
   if (!parsed.scheme.is_nonempty()) {

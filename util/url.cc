@@ -54,7 +54,7 @@ Url::Url(const std::string& source) {
       CompareSchemeComponent(url, scheme, url::kMailToScheme)) {
     // NOTE: Special schemes that are unsupported.
     return;
-  } else if (url::IsStandard(url, scheme)) {
+  } else if (url::IsStandard(scheme.maybe_as_string_view_on(url))) {
     url::ParseStandardURL(url, url_length, &parsed);
     if (!parsed.host.is_valid()) {
       return;

@@ -96,7 +96,8 @@ if (!is_ios) {
       "../cast/standalone_receiver:cast_receiver",
       "../cast/standalone_sender:cast_sender",
       "../cast/test:e2e_tests",
-      "../osp:osp_demo",
+      "../osp/demo:osp_demo",
+      "../osp/demo:osp_network_demo",
       "../test:test_main",
     ]
     public = [

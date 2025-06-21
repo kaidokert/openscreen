@@ -1,0 +1,35 @@
+# Copyright 2018 The Chromium Authors
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+import("//build_overrides/build.gni")
+import("../../gni/openscreen.gni")
+
+if (!build_with_chromium && !is_win) {
+  openscreen_executable("osp_demo") {
+    testonly = true
+    sources = [ "osp_demo/osp_demo.cc" ]
+    deps = [
+      "..",
+      "../../platform:base",
+      "../../platform:standalone_impl",
+      "../../third_party/getopt",
+      "../../third_party/quiche",
+      "../../third_party/tinycbor",
+      "../../util",
+    ]
+  }
+
+  openscreen_executable("osp_network_demo") {
+    testonly = true
+    sources = [ "osp_network_demo/osp_network_demo.cc" ]
+    deps = [
+      "..",
+      "../../platform:base",
+      "../../platform:standalone_impl",
+      "../../third_party/quiche",
+      "../../third_party/tinycbor",
+      "../../util",
+    ]
+  }
+}

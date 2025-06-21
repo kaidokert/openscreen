@@ -175,7 +175,7 @@ build system simplify to:
   autoninja -C out/debug
 ```
 
-For details on running `osp_demo`, see its [README.md](osp/demo/README.md).
+For details on running `osp_demo`, see its [README.md](osp/demo/osp_demo/README.md).
 
 ## Building all targets
 

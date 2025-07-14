@@ -58,6 +58,15 @@ openscreen_source_set("certificate_boringssl") {
     "../standalone_sender:cast_sender",
     "../test:*",
     "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer",
+    "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer__library__jni_registration__native_sources",
+    "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer__library",
+    "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer__apk__compile_resources",
+    "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer__apk__java__header",
+    "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer__apk__compile_java",
+    "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer__apk__java__validate",
+    "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer__apk__java__dex",
+    "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer__apk__java",
+    "//components/media_router/common/providers/cast/channel:openscreen_cast_auth_util_fuzzer__apk__create",
   ]
   public = []
   sources = [

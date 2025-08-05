@@ -104,6 +104,24 @@
       "parentUuid": "70e7eb9e_487b777d",
       "revId": "50fb01af618892fbc62d0ce68b751ffef01ee3f2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f74b5983_14922e82",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-08-05T22:09:23Z",
+      "side": 1,
+      "message": "My other question is this: if we are trying to roll build because we need to update a quiche dependency, why isn\u0027t this a problem for Chrome? Chrome depends on QUICHE, and a quite recent version as well (https://quiche.googlesource.com/quiche/+/e7874f26f3bf5b88f155190994cbb2cee8fd42c2). \n\nAny thoughts?",
+      "parentUuid": "a290bc77_bfcce599",
+      "revId": "50fb01af618892fbc62d0ce68b751ffef01ee3f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

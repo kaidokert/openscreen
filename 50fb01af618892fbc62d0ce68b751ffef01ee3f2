@@ -68,6 +68,24 @@
       "parentUuid": "0daa7f98_3e9d6b33",
       "revId": "50fb01af618892fbc62d0ce68b751ffef01ee3f2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "70e7eb9e_487b777d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-08-05T21:31:42Z",
+      "side": 1,
+      "message": "I do think generally speaking that having an updated build is good, so that\u0027s not necessarily a problem.\n\nHowever the googleurl issue is challenging -- sounds like you need to roll the library before we can update its dependency here?\n\nhttps://quiche.googlesource.com/googleurl.git?pli\u003d1\n\nLooks like QUICHE is still in active development even though this particular dependency has not been updated in like 8 months.\n\nhttps://quiche.googlesource.com/quiche/\n\nYou could consider reaching out to the QUICHE team directly to get help rolling this dependency, at quiche-dev@google.com.\n\nWorst case a local-project config is not the end of the world IMO.",
+      "parentUuid": "7efaf3de_dc729007",
+      "revId": "50fb01af618892fbc62d0ce68b751ffef01ee3f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

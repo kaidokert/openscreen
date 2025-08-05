@@ -122,6 +122,24 @@
       "parentUuid": "a290bc77_bfcce599",
       "revId": "50fb01af618892fbc62d0ce68b751ffef01ee3f2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fd62a367_f6f349b0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1583582
+      },
+      "writtenOn": "2025-08-05T22:34:54Z",
+      "side": 1,
+      "message": "This is not a problem in Chromium because quiche in chromium uses `//url` rather than having to rely on this stand-in googleurl repo quiche provides for when they are building standalone.",
+      "parentUuid": "f74b5983_14922e82",
+      "revId": "50fb01af618892fbc62d0ce68b751ffef01ee3f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

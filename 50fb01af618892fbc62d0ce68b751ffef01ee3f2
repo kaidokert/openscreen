@@ -50,6 +50,24 @@
       "message": "Why is it necessary to update the //build dep?",
       "revId": "50fb01af618892fbc62d0ce68b751ffef01ee3f2",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7efaf3de_dc729007",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1583582
+      },
+      "writtenOn": "2025-08-05T20:40:47Z",
+      "side": 1,
+      "message": "I am just not familiar with this project, so I was doing this the way we did in Chromium to document the places that this needs to be fixed, but I can change things around if that\u0027s preferred. Should I make this a local-project config?",
+      "parentUuid": "0daa7f98_3e9d6b33",
+      "revId": "50fb01af618892fbc62d0ce68b751ffef01ee3f2",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b3063ef_51789a96",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2025-08-25T21:03:07Z",
+      "side": 1,
+      "message": "Muyao PTAL, thanks!",
+      "revId": "340efceb64cd78241c1188dfce2633a7b17df8e9",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

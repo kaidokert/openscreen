@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b6ea01a_899066e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1190572
+      },
+      "writtenOn": "2025-08-25T20:53:23Z",
+      "side": 1,
+      "message": "Hi David, can this wait until Jordan is back (looks like he\u0027s out until 9/5), or is it blocking anything? I moved away from the Open Screen team sometime ago (I should remove myself from the OWNERS) and I\u0027m not in the best position to determine whether this won\u0027t break anything.",
+      "revId": "06c72875904956c3f46e4ed49ff0d18fed25faa6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

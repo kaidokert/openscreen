@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5e916a81_be203ef4",
+        "filename": "third_party/boringssl/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-25T20:01:13Z",
+      "side": 0,
+      "message": "Doesn\u0027t seem to be needed anymore. The fixes got upstreamed a while ago.",
+      "revId": "f51be2dd676c855bc588a439f002bc941b87db6b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "eae79c54_27c9353a",
+        "filename": "third_party/boringssl/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-25T20:01:13Z",
+      "side": 0,
+      "message": "No longer an ifdef that BoringSSL pays attention to.",
+      "revId": "f51be2dd676c855bc588a439f002bc941b87db6b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f389b24a_e27f6124",
+        "filename": "third_party/boringssl/BUILD.gn",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-25T20:01:13Z",
+      "side": 0,
+      "message": "No longer an ifdef that BoringSSL pays attention to; we now never have a static initializer. (In the default build configuration.)",
+      "revId": "f51be2dd676c855bc588a439f002bc941b87db6b",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

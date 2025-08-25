@@ -16,6 +16,24 @@
       "message": "Hi David, can this wait until Jordan is back (looks like he\u0027s out until 9/5), or is it blocking anything? I moved away from the Open Screen team sometime ago (I should remove myself from the OWNERS) and I\u0027m not in the best position to determine whether this won\u0027t break anything.",
       "revId": "06c72875904956c3f46e4ed49ff0d18fed25faa6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9afb128a_80bb340f",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-08-25T20:55:01Z",
+      "side": 1,
+      "message": "Not blocking anything. I was just looking at references to the old generate_build_files.py stuff and figured I\u0027d send you all a quick fix.\n\nAfter this, you probably can set up an autoroller, but I\u0027ll leave this to you all.",
+      "parentUuid": "2b6ea01a_899066e5",
+      "revId": "06c72875904956c3f46e4ed49ff0d18fed25faa6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

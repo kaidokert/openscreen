@@ -211,7 +211,6 @@ def builder(builder_type, name, properties, os, cpu):
       cpu: the target architecture, such as "arm64."
     """
     recipe_id = "openscreen"
-    use_python3 = True
     if properties:
         if "builder_group" in properties:
             recipe_id = "chromium"
@@ -236,7 +235,6 @@ def builder(builder_type, name, properties, os, cpu):
                 "infra/recipe_bundles/chromium.googlesource.com/chromium/tools/build",
             cipd_version = "refs/heads/main",
             use_bbagent = True,
-            use_python3 = use_python3,
         ),
         dimensions = {
             "pool": "luci.flex." + builder_type,

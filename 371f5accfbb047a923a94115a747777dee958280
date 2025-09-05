@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c1401bc3_c50e0b59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1410933
+      },
+      "writtenOn": "2025-09-05T00:10:04Z",
+      "side": 1,
+      "message": "the bug seems unrelated to this CL.",
+      "revId": "371f5accfbb047a923a94115a747777dee958280",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "878db0f8_d1936516",
+        "filename": "cast/streaming/public/statistics.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1410933
+      },
+      "writtenOn": "2025-09-05T00:10:04Z",
+      "side": 1,
+      "message": "maybe initialize this too?",
+      "revId": "371f5accfbb047a923a94115a747777dee958280",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

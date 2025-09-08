@@ -69,6 +69,24 @@
       "message": "Wow, okay. This is great, and deletes a LOT of code. Thank you!",
       "revId": "06c72875904956c3f46e4ed49ff0d18fed25faa6",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "609efd93_1f5c5936",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001604
+      },
+      "writtenOn": "2025-09-08T22:32:29Z",
+      "side": 1,
+      "message": "To be fair, it moves it inside the submodule, but now you all don\u0027t have to deal with it. ;-)\n\nYou could even make an autoroller if you wanted! We have one for Chromium now.",
+      "parentUuid": "5a4f51dc_093c739b",
+      "revId": "06c72875904956c3f46e4ed49ff0d18fed25faa6",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

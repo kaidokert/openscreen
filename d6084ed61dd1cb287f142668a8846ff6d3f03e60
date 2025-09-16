@@ -16,6 +16,24 @@
       "message": "Makes sense to me. Is the bug ID correct?",
       "revId": "d6084ed61dd1cb287f142668a8846ff6d3f03e60",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c656271f_7a07b859",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3291415
+      },
+      "writtenOn": "2025-09-16T04:56:28Z",
+      "side": 1,
+      "message": "Yes, it is LSC-like CL, where openscreen is also updated. See https://b.corp.google.com/issues/391445226#comment128",
+      "parentUuid": "465fe11b_2017526d",
+      "revId": "d6084ed61dd1cb287f142668a8846ff6d3f03e60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

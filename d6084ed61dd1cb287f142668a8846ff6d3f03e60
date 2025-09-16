@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "465fe11b_2017526d",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-09-16T04:15:28Z",
+      "side": 1,
+      "message": "Makes sense to me. Is the bug ID correct?",
+      "revId": "d6084ed61dd1cb287f142668a8846ff6d3f03e60",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

@@ -177,7 +177,7 @@ struct PacketNack {
 struct RtcpReceiverEventLogMessage {
   // The statistics event type, may be either a receiver side frame event or
   // packet event.
-  StatisticsEventType type;
+  StatisticsEvent::Type type;
 
   // The time at which this event occurred.
   Clock::time_point timestamp;

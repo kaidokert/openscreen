@@ -41,9 +41,9 @@ class ClockOffsetEstimatorImpl final : public ClockOffsetEstimator {
   bool GetReceiverOffsetBounds(Clock::duration& frame_bound,
                                Clock::duration& packet_bound) const;
 
-  // Returns the average of the offset bounds for frame and packet events.
-  // Returns nullopt if not enough data is in yet to produce an estimate.
+  // ClockOffsetEstimator overrides.
   std::optional<Clock::duration> GetEstimatedOffset() const final;
+  std::optional<Clock::duration> GetEstimatedLatency() const final;
 
  private:
   // This helper uses the difference between sent and received event

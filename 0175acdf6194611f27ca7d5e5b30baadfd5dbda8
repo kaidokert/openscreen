@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e515da8_bbd8bfd0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1001982
+      },
+      "writtenOn": "2025-10-20T21:59:55Z",
+      "side": 1,
+      "message": "It\u0027s not great to leave the repo with only one OWNER as there is no redundancy.  If you can\u0027t find another volunteer to be the second OWNER, then leave me in - I have bandwidth to do code reviews, just not make any new significant contributions.",
+      "revId": "0175acdf6194611f27ca7d5e5b30baadfd5dbda8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

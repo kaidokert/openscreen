@@ -32,6 +32,9 @@ inline constexpr char kReceiverNamespace[] =
 inline constexpr char kBroadcastNamespace[] =
     "urn:x-cast:com.google.cast.broadcast";
 inline constexpr char kMediaNamespace[] = "urn:x-cast:com.google.cast.media";
+static constexpr char kSetupNamespace[] = "urn:x-cast:com.google.cast.setup";
+static constexpr char kDiscoveryNamespace[] =
+    "urn:x-cast:com.google.cast.receiver.discovery";
 
 // Sender and receiver IDs to use for platform messages.
 inline constexpr char kPlatformSenderId[] = "sender-0";
@@ -122,6 +125,7 @@ enum class CastMessageType {
 
   // Session launch request.
   kLaunch,
+  kLaunchStatus,
 
   // Session stop request.
   kStop,
@@ -145,6 +149,9 @@ enum class CastMessageType {
   kInvalidRequest,
   kPresentation,
   kGetCapabilities,
+
+  kDeviceInfo,
+  kEurekaInfo,
 
   kOther,  // Add new types above `kOther`.
   kMaxValue = kOther,

@@ -14,6 +14,7 @@
 #include "cast/common/channel/connection_namespace_handler.h"
 #include "cast/common/channel/virtual_connection_router.h"
 #include "cast/common/public/cast_socket.h"
+#include "cast/common/public/receiver_info.h"
 #include "cast/receiver/channel/device_auth_namespace_handler.h"
 #include "cast/receiver/public/receiver_socket_factory.h"
 #include "platform/api/task_runner.h"
@@ -81,7 +82,8 @@ class ApplicationAgent final
 
   ApplicationAgent(
       TaskRunner& task_runner,
-      DeviceAuthNamespaceHandler::CredentialsProvider& credentials_provider);
+      DeviceAuthNamespaceHandler::CredentialsProvider& credentials_provider,
+      const std::string& device_uuid);
 
   ~ApplicationAgent() final;
 
@@ -100,6 +102,8 @@ class ApplicationAgent final
   // (e.g., due to timeout of user activity, end of media playback, or fatal
   // errors).
   void StopApplicationIfRunning(Application* app);
+
+  void SetReceiverInfo(ReceiverInfo receiver_info);
 
  private:
   // ReceiverSocketFactory::Client overrides.
@@ -126,6 +130,8 @@ class ApplicationAgent final
   Json::Value HandlePing();
   Json::Value HandleGetAppAvailability(const Json::Value& request);
   Json::Value HandleGetStatus(const Json::Value& request);
+  Json::Value HandleDeviceInfo(const Json::Value& request);
+  Json::Value HandleEurekaInfo(const Json::Value& request);
   Json::Value HandleLaunch(const Json::Value& request, CastSocket* socket);
   Json::Value HandleStop(const Json::Value& request);
   Json::Value HandleInvalidCommand(const Json::Value& request);
@@ -147,6 +153,10 @@ class ApplicationAgent final
   // status.
   void PopulateReceiverStatus(Json::Value* message);
 
+  void PopulateDeviceInfo(Json::Value* out);
+
+  void PopulateEurekaInfo(Json::Value* out);
+
   // Broadcasts new RECEIVER_STATUS to all endpoints. This is called after an
   // Application LAUNCH or STOP.
   void BroadcastReceiverStatus();
@@ -162,6 +172,8 @@ class ApplicationAgent final
   CastSocketMessagePort message_port_;
   Application* launched_app_ = nullptr;
   std::string launched_via_app_id_;
+  std::string device_id_;
+  ReceiverInfo receiver_info_;
 };
 
 }  // namespace openscreen::cast

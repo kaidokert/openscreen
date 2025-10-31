@@ -211,7 +211,7 @@ int RunStandaloneReceiver(int argc, char* argv[]) {
                               std::unique_ptr<TaskRunnerImpl>(task_runner));
   RunCastService(task_runner,
                  CastService::Configuration{
-                     *task_runner, interface, std::move(creds.value()),
+                     *task_runner, interface, std::move(creds.value()), "uuid",
                      friendly_name, model_name, enable_discovery});
   PlatformClientPosix::ShutDown();
 

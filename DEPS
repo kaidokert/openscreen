@@ -46,7 +46,7 @@ vars = {
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
 
   # GN CIPD package version.
-  'gn_version': 'git_revision:487f8353f15456474437df32bb186187b0940b45',
+  'gn_version': 'git_revision:07d3c6f4dc290fae5ca6152ebcb37d6815c411ab',
   'clang_format_revision': '37f6e68a107df43b7d7e044fd36a13cbae3413f2',
 
   # Chrome version to pull clang update.py script from. This is necessary
@@ -71,14 +71,14 @@ deps = {
   # https://chromium.googlesource.com/chromium/src/buildtools/+/refs/heads/main
   'buildtools': {
     'url': Var('chromium_git') + '/chromium/src/buildtools' +
-      '@' + '077a66f30fcf281b066fafb6dfc60818c238efb6',
+      '@' + '628cf12465dae2a157524a23608a58b525d30623',
   },
 
   # and here:
   # https://chromium.googlesource.com/chromium/src/build/+/refs/heads/main
   'build': {
     'url': Var('chromium_git') + '/chromium/src/build' +
-      '@' + '526c6cbd6a32e5952e0cc09ab35d33ea4d883907',
+      '@' + 'c7041cd93690257b1f1c3b5ec4922287fd396bd8',
     'condition': 'not build_with_chromium',
   },
 

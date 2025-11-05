@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e628969_b20f6dcf",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-05T22:20:34Z",
+      "side": 1,
+      "message": "LGTM.\n\nSince WebRTC requires at least C++20, other consumers of libcast than Chrome should be OK.",
+      "revId": "c8d2d634f056841e97ae508cbc0fd1ec7a4727ca",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

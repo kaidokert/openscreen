@@ -5,6 +5,9 @@
 #include "platform/base/error.h"
 
 #include <sstream>
+#include <vector>
+
+constexpr std::vector<unsigned int> smoke_test_vector_gcc;
 
 namespace openscreen {
 
@@ -29,7 +32,8 @@ Error& Error::operator=(const Error& other) = default;
 Error& Error::operator=(Error&& other) = default;
 
 bool Error::operator==(const Error& other) const {
-  return code_ == other.code_ && message_ == other.message_;
+  return code_ == other.code_ && message_ == other.message_ &&
+         smoke_test_vector_gcc.empty();
 }
 
 bool Error::operator!=(const Error& other) const {

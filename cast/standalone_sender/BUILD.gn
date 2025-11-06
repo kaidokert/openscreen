@@ -42,6 +42,9 @@ if (!build_with_chromium) {
       "../streaming:common",
       "../streaming:sender",
     ]
+    if (!build_with_chromium) {
+      deps += [ "//third_party/abseil:abseil_quiche_and_protobuf" ]
+    }
 
     sources = [ "main.cc" ]
     include_dirs = []

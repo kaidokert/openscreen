@@ -318,6 +318,7 @@ openscreen_fuzzer_test("compound_rtcp_parser_fuzzer") {
   deps = [
     ":sender",
     "../../third_party/abseil",
+    "//third_party/abseil:abseil_quiche_and_protobuf",
   ]
 
   seed_corpus = "compound_rtcp_parser_fuzzer_seeds"
@@ -333,6 +334,7 @@ openscreen_fuzzer_test("rtp_packet_parser_fuzzer") {
   deps = [
     ":receiver",
     "../../third_party/abseil",
+    "//third_party/abseil:abseil_quiche_and_protobuf",
   ]
 
   seed_corpus = "rtp_packet_parser_fuzzer_seeds"
@@ -348,6 +350,7 @@ openscreen_fuzzer_test("sender_report_parser_fuzzer") {
   deps = [
     ":receiver",
     "../../third_party/abseil",
+    "//third_party/abseil:abseil_quiche_and_protobuf",
   ]
 
   seed_corpus = "sender_report_parser_fuzzer_seeds"

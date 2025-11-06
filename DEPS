@@ -46,13 +46,13 @@ vars = {
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
 
   # GN CIPD package version.
-  'gn_version': 'git_revision:487f8353f15456474437df32bb186187b0940b45',
+  'gn_version': 'git_revision:07d3c6f4dc290fae5ca6152ebcb37d6815c411ab',
   'clang_format_revision': '37f6e68a107df43b7d7e044fd36a13cbae3413f2',
 
   # Chrome version to pull clang update.py script from. This is necessary
   # because this script does experience breaking changes, such as removing
   # command line arguments, that need to be handled intentionally by a roll.
-  'chrome_version': 'ddf8f8a465be2779bd826db57f1299ccd2f3aa25',
+  'chrome_version': 'e326b700b5131f328d262f596c58dcad20f7bb3c',
 
   # 'magic' text to tell depot_tools that git submodules should be accepted
   # but parity with DEPS file is expected.
@@ -71,14 +71,14 @@ deps = {
   # https://chromium.googlesource.com/chromium/src/buildtools/+/refs/heads/main
   'buildtools': {
     'url': Var('chromium_git') + '/chromium/src/buildtools' +
-      '@' + '077a66f30fcf281b066fafb6dfc60818c238efb6',
+      '@' + '628cf12465dae2a157524a23608a58b525d30623',
   },
 
   # and here:
   # https://chromium.googlesource.com/chromium/src/build/+/refs/heads/main
   'build': {
     'url': Var('chromium_git') + '/chromium/src/build' +
-      '@' + '526c6cbd6a32e5952e0cc09ab35d33ea4d883907',
+      '@' + 'b04a03f62e885a97a4db463d29c20915e9ed3bcb',
     'condition': 'not build_with_chromium',
   },
 
@@ -203,19 +203,19 @@ deps = {
 
   'third_party/libc++/src': {
     'url': Var('chromium_git') +
-    '/external/github.com/llvm/llvm-project/libcxx.git' + '@' + '11c38d901d29bc91aee3efb53652f7141f72f47f',
+    '/external/github.com/llvm/llvm-project/libcxx.git' + '@' + 'ddfdbbc1ab109b4fc6171f3d8c38faf4586701d2',
     'condition': 'not build_with_chromium',
   },
 
   'third_party/libc++abi/src': {
     'url': Var('chromium_git') +
-    '/external/github.com/llvm/llvm-project/libcxxabi.git' + '@' + '83dfa1f5bfce32d5f75695542468e37ead8163b8',
+    '/external/github.com/llvm/llvm-project/libcxxabi.git' + '@' + 'bb789ae647a626f62dd28806334314fd72071f6f',
     'condition': 'not build_with_chromium',
   },
 
   'third_party/llvm-libc/src': {
     'url': Var('chromium_git') +
-      '/external/github.com/llvm/llvm-project/libc.git' + '@' + '2222607a3ea3d5f65338d3b36a4cc5fb563169ab',
+      '/external/github.com/llvm/llvm-project/libc.git' + '@' + '9362a10ec44d4a7a05aa85516d4c13b186df9c28',
     'condition': 'not build_with_chromium',
   },
 

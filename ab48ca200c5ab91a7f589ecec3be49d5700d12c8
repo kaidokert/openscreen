@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2a9a491e_7157f158",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-06T21:09:55Z",
+      "side": 1,
+      "message": "Currently need a second reviewer since you are not a COMITTER unfortunately.",
+      "revId": "ab48ca200c5ab91a7f589ecec3be49d5700d12c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c25b5e92_320350e1",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-06T21:09:55Z",
+      "side": 1,
+      "message": "Extra newline here?",
+      "revId": "ab48ca200c5ab91a7f589ecec3be49d5700d12c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "683e914a_f5972a69",
+        "filename": "cast/common/channel/message_util.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-06T21:09:55Z",
+      "side": 1,
+      "message": "Is it really in lower case? Seems odd.",
+      "revId": "ab48ca200c5ab91a7f589ecec3be49d5700d12c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b1d49ff_58f06d90",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 262,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-06T21:09:55Z",
+      "side": 1,
+      "message": "Should this be a `OSP_VLOG`? and should `HandleDeviceInfo` and other methods also log?",
+      "revId": "ab48ca200c5ab91a7f589ecec3be49d5700d12c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7d7c6190_fecf9c02",
+        "filename": "cast/receiver/application_agent.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 444,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-06T21:09:55Z",
+      "side": 1,
+      "message": "You could also have the method pass a non-const ref `Json::Value\u0026 out`.",
+      "revId": "ab48ca200c5ab91a7f589ecec3be49d5700d12c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b884233_338a6d99",
+        "filename": "cast/receiver/application_agent.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-06T21:09:55Z",
+      "side": 1,
+      "message": "Nit: all of the populate functions should have the same naming for the parameter, either `out` or `message`. \n\nAnd I would be in favor of either all three having comments or sharing a single comment explaining all three.",
+      "revId": "ab48ca200c5ab91a7f589ecec3be49d5700d12c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "58c85a45_f4348cf5",
+        "filename": "cast/standalone_receiver/main.cc",
+        "patchSetId": 1
+      },
+      "lineNbr": 214,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-06T21:09:55Z",
+      "side": 1,
+      "message": "Nit: should this have a more meaningful value? E.g. a const `uuid` set at the top for this file, or a generated-on-runtime one?",
+      "revId": "ab48ca200c5ab91a7f589ecec3be49d5700d12c8",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

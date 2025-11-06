@@ -41,6 +41,7 @@ if (!build_with_chromium) {
       "../sender:channel",
       "../streaming:common",
       "../streaming:sender",
+      "//third_party/abseil:abseil_quiche_and_protobuf",
     ]
 
     sources = [ "main.cc" ]

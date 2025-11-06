@@ -76,6 +76,7 @@ openscreen_executable("cast_receiver") {
     "../common:certificate_boringssl",
     "../common/certificate/proto:certificate_proto",
     "../receiver:channel",
+    "//third_party/abseil:abseil_quiche_and_protobuf",
   ]
   configs = [ "../common:certificate_config" ]
 }

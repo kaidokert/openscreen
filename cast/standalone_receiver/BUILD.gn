@@ -77,5 +77,8 @@ openscreen_executable("cast_receiver") {
     "../common/certificate/proto:certificate_proto",
     "../receiver:channel",
   ]
+  if (!build_with_chromium) {
+    deps += [ "//third_party/abseil:abseil_quiche_and_protobuf" ]
+  }
   configs = [ "../common:certificate_config" ]
 }

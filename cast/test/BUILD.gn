@@ -62,6 +62,7 @@ if (is_posix && !build_with_chromium) {
       "../common:certificate_boringssl",
       "../common:test_helpers",
       "../common/certificate/proto:certificate_proto",
+      "//third_party/abseil:abseil_quiche_and_protobuf",
     ]
   }
 }

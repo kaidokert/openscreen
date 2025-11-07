@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f47e3cbf_043cb220",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339017
+      },
+      "writtenOn": "2025-11-07T19:15:04Z",
+      "side": 1,
+      "message": "FYI the infra failures are fixed now, you\u0027ll want to CQ+1 again",
+      "revId": "52e0b0053be554c8db1b52f852152d65e3f4659c",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

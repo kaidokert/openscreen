@@ -418,6 +418,7 @@ void Sender::OnReceiverHasFrames(std::vector<FrameId> acks) {
   TRACE_SCOPED1(TraceCategory::kSender, "OnReceiverHasFrames", "frame_ids",
                 Join(acks));
 
+  OSP_LOG_ERROR << __func__ << ": received has " << acks.size() << " ACKs.";
   if (acks.back() > last_enqueued_frame_id_) {
     TRACE_SET_RESULT(Error::Code::kParameterOutOfRange);
     OSP_LOG_ERROR << "Ignoring individual frame ACKs: ACKing frame "
@@ -429,6 +430,7 @@ void Sender::OnReceiverHasFrames(std::vector<FrameId> acks) {
   }
 
   for (FrameId id : acks) {
+    OSP_LOG_ERROR << __func__ << ": individual frame ACK for " << id;
     PendingFrameSlot& slot = get_slot_for(id);
     if (slot.is_active_for_frame(id)) {
       const RtpTimeTicks rtp_timestamp = slot.frame->rtp_timestamp;

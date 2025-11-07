@@ -6,3 +6,4 @@ cria:project-chromium-committers        	cria/project-chromium-committers
 cria:project-chromium-submit-access     	cria/project-chromium-submit-access
 global:Change-Owner                     	Change Owner
 global:Registered-Users                 	Logged-in Public Users
+mdb:chrome-active-sheriffs              	mdb/chrome-active-sheriffs

@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "1d84d384_1fe6a93b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339017
+      },
+      "writtenOn": "2025-11-08T18:19:46Z",
+      "side": 1,
+      "message": "Not ready for review yet, I\u0027ll add you when it is",
+      "revId": "09b6dacc1e19967172beb0fdfa16c22e1bdd3652",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "68c8b24f_9a289766",
+        "filename": "docs/continuous_build.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339017
+      },
+      "writtenOn": "2025-11-08T18:19:46Z",
+      "side": 1,
+      "message": "Keeping thread open to prevent submitting until all the deps are ready",
+      "revId": "09b6dacc1e19967172beb0fdfa16c22e1bdd3652",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

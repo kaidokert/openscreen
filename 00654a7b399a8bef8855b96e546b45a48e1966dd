@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "baf7a8f1_00b7acb9",
+        "filename": "docs/continuous_build.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339017
+      },
+      "writtenOn": "2025-11-08T18:22:34Z",
+      "side": 1,
+      "message": "Keeping open to prevent submitting unless we indeed revert everything",
+      "revId": "00654a7b399a8bef8855b96e546b45a48e1966dd",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

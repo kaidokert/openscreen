@@ -46,13 +46,13 @@ vars = {
   'checkout_instrumented_libraries': 'checkout_linux and checkout_configuration == "default"',
 
   # GN CIPD package version.
-  'gn_version': 'git_revision:487f8353f15456474437df32bb186187b0940b45',
+  'gn_version': 'git_revision:07d3c6f4dc290fae5ca6152ebcb37d6815c411ab',
   'clang_format_revision': '37f6e68a107df43b7d7e044fd36a13cbae3413f2',
 
   # Chrome version to pull clang update.py script from. This is necessary
   # because this script does experience breaking changes, such as removing
   # command line arguments, that need to be handled intentionally by a roll.
-  'chrome_version': 'ddf8f8a465be2779bd826db57f1299ccd2f3aa25',
+  'chrome_version': 'e326b700b5131f328d262f596c58dcad20f7bb3c',
 
   # 'magic' text to tell depot_tools that git submodules should be accepted
   # but parity with DEPS file is expected.
@@ -71,14 +71,14 @@ deps = {
   # https://chromium.googlesource.com/chromium/src/buildtools/+/refs/heads/main
   'buildtools': {
     'url': Var('chromium_git') + '/chromium/src/buildtools' +
-      '@' + '077a66f30fcf281b066fafb6dfc60818c238efb6',
+      '@' + '628cf12465dae2a157524a23608a58b525d30623',
   },
 
   # and here:
   # https://chromium.googlesource.com/chromium/src/build/+/refs/heads/main
   'build': {
     'url': Var('chromium_git') + '/chromium/src/build' +
-      '@' + '526c6cbd6a32e5952e0cc09ab35d33ea4d883907',
+      '@' + 'b04a03f62e885a97a4db463d29c20915e9ed3bcb',
     'condition': 'not build_with_chromium',
   },
 
@@ -146,9 +146,8 @@ deps = {
   },
 
   'third_party/jsoncpp/src': {
-    'url': Var('chromium_git') +
-      '/external/github.com/open-source-parsers/jsoncpp.git' +
-      '@' + '89e2973c754a9c02a49974d839779b151e95afd6', # version 1.9.6
+    # DO NOT SUBMIT.
+    'url': 'https://github.com/victorvianna/jsoncpp.git@bc9f4df9da0c84e9d1be5e72ab668845501cdd5a',
     'condition': 'not build_with_chromium',
   },
 
@@ -170,7 +169,7 @@ deps = {
   # To roll forward, use quiche_revision from chromium/src/DEPS.
   'third_party/quiche/src': {
     'url': Var('quiche_git') + '/quiche.git' +
-      '@' + '810b9a7bc88326591de298c381ab2cf92037768f',  # 2025-11-06
+      '@' + '2b80e306994b02b4bdb067166960d3550fcb9430',  # 2025-11-06
     'condition': 'not build_with_chromium',
   },
 
@@ -197,25 +196,25 @@ deps = {
   'third_party/libfuzzer/src': {
     'url': Var('chromium_git') +
       '/external/github.com/llvm/llvm-project/compiler-rt/lib/fuzzer.git' +
-      '@' + 'e31b99917861f891308269c36a32363b120126bb',
+      '@' + '9ff3b7b329ad172482cb6dbbe16cd1e08659fe03',
     'condition': 'not build_with_chromium',
   },
 
   'third_party/libc++/src': {
     'url': Var('chromium_git') +
-    '/external/github.com/llvm/llvm-project/libcxx.git' + '@' + '11c38d901d29bc91aee3efb53652f7141f72f47f',
+    '/external/github.com/llvm/llvm-project/libcxx.git' + '@' + 'ddfdbbc1ab109b4fc6171f3d8c38faf4586701d2',
     'condition': 'not build_with_chromium',
   },
 
   'third_party/libc++abi/src': {
     'url': Var('chromium_git') +
-    '/external/github.com/llvm/llvm-project/libcxxabi.git' + '@' + '83dfa1f5bfce32d5f75695542468e37ead8163b8',
+    '/external/github.com/llvm/llvm-project/libcxxabi.git' + '@' + 'bb789ae647a626f62dd28806334314fd72071f6f',
     'condition': 'not build_with_chromium',
   },
 
   'third_party/llvm-libc/src': {
     'url': Var('chromium_git') +
-      '/external/github.com/llvm/llvm-project/libc.git' + '@' + '2222607a3ea3d5f65338d3b36a4cc5fb563169ab',
+      '/external/github.com/llvm/llvm-project/libc.git' + '@' + '9362a10ec44d4a7a05aa85516d4c13b186df9c28',
     'condition': 'not build_with_chromium',
   },
 
@@ -235,9 +234,10 @@ deps = {
   # library. It is meant to be used by QUICHE.
   #
   # NOTE: Pin to the current revision as newer versions use C++20 features.
+  # DO NOT SUBMIT: use commit of landed CL.
   'third_party/googleurl/src': {
     'url': Var('quiche_git') + '/googleurl.git' +
-      '@' + 'dfe8ef6164f8b4e3e9a9cbe8521bb81359918393',  #2023-08-01
+      '@' + '94ff147fe0b96b4cca5d6d316b9af6210c0b8051',  #2025-11-06
     'condition': 'not build_with_chromium',
   }
 }

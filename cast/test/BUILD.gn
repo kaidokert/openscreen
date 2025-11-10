@@ -63,5 +63,8 @@ if (is_posix && !build_with_chromium) {
       "../common:test_helpers",
       "../common/certificate/proto:certificate_proto",
     ]
+    if (!build_with_chromium) {
+      deps += [ "//third_party/abseil:abseil_quiche_and_protobuf" ]
+    }
   }
 }

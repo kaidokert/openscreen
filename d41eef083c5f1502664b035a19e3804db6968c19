@@ -18,6 +18,23 @@
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b344fb8b_8b45b3bd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339017
+      },
+      "writtenOn": "2025-11-10T18:40:22Z",
+      "side": 1,
+      "message": "Removing you until the gcc issue is fixed",
+      "revId": "d41eef083c5f1502664b035a19e3804db6968c19",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "55b0defd_552d4c70",

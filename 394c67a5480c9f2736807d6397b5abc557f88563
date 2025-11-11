@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "69870115_dbded778",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-11T07:18:51Z",
+      "side": 1,
+      "message": "If we land this patch we should have receiver statistics working for libcast.\n\n@muyaoxu, PTAL.\n\n@taesuny, FYI.",
+      "revId": "394c67a5480c9f2736807d6397b5abc557f88563",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

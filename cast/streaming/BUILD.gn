@@ -319,6 +319,9 @@ openscreen_fuzzer_test("compound_rtcp_parser_fuzzer") {
     ":sender",
     "../../third_party/abseil",
   ]
+  if (!build_with_chromium) {
+    deps += [ "//third_party/abseil:abseil_quiche_and_protobuf" ]
+  }
 
   seed_corpus = "compound_rtcp_parser_fuzzer_seeds"
 
@@ -334,6 +337,9 @@ openscreen_fuzzer_test("rtp_packet_parser_fuzzer") {
     ":receiver",
     "../../third_party/abseil",
   ]
+  if (!build_with_chromium) {
+    deps += [ "//third_party/abseil:abseil_quiche_and_protobuf" ]
+  }
 
   seed_corpus = "rtp_packet_parser_fuzzer_seeds"
 
@@ -349,6 +355,9 @@ openscreen_fuzzer_test("sender_report_parser_fuzzer") {
     ":receiver",
     "../../third_party/abseil",
   ]
+  if (!build_with_chromium) {
+    deps += [ "//third_party/abseil:abseil_quiche_and_protobuf" ]
+  }
 
   seed_corpus = "sender_report_parser_fuzzer_seeds"
 

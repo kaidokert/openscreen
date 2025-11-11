@@ -129,6 +129,9 @@ if (!build_with_chromium && is_posix) {
       ":e2e_tests_all",
       "test:test_main",
     ]
+    if (!build_with_chromium) {
+      deps += [ "//third_party/abseil:abseil_quiche_and_protobuf" ]
+    }
   }
 }
 if (!build_with_chromium) {

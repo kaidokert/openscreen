@@ -50,6 +50,24 @@
       "message": "This is wrong, see TODO below. I asked in the Chrome Build chat how to fix this and haven\u0027t heard back yet. Landing the CL in the meantime might still be good to see if CI is happy.\n\nhttps://chromium-review.googlesource.com/c/openscreen/+/7124727/1..6/third_party/abseil/BUILD.gn@322\nhttps://chat.google.com/room/AAAAqkI-BEQ/n8b2fokakXw/n8b2fokakXw?cls\u003d10",
       "revId": "d41eef083c5f1502664b035a19e3804db6968c19",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4efb495a_d622b240",
+        "filename": "BUILD.gn",
+        "patchSetId": 7
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1339017
+      },
+      "writtenOn": "2025-11-11T14:10:14Z",
+      "side": 1,
+      "message": "Done, I managed to fix this by converting the protobuf target to static_library",
+      "parentUuid": "55b0defd_552d4c70",
+      "revId": "d41eef083c5f1502664b035a19e3804db6968c19",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

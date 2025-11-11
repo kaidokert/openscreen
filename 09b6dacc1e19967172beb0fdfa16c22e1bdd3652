@@ -33,6 +33,24 @@
       "message": "Keeping thread open to prevent submitting until all the deps are ready",
       "revId": "09b6dacc1e19967172beb0fdfa16c22e1bdd3652",
       "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d5bace83_315d35b1",
+        "filename": "docs/continuous_build.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1339017
+      },
+      "writtenOn": "2025-11-11T00:48:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "68c8b24f_9a289766",
+      "revId": "09b6dacc1e19967172beb0fdfa16c22e1bdd3652",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
     }
   ]
 }

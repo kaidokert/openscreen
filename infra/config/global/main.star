@@ -10,6 +10,7 @@ REPO_URL = "https://chromium.googlesource.com/openscreen"
 CHROMIUM_REPO_URL = "https://chromium.googlesource.com/chromium/src"
 MAC_VERSION = "Mac-15"
 WINDOWS_VERSION = "Windows-10"
+LINUX_VERSION = "Ubuntu-24.04"
 REF = "refs/heads/main"
 
 SISO_PROPERTY = "$build/siso"
@@ -123,13 +124,13 @@ _siso = struct(
 )
 
 def get_properties(
+        target_cpu,
         is_debug = True,
         is_gcc = False,
         is_asan = False,
         is_tsan = False,
         is_msan = False,
         use_coverage = False,
-        target_cpu = "x64",
         cast_receiver = False,
         chromium = False,
         is_presubmit = False,
@@ -203,7 +204,7 @@ def get_properties(
         properties["is_ci"] = is_ci
     return properties
 
-def builder(builder_type, name, properties, os, cpu):
+def builder(builder_type, name, os, cpu, properties):
     """Defines a builder.
 
     Args:
@@ -279,7 +280,7 @@ def builder(builder_type, name, properties, os, cpu):
         short_name = name,
     )
 
-def ci_builder(name, properties, os = "Ubuntu-24.04", cpu = "x86-64"):
+def ci_builder(name, os, cpu, properties):
     """Defines a post submit builder.
 
        Args:
@@ -288,9 +289,9 @@ def ci_builder(name, properties, os = "Ubuntu-24.04", cpu = "x86-64"):
         os: the target operating system.
         cpu: the target central processing unit.
     """
-    builder("ci", name, properties, os, cpu)
+    builder("ci", name, os, cpu, properties)
 
-def try_builder(name, properties, os = "Ubuntu-24.04", cpu = "x86-64"):
+def try_builder(name, os, cpu, properties):
     """Defines a pre submit builder.
 
     Args:
@@ -299,9 +300,9 @@ def try_builder(name, properties, os = "Ubuntu-24.04", cpu = "x86-64"):
       os: the target operating system.
       cpu: the target central processing unit.
     """
-    builder("try", name, properties, os, cpu)
+    builder("try", name, os, cpu, properties)
 
-def try_and_ci_builders(name, properties, os = "Ubuntu-24.04", cpu = "x86-64"):
+def try_and_ci_builders(name, os, cpu, properties):
     """Defines a similarly configured try and ci builder pair.
 
     Args:
@@ -310,14 +311,14 @@ def try_and_ci_builders(name, properties, os = "Ubuntu-24.04", cpu = "x86-64"):
       os: the target operating system.
       cpu: the target central processing unit.
     """
-    try_builder(name, properties, os, cpu)
+    try_builder(name, os, cpu, properties)
 
     ci_properties = dict(properties)
     ci_properties["is_ci"] = True
     if SISO_PROPERTY in ci_properties:
         ci_properties[SISO_PROPERTY] = dict(ci_properties[SISO_PROPERTY])
         ci_properties[SISO_PROPERTY]["project"] = _siso.project.DEFAULT_TRUSTED
-    ci_builder(name, ci_properties, os, cpu)
+    ci_builder(name, os, cpu, ci_properties)
 
 # BUILDER CONFIGURATIONS
 # Follow the pattern: <platform>_<arch>
@@ -326,48 +327,66 @@ def try_and_ci_builders(name, properties, os = "Ubuntu-24.04", cpu = "x86-64"):
 
 try_builder(
     "openscreen_presubmit",
-    get_properties(is_presubmit = True, is_debug = False),
+    LINUX_VERSION,
+    "x86-64",
+    get_properties("x64", is_presubmit = True, is_debug = False),
 )
 try_and_ci_builders(
     "linux_arm64_cast_receiver",
-    get_properties(cast_receiver = True, target_cpu = "arm64", is_component_build = False),
+    LINUX_VERSION,
+    # This bot relies on cross-compilation.
+    "x86-64",
+    get_properties("arm64", cast_receiver = True, is_component_build = False),
 )
-try_and_ci_builders("linux_x64_coverage", get_properties(use_coverage = True))
-try_and_ci_builders("linux_x64", get_properties(is_asan = True))
+try_and_ci_builders("linux_x64_coverage", LINUX_VERSION, "x86-64", get_properties("x64", use_coverage = True))
+try_and_ci_builders("linux_x64", LINUX_VERSION, "x86-64", get_properties("x64", is_asan = True))
 try_and_ci_builders(
     "linux_x64_gcc",
-    get_properties(is_gcc = True),
+    LINUX_VERSION,
+    "x86-64",
+    get_properties("x64", is_gcc = True),
 )
 try_and_ci_builders(
     "linux_x64_msan_rel",
-    get_properties(is_debug = False, is_msan = True),
+    LINUX_VERSION,
+    "x86-64",
+    get_properties("x64", is_debug = False, is_msan = True),
 )
 try_and_ci_builders(
     "linux_x64_tsan_rel",
-    get_properties(is_debug = False, is_tsan = True),
+    LINUX_VERSION,
+    "x86-64",
+    get_properties("x64", is_debug = False, is_tsan = True),
 )
 try_and_ci_builders(
     "linux_arm64",
-    get_properties(target_cpu = "arm64", is_component_build = False),
+    LINUX_VERSION,
+    # This bot relies on cross-compilation.
+    "x86-64",
+    get_properties("arm64", is_component_build = False),
 )
-try_and_ci_builders("mac_arm64", get_properties(target_cpu = "arm64"), os = MAC_VERSION, cpu = "arm64")
+try_and_ci_builders("mac_arm64", MAC_VERSION, "arm64", get_properties("arm64"))
 try_and_ci_builders(
     "win_x64",
-    get_properties(),
-    os = WINDOWS_VERSION,
+    WINDOWS_VERSION,
+    "x86-64",
+    get_properties("x64"),
 )
 try_and_ci_builders(
     "chromium_linux_x64",
-    get_properties(chromium = True),
+    LINUX_VERSION,
+    "x86-64",
+    get_properties("x64", chromium = True),
 )
 try_and_ci_builders(
     "chromium_mac_arm64",
-    get_properties(chromium = True, target_cpu = "arm64"),
-    os = MAC_VERSION,
-    cpu = "arm64",
+    MAC_VERSION,
+    "arm64",
+    get_properties("arm64", chromium = True),
 )
 try_and_ci_builders(
     "chromium_win_x64",
-    get_properties(chromium = True),
-    os = WINDOWS_VERSION,
+    WINDOWS_VERSION,
+    "x86-64",
+    get_properties("x64", chromium = True),
 )

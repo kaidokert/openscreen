@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "82053f77_fd161d53",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1323871
+      },
+      "writtenOn": "2025-11-14T10:31:06Z",
+      "side": 1,
+      "message": "The diff between patchset 1 and patchset 2 is the actual resolution.",
+      "revId": "f0355a7d59281a92e79a3dbc07e1060116cfff8f",
+      "serverId": "3ce6091f-6c88-37e8-8c75-72f92ae8dfba"
+    }
+  ]
+}

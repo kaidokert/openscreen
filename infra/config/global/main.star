@@ -206,7 +206,9 @@ def get_properties(
         properties["is_ci"] = is_ci
 
     if os == MAC_VERSION:
-        properties["$depot_tools/osx_sdk"] = {"sdk_version": "17a324"}
+        properties["$depot_tools/osx_sdk"] = {
+            "toolchain_ver": "git_revision:ee26b66bfedb36d9b0ba3037d7c6ef79a29e34a5",
+        }
 
     return properties
 

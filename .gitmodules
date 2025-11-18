@@ -3,7 +3,7 @@
 	url = https://chromium.googlesource.com/chromium/src/buildtools
 [submodule "build"]
 	path = build
-	url = https://chromium.googlesource.com/chromium/src/build
+	url = https://github.com/victorvianna/chromium-build
 	gclient-condition = not build_with_chromium
 [submodule "third_party/clang-format/script"]
 	path = third_party/clang-format/script

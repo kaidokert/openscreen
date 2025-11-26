@@ -140,7 +140,7 @@ deps = {
   'third_party/libprotobuf-mutator/src': {
     'url': Var('chromium_git') +
       '/external/github.com/google/libprotobuf-mutator.git' +
-      '@' + 'a304ec48dcf15d942607032151f7e9ee504b5dcf',
+      '@' + 'd780394da371517c2e21190d05414845d0ac1e07',
     'condition': 'not build_with_chromium',
   },
 
@@ -203,19 +203,19 @@ deps = {
   'third_party/libfuzzer/src': {
     'url': Var('chromium_git') +
       '/external/github.com/llvm/llvm-project/compiler-rt/lib/fuzzer.git' +
-      '@' + 'bea408a6e01f0f7e6c82a43121fe3af4506c932e',
+      '@' + '9ff3b7b329ad172482cb6dbbe16cd1e08659fe03',
     'condition': 'not build_with_chromium',
   },
 
   'third_party/libc++/src': {
     'url': Var('chromium_git') +
-    '/external/github.com/llvm/llvm-project/libcxx.git' + '@' + '454a561737fb62e75ba82bfae9fb07ee64acdd68',
+    '/external/github.com/llvm/llvm-project/libcxx.git' + '@' + '9ade7c258408f14f0a84bdf869d20e4d4aefccae',
     'condition': 'not build_with_chromium',
   },
 
   'third_party/libc++abi/src': {
     'url': Var('chromium_git') +
-    '/external/github.com/llvm/llvm-project/libcxxabi.git' + '@' + 'de02e5d57052b3b6d5fcd76dccde9380bca39360',
+    '/external/github.com/llvm/llvm-project/libcxxabi.git' + '@' + '83a852080747b9a362e8f9e361366b7a601f302c',
     'condition': 'not build_with_chromium',
   },
 
@@ -389,13 +389,13 @@ deps = {
 
   'third_party/modp_b64': {
     'url': Var('chromium_git') + '/chromium/src/third_party/modp_b64'
-    '@' + '7c1b3276e72757e854b5b642284aa367436a4723',  # 2024-11-18
+    '@' + '50685101d51ef9aabbd60c94f52d9e026d39c509',  # 2024-11-18
     'condition': 'not build_with_chromium',
   },
 
   'third_party/valijson/src': {
     'url': Var('github') + '/tristanpenman/valijson.git' +
-      '@' + 'fc9ddf14db683c9443c48ae3a6bf83e0ce3ad37c', # Version 1.0.3
+      '@' + '3f22201d7adc9e4642fbf35330d89a867355371e', # Version 1.0.3
     'condition': 'not build_with_chromium',
   },
 

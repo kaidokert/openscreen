@@ -1,4 +1,5 @@
 #include <atomic>
+#include <winsock2.h>
 
 #include "gtest/gtest.h"
 #include "platform/api/udp_socket.h"
@@ -6,6 +7,20 @@
 #include "platform/test/fake_task_runner.h"
 
 using namespace openscreen;
+
+class WinsockSetup : public ::testing::Environment {
+ public:
+  void SetUp() override {
+    WSADATA wsaData;
+    ASSERT_EQ(WSAStartup(MAKEWORD(2, 2), &wsaData), 0);
+  }
+
+  void TearDown() override {
+    WSACleanup();
+  }
+};
+
+::testing::Environment* const winsock_env = ::testing::AddGlobalTestEnvironment(new WinsockSetup);
 
 class MockClient : public UdpSocket::Client {
  public:
@@ -29,7 +44,7 @@ TEST(UdpSocketWinTest, CreateAndBind) {
   IPEndpoint endpoint{{127, 0, 0, 1}, 12345};
 
   auto socket_or_error = UdpSocket::Create(task_runner, &client, endpoint);
-  EXPECT_TRUE(socket_or_error.is_value());
+  ASSERT_TRUE(socket_or_error.is_value());
 
   socket_or_error.value()->Bind();
 

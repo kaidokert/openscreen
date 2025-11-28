@@ -129,7 +129,7 @@ void MessageDemuxer::MessageWatch::StopWatching() {
   }
 }
 
-MessageDemuxer::MessageDemuxer(ClockNowFunctionPtr now_function,
+MessageDemuxer::MessageDemuxer(openscreen::ClockNowFunctionPtr now_function,
                                size_t buffer_limit = kDefaultBufferLimit)
     : now_function_(now_function), buffer_limit_(buffer_limit) {
   OSP_CHECK(now_function_);

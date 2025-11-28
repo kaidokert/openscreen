@@ -16,7 +16,7 @@ config("include_dirs") {
 }
 
 # Put defines here that are only used in our internal files and NEVER in
-# external headers that embedders (such as chromium and node) might include.
+# external headers that embedders (as chromium and node) might include.
 config("features") {
   # Only targets in this file and its subdirs can depend on this.
   visibility = [ "./*" ]
@@ -53,7 +53,7 @@ group("gn_all") {
       "discovery:dnssd",
       "discovery:mdns",
       "discovery:public",
-      "osp",
+      "osp", # Conditionally included for !is_win
       "platform",
 
       # Quiche currently has an issue around logging macros on Windows.
@@ -62,14 +62,33 @@ group("gn_all") {
     if (!build_with_chromium) {
       deps += [
         "cast/standalone_sender:cast_sender",
-        "osp:osp_demo",
+        "osp:osp_demo", # Conditionally included for !is_win
         "third_party/protobuf:protoc($host_toolchain)",
         "third_party/zlib",
       ]
     }
-  } else {
-    # Windows-specific targets
-    deps += [ "compile_smoketest" ]
+  } else { # is_win
+    # Windows-specific dependencies
+    deps += [
+      "compile_smoketest",
+      "cast/streaming:receiver",
+      "cast/streaming:sender",
+      "discovery:dnssd",
+      "discovery:mdns",
+      "discovery:public",
+      "osp", # Removed for Windows
+      "platform",
+      # third_party/quiche is explicitly excluded on Windows due to logging macro issues.
+      "third_party/quiche",
+    ]
+    if (!build_with_chromium) {
+      deps += [
+        "cast/standalone_sender:cast_sender",
+        "osp:osp_demo", # Removed for Windows
+        "third_party/protobuf:protoc($host_toolchain)",
+        "third_party/zlib",
+      ]
+    }
   }
 
   # The cast_receiver depends on the standalone implementation which is only

@@ -50,7 +50,7 @@ group("compile_smoketest") {
     ":compile_smoketest_platform",
     ":compile_smoketest_task_runner_win_unittest",
     ":compile_smoketest_time_unittest",
-    ":compile_smoketest_udp_socket_win_unittest",
+    ":compile_smoketest_quiche",
   ]
 }
 
@@ -101,4 +101,9 @@ executable("compile_smoketest_time_unittest") {
     "//third_party/googletest:gtest_main",
   ]
   configs -= [ "//build/config/clang:find_bad_constructs" ]
+}
+
+source_set("compile_smoketest_quiche") {
+  sources = [ "quiche_smoketest.cc" ]
+  deps = [ "//third_party/quiche" ]
 }

@@ -2,9 +2,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#if !defined(WIN32)
 #include <poll.h>
 #include <signal.h>
 #include <unistd.h>
+#endif
 
 #include <algorithm>
 #include <iostream>
@@ -31,7 +33,10 @@
 #include "platform/api/network_interface.h"
 #include "platform/api/time.h"
 #include "platform/impl/logging.h"
+#if defined(_WIN32)
+#else
 #include "platform/impl/platform_client_posix.h"
+#endif
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
 #include "third_party/getopt/getopt.h"
@@ -55,6 +60,10 @@ void sigint_stop(int) {
   g_done = true;
 }
 
+#if defined(_WIN32)
+// TODO: winport: need to provide equivalent
+void SignalThings() {}
+#else
 void SignalThings() {
   struct sigaction usr1_sa;
   struct sigaction int_sa;
@@ -73,6 +82,7 @@ void SignalThings() {
 
   OSP_LOG_INFO << "signal handlers setup" << std::endl << "pid: " << getpid();
 }
+#endif
 
 }  // namespace
 
@@ -381,6 +391,11 @@ struct CommandWaitResult {
   CommandLineSplit command_line;
 };
 
+#if defined(_WIN32)
+void RunControllerPollLoop(Controller* controller) {
+  OSP_UNIMPLEMENTED();
+}
+#else
 CommandWaitResult WaitForCommand(pollfd* pollfd) {
   while (poll(pollfd, 1, 10) >= 0) {
     if (g_done) {
@@ -455,7 +470,14 @@ void RunControllerPollLoop(Controller* controller) {
 
   watch.Reset();
 }
+#endif
 
+#if defined(_WIN32)
+void ListenerDemo() {
+  OSP_UNIMPLEMENTED();
+}
+  // below uses platformclientposix - stub it out
+#else
 void ListenerDemo() {
   SignalThings();
 
@@ -500,7 +522,14 @@ void ListenerDemo() {
   network_service->GetProtocolConnectionClient()->Stop();
   NetworkServiceManager::Dispose();
 }
+#endif
 
+#if defined(_WIN32)
+void RunReceiverPollLoop(NetworkServiceManager* manager,
+                         DemoReceiverDelegate& delegate) {
+   OSP_UNIMPLEMENTED();
+}
+#else
 void RunReceiverPollLoop(NetworkServiceManager* manager,
                          DemoReceiverDelegate& delegate) {
   pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
@@ -537,7 +566,13 @@ void RunReceiverPollLoop(NetworkServiceManager* manager,
     }
   }
 }
+#endif
 
+#if defined(_WIN32)
+void PublisherDemo(std::string_view friendly_name) {
+  OSP_UNIMPLEMENTED();
+}
+#else
 void PublisherDemo(std::string_view friendly_name) {
   SignalThings();
 
@@ -596,6 +631,7 @@ void PublisherDemo(std::string_view friendly_name) {
   network_service->GetProtocolConnectionServer()->Stop();
   NetworkServiceManager::Dispose();
 }
+#endif
 
 }  // namespace openscreen::osp
 
@@ -659,6 +695,26 @@ InputArgs GetInputArgs(int argc, char** argv) {
   return args;
 }
 
+#if defined(_WIN32)
+// Intentionally stubbed out
+int main(int argc, char** argv) {
+  InputArgs args = GetInputArgs(argc, argv);
+  if (args.is_help) {
+    LogUsage(argv[0]);
+    return 1;
+  }
+
+  const bool is_receiver_demo = !args.friendly_server_name.empty();
+  [[maybe_unused]] const char* log_filename =
+    is_receiver_demo ? kReceiverLogFilename : kControllerLogFilename;
+
+  [[maybe_unused]] auto _dummy0 = &sigusr1_dump_services;
+  [[maybe_unused]] auto _dummy1 = &sigint_stop;
+  SignalThings();
+
+  OSP_UNIMPLEMENTED();
+}
+#else
 int main(int argc, char** argv) {
   using openscreen::Clock;
   using openscreen::LogLevel;
@@ -699,3 +755,4 @@ int main(int argc, char** argv) {
 
   return 0;
 }
+#endif

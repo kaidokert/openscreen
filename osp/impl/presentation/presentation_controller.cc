@@ -477,7 +477,7 @@ void Controller::ConnectRequest::CancelRequest() {
   request_id_ = 0;
 }
 
-Controller::Controller(ClockNowFunctionPtr now_function) {
+Controller::Controller(openscreen::ClockNowFunctionPtr now_function) {
   availability_requester_ =
       std::make_unique<UrlAvailabilityRequester>(now_function);
   connection_manager_ = std::make_unique<ConnectionManager>(GetClientDemuxer());

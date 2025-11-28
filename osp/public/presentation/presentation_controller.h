@@ -20,6 +20,7 @@
 #include "osp/public/service_listener.h"
 #include "platform/api/time.h"
 #include "platform/base/error.h"
+#include "platform/base/trivial_clock_traits.h"
 
 namespace openscreen::osp {
 
@@ -118,7 +119,7 @@ class Controller final : public ServiceListener::Observer,
     Controller* controller_ = nullptr;
   };
 
-  explicit Controller(ClockNowFunctionPtr now_function);
+  explicit Controller(openscreen::ClockNowFunctionPtr now_function);
   Controller(const Controller&) = delete;
   Controller& operator=(const Controller&) = delete;
   Controller(Controller&&) noexcept = delete;

@@ -1,15 +1,28 @@
 #ifndef PLATFORM_IMPL_UDP_SOCKET_WIN_H_
 #define PLATFORM_IMPL_UDP_SOCKET_WIN_H_
 
+#include <winsock2.h>
+
+#ifdef SendMessage
+#undef SendMessage
+#endif
+
 #include "platform/api/udp_socket.h"
+#include "platform/impl/socket_handle_win.h"
+#include "util/weak_ptr.h"
 
 namespace openscreen {
+
+class UdpSocketReaderWin;
+class PlatformClientWin; // Forward declaration
 
 class UdpSocketWin : public UdpSocket {
  public:
   UdpSocketWin(TaskRunner& task_runner,
                Client* client,
-               const IPEndpoint& local_endpoint);
+               SocketHandle handle,
+               const IPEndpoint& local_endpoint,
+               PlatformClientWin* platform_client = nullptr);
   ~UdpSocketWin() override;
 
   // UdpSocket overrides.
@@ -23,11 +36,26 @@ class UdpSocketWin : public UdpSocket {
   void SendMessage(ByteView data, const IPEndpoint& dest) override;
   void SetDscp(DscpMode state) override;
 
+  const SocketHandle& GetHandle() const { return handle_; }
+
+  // Called by UdpSocketReaderWin.
+  void ReceiveMessage();
+
  private:
+  void OnError(Error::Code error);
+  void Close();
+
   TaskRunner& task_runner_;
   Client* client_;
-  IPEndpoint local_endpoint_;
+  mutable IPEndpoint local_endpoint_;
+  SocketHandle handle_;
   bool is_bound_ = false;
+
+  WeakPtrFactory<UdpSocketWin> weak_factory_{this};
+
+  PlatformClientWin* const platform_client_;
+
+  friend class UdpSocketReaderWin;
 };
 
 }  // namespace openscreen

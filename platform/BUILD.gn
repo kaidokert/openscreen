@@ -166,6 +166,7 @@ if (!is_ios) {
       sources += [
         "impl/logging_win.cc",
         "impl/network_interface_win.cc",
+        "impl/platform_client_win.cc",
         "impl/socket_handle_waiter_win.cc",
         "impl/socket_handle_win.cc",
         "impl/tls_connection_factory_win.cc",

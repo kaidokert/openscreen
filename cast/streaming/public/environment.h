@@ -16,6 +16,7 @@
 #include "platform/api/udp_socket.h"
 #include "platform/base/ip_address.h"
 #include "platform/base/span.h"
+#include "platform/base/trivial_clock_traits.h"
 
 namespace openscreen::cast {
 

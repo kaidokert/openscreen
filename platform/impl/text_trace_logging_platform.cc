@@ -4,11 +4,10 @@
 
 #include "platform/impl/text_trace_logging_platform.h"
 
-#include <limits>
-#include <sstream>
+#include <cmath>
 
+#include "platform/base/trivial_clock_traits.h"
 #include "platform/impl/logging.h"
-#include "util/chrono_helpers.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {

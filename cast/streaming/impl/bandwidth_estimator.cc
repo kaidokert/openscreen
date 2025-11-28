@@ -6,6 +6,7 @@
 
 #include <algorithm>
 
+#include "platform/base/trivial_clock_traits.h"
 #include "util/osp_logging.h"
 #include "util/saturate_cast.h"
 

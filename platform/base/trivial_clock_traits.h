@@ -11,6 +11,8 @@
 #include <string>
 #include <type_traits>
 
+#include "platform/api/time.h"
+
 namespace openscreen {
 
 // The Open Screen monotonic clock traits description, providing all the C++14
@@ -41,7 +43,6 @@ class TrivialClockTraits {
   // In <chrono>, a clock type is just some type properties plus a static now()
   // function. So, there's nothing to instantiate here.
   TrivialClockTraits() = delete;
-  ~TrivialClockTraits() = delete;
 
   // "Trivially copyable" is necessary for using the time types in
   // std::atomic<>.
@@ -53,7 +54,7 @@ class TrivialClockTraits {
 
 // Convenience type definition, for injecting time sources into classes (e.g.,
 // &Clock::now versus something else for testing).
-using ClockNowFunctionPtr = TrivialClockTraits::time_point (*)();
+using ClockNowFunctionPtr = openscreen::Clock::time_point (*)();
 
 // Convenience for serializing to string, e.g. for tracing. Outputs a string of
 // the form "123µs".
@@ -62,6 +63,10 @@ std::string ToString(const TrivialClockTraits::duration& d);
 // Convenience for serializing to string, e.g. for tracing. Outputs a string of
 // the form "123µs-ticks".
 std::string ToString(const TrivialClockTraits::time_point& tp);
+
+// Convenience for serializing to string, e.g. for tracing. Outputs a string of
+// the form "123µs-ticks".
+std::string ToString(const Clock::time_point& tp);
 
 // Explicit namespace for inclusion of custom time-related operator<<
 // implementations. These operators may be included in a file for use by adding:
@@ -81,6 +86,9 @@ std::ostream& operator<<(std::ostream& os,
 // "123µs-ticks".
 std::ostream& operator<<(std::ostream& os,
                          const TrivialClockTraits::time_point& tp);
+
+// Logging convenience for time points for the public Clock API.
+std::ostream& operator<<(std::ostream& os, const Clock::time_point& tp);
 
 // Logging (and gtest pretty-printing) for several commonly-used chrono types.
 std::ostream& operator<<(std::ostream& os, const std::chrono::hours&);

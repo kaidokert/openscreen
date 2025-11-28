@@ -209,9 +209,10 @@ class MockSender : public CompoundRtcpParser::Client {
     UdpPacket packet_to_send(packet_and_report_id.first.begin(),
                              packet_and_report_id.first.end());
     packet_to_send.set_source(sender_endpoint_);
+    auto shared_packet = std::make_shared<UdpPacket>(std::move(packet_to_send));
     task_runner_.PostTaskWithDelay(
-        [receiver = receiver_, packet = std::move(packet_to_send)]() mutable {
-          receiver->OnRead(nullptr, ErrorOr<UdpPacket>(std::move(packet)));
+        [receiver = receiver_, packet = shared_packet]() mutable {
+          receiver->OnRead(nullptr, ErrorOr<UdpPacket>(std::move(*packet)));
         },
         kOneWayNetworkDelay);
 
@@ -254,9 +255,11 @@ class MockSender : public CompoundRtcpParser::Client {
           frame_being_sent_, packet_id, ByteBuffer(buffer, kMaxRtpPacketSize));
       UdpPacket packet_to_send(span.begin(), span.end());
       packet_to_send.set_source(sender_endpoint_);
+      auto shared_packet =
+          std::make_shared<UdpPacket>(std::move(packet_to_send));
       task_runner_.PostTaskWithDelay(
-          [receiver = receiver_, packet = std::move(packet_to_send)]() mutable {
-            receiver->OnRead(nullptr, ErrorOr<UdpPacket>(std::move(packet)));
+          [receiver = receiver_, packet = shared_packet]() mutable {
+            receiver->OnRead(nullptr, ErrorOr<UdpPacket>(std::move(*packet)));
           },
           kOneWayNetworkDelay);
     }

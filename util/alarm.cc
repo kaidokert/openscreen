@@ -20,6 +20,10 @@ class Alarm::CancelableFunctor {
 
   ~CancelableFunctor() { Cancel(); }
 
+  CancelableFunctor(const CancelableFunctor& other) : alarm_(other.alarm_) {
+    OSP_NOTREACHED();
+  }
+
   CancelableFunctor(CancelableFunctor&& other) : alarm_(other.alarm_) {
     other.alarm_ = nullptr;
     if (alarm_) {

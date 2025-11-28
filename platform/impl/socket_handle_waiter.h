@@ -15,6 +15,7 @@
 #include "platform/api/time.h"
 #include "platform/base/error.h"
 #include "platform/base/macros.h"
+#include "platform/base/trivial_clock_traits.h"
 #include "platform/impl/socket_handle.h"
 
 namespace openscreen {

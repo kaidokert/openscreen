@@ -206,6 +206,9 @@ class Error {
 
     // A generic message timeout occured.
     kMessageTimeout = 110,
+
+    // A generic timeout has occurred.
+    kTimeout = 111,
   };
 
   Error();

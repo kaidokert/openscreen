@@ -16,6 +16,7 @@
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
 #include "platform/base/error.h"
+#include "platform/base/trivial_clock_traits.h"
 #include "util/trace_logging.h"
 
 namespace openscreen {
@@ -118,6 +119,13 @@ class TaskRunnerImpl : public TaskRunner {
   // only meant to be read/written on the thread executing RunUntilStopped().
   bool is_running_;
 
+  // To prevent excessive re-allocation of the underlying array of the `tasks_`
+  // vector, use an A/B vector-swap mechanism. `running_tasks_` starts out
+  // empty, and is swapped with `tasks_` when it is time to run the Tasks.
+  std::vector<TaskWithMetadata> running_tasks_;
+
+  std::thread::id task_runner_thread_id_;
+
   // This mutex is used for `tasks_` and `delayed_tasks_`, and also for
   // notifying the run loop to wake up when it is waiting for a task to be added
   // to the queue in `run_loop_wakeup_`.
@@ -130,15 +138,13 @@ class TaskRunnerImpl : public TaskRunner {
   // task runner.  Otherwise, `run_loop_wakeup_` isn't used and `task_waiter_`
   // is used instead (along with `waiter_timeout_`).
   std::condition_variable run_loop_wakeup_;
+
+  // Owned TaskWaiter, used on platforms like Windows where a default
+  // implementation is provided by the platform/impl layer.
+  std::unique_ptr<TaskWaiter> owned_task_waiter_;
+
   TaskWaiter* const task_waiter_;
   Clock::duration waiter_timeout_;
-
-  // To prevent excessive re-allocation of the underlying array of the `tasks_`
-  // vector, use an A/B vector-swap mechanism. `running_tasks_` starts out
-  // empty, and is swapped with `tasks_` when it is time to run the Tasks.
-  std::vector<TaskWithMetadata> running_tasks_;
-
-  std::thread::id task_runner_thread_id_;
 
   OSP_DISALLOW_COPY_AND_ASSIGN(TaskRunnerImpl);
 };

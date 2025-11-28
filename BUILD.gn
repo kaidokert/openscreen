@@ -67,6 +67,9 @@ group("gn_all") {
         "third_party/zlib",
       ]
     }
+  } else {
+    # Windows-specific targets
+    deps += [ "compile_smoketest" ]
   }
 
   # The cast_receiver depends on the standalone implementation which is only

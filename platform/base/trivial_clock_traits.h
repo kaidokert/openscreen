@@ -41,6 +41,7 @@ class TrivialClockTraits {
   // In <chrono>, a clock type is just some type properties plus a static now()
   // function. So, there's nothing to instantiate here.
   TrivialClockTraits() = delete;
+  ~TrivialClockTraits() = delete;
 
   // "Trivially copyable" is necessary for using the time types in
   // std::atomic<>.
@@ -65,6 +66,11 @@ std::string ToString(const TrivialClockTraits::time_point& tp);
 // Explicit namespace for inclusion of custom time-related operator<<
 // implementations. These operators may be included in a file for use by adding:
 //     using clock_operators::operator<<;
+//
+// NOTE: in some cases, resolution of these operators may still fail, most
+// notably in Google Test/Mock when attempting to serialize to an EXPECT_*
+// or ASSERT_* call. In this case, the manual "ToString" functions above must
+// be called instead.
 namespace clock_operators {
 
 // Logging convenience for durations. Outputs a string of the form "123µs".

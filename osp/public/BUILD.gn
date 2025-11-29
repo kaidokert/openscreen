@@ -5,10 +5,10 @@
 import("//build_overrides/build.gni")
 import("../../gni/openscreen.gni")
 
-visibility = [ ":*" ]
-openscreen_source_set("public") {
-  visibility += [ "*" ]
-  if (!is_win || is_experimental_win_build) {
+if (!is_win || is_experimental_win_build) {
+  visibility = [ "./*" ]
+  openscreen_source_set("public") {
+    visibility += [ "*" ]
     public = [
       "agent_certificate.h",
       "authentication_alice.h",
@@ -72,12 +72,10 @@ openscreen_source_set("public") {
       "..:unittests",
     ]
   }
-}
 
-openscreen_source_set("test_support") {
-  testonly = true
-  visibility += [ "..:unittests" ]
-  if (!is_win || is_experimental_win_build) {
+  openscreen_source_set("test_support") {
+    testonly = true
+    visibility += [ "..:unittests" ]
     public = [ "testing/message_demuxer_test_support.h" ]
 
     deps = [

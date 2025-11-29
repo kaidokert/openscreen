@@ -4,22 +4,22 @@
 
 import("../../../gni/openscreen.gni")  #
 
-visibility = [ "//osp/impl/quic/*" ]
+if (!is_win || is_experimental_win_build) {
+  visibility = [ "//osp/impl/quic/*" ]
 
-config("quic_internal_config") {
-  cflags = []
-  if (is_clang) {
-    cflags += [
-      "-Wno-implicit-int-float-conversion",
-      "-Wno-shadow-field",
-      "-Wno-shadow-uncaptured-local",
-    ]
+  config("quic_internal_config") {
+    cflags = []
+    if (is_clang) {
+      cflags += [
+        "-Wno-implicit-int-float-conversion",
+        "-Wno-shadow-field",
+        "-Wno-shadow-uncaptured-local",
+      ]
+    }
   }
-}
 
-openscreen_source_set("quic") {
-  visibility += [ "../*" ]
-  if (!is_win || is_experimental_win_build) {
+  openscreen_source_set("quic") {
+    visibility += [ "../*" ]
     public = [
       "quic_client.h",
       "quic_connection.h",
@@ -82,12 +82,10 @@ openscreen_source_set("quic") {
       "../..:unittests",
     ]
   }
-}
 
-openscreen_source_set("test_support") {
-  visibility += [ "../..:unittests" ]
-  testonly = true
-  if (!is_win || is_experimental_win_build) {
+  openscreen_source_set("test_support") {
+    visibility += [ "../..:unittests" ]
+    testonly = true
     public = []
     sources = [
       "testing/fake_quic_connection.cc",

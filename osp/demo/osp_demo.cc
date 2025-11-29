@@ -49,14 +49,16 @@ bool g_done = false;
 bool g_uninteractive = false;
 bool g_dump_services = false;
 
-[[maybe_unused]] void sigusr1_dump_services(int) {
+#if !defined(_WIN32)
+void sigusr1_dump_services(int) {
   g_dump_services = true;
 }
 
-[[maybe_unused]] void sigint_stop(int) {
+void sigint_stop(int) {
   OSP_LOG_INFO << "caught SIGINT, exiting...";
   g_done = true;
 }
+#endif
 
 #if defined(_WIN32)
 // TODO: winport: need to provide equivalent
@@ -670,10 +672,11 @@ int main(int argc, char** argv) {
   openscreen::SetLogLevel(level);
 
   const bool is_receiver_demo = !args.friendly_server_name.empty();
-  [[maybe_unused]] const char* log_filename =
-      is_receiver_demo ? kReceiverLogFilename : kControllerLogFilename;
 
 #if !defined(_WIN32)
+  const char* log_filename =
+      is_receiver_demo ? kReceiverLogFilename : kControllerLogFilename;
+
   // TODO(jophba): Mac on Mojave hangs on this command forever.
   openscreen::SetLogFifoOrDie(log_filename);
 #endif

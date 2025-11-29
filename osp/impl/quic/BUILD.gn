@@ -68,12 +68,11 @@ if (!is_win || is_experimental_win_build) {
 
     configs = [ ":quic_internal_config" ]
 
-    public_deps = [ "../../../third_party/quiche" ]
-
     deps = [
       "../../../platform",
       "../../../third_party/abseil",
       "../../../third_party/boringssl",
+      "../../../third_party/quiche",
       "../../../util",
       "../../public",
     ]

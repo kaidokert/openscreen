@@ -50,6 +50,7 @@ if (!is_win || is_experimental_win_build) {
       "../../discovery:public",
       "../../platform",
       "../../third_party/abseil",
+      "../../third_party/quiche",
       "../../util",
       "quic",
     ]

@@ -44,26 +44,31 @@
 #include "third_party/tinycbor/src/src/cbor.h"
 #include "util/trace_logging.h"
 
-namespace {
-
 #if defined(_WIN32)
 using PlatformClient = openscreen::PlatformClientWin;
 #else
 using PlatformClient = openscreen::PlatformClientPosix;
 #endif
 
+namespace {
+
+#if !defined(_WIN32)
 constexpr char const* kReceiverLogFilename = "_recv_fifo";
 constexpr char const* kControllerLogFilename = "_cntl_fifo";
+#endif
 
 bool g_done = false;
 bool g_uninteractive = false;
-bool g_dump_services = false;
 
 #if !defined(_WIN32)
+bool g_dump_services = false;
+
 void sigusr1_dump_services(int) {
   g_dump_services = true;
 }
+#endif
 
+#if !defined(_WIN32)
 void sigint_stop(int) {
   OSP_LOG_INFO << "caught SIGINT, exiting...";
   g_done = true;
@@ -660,7 +665,6 @@ InputArgs GetInputArgs(int argc, char** argv) {
 int main(int argc, char** argv) {
   using openscreen::Clock;
   using openscreen::LogLevel;
-  using openscreen::PlatformClient;
 
   InputArgs args = GetInputArgs(argc, argv);
   std::cerr << "Args: verbose=" << args.is_verbose

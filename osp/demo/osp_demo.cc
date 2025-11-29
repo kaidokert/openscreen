@@ -453,7 +453,8 @@ void ListenerDemo() {
   ServiceConfig client_config;
   for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
     OSP_VLOG << "Found interface: " << interface;
-    if (!interface.addresses.empty()) {
+    if (!interface.addresses.empty() &&
+        interface.type != InterfaceInfo::Type::kLoopback) {
       listener_config.network_interfaces.push_back(interface);
       client_config.connection_endpoints.push_back(
           {interface.addresses[0].address, 0});
@@ -545,7 +546,8 @@ void PublisherDemo(std::string_view friendly_name) {
                                      publisher_config.instance_name};
   for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
     OSP_VLOG << "Found interface: " << interface;
-    if (!interface.addresses.empty()) {
+    if (!interface.addresses.empty() &&
+        interface.type != InterfaceInfo::Type::kLoopback) {
       server_config.connection_endpoints.push_back(
           IPEndpoint{interface.addresses[0].address, server_port});
       publisher_config.network_interfaces.push_back(interface);

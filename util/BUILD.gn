@@ -69,7 +69,6 @@ openscreen_source_set("util") {
     "crypto/sha2.cc",
     "json/json_serialization.cc",
     "json/json_value.cc",
-    "osp_logging.cc",
     "read_file.cc",
     "scoped_wake_lock.cc",
     "simple_fraction.cc",

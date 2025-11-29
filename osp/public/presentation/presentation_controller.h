@@ -118,7 +118,7 @@ class Controller final : public ServiceListener::Observer,
     Controller* controller_ = nullptr;
   };
 
-  explicit Controller(openscreen::ClockNowFunctionPtr now_function);
+  explicit Controller(ClockNowFunctionPtr now_function);
   Controller(const Controller&) = delete;
   Controller& operator=(const Controller&) = delete;
   Controller(Controller&&) noexcept = delete;

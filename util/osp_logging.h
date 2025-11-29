@@ -17,8 +17,15 @@ namespace openscreen::internal {
 // base/logging.h.
 class LogMessage {
  public:
-  LogMessage(LogLevel level, const char* file, int line);
-  ~LogMessage();
+  LogMessage(LogLevel level, const char* file, int line)
+      : level_(level), file_(file), line_(line) {}
+
+  ~LogMessage() {
+    LogWithLevel(level_, file_, line_, std::move(stream_));
+    if (level_ == LogLevel::kFatal) {
+      Break();
+    }
+  }
 
   std::ostream& stream() { return stream_; }
 

@@ -39,21 +39,6 @@ executable("compile_smoketest_logging_win_unittest") {
   configs -= [ "//build/config/clang:find_bad_constructs" ]
 }
 
-group("compile_smoketest") {
-  testonly = true
-  deps = [
-    ":compile_smoketest_gtest",
-    ":compile_smoketest_gurl",
-    ":compile_smoketest_lib",
-    ":compile_smoketest_logging_win_unittest",
-    ":compile_smoketest_network_interface_win_unittest",
-    ":compile_smoketest_platform",
-    ":compile_smoketest_quiche",
-    ":compile_smoketest_time_unittest",
-    ":compile_smoketest_udp_socket_win_integration_unittest",
-  ]
-}
-
 executable("compile_smoketest_udp_socket_win_unittest") {
   testonly = true
   sources = [ "udp_socket_win_unittest.cc" ]
@@ -107,4 +92,29 @@ executable("compile_smoketest_udp_socket_win_integration_unittest") {
     "//third_party/googletest:gtest_main",
   ]
   configs -= [ "//build/config/clang:find_bad_constructs" ]
+}
+
+if (is_win) {
+  executable("compile_smoketest_ssize_t_windows_smoketest") {
+    testonly = true
+    sources = [ "ssize_t_windows_smoketest.cc" ]
+  }
+}
+
+group("compile_smoketest") {
+  testonly = true
+  deps = [
+    ":compile_smoketest_gtest",
+    ":compile_smoketest_gurl",
+    ":compile_smoketest_lib",
+    ":compile_smoketest_logging_win_unittest",
+    ":compile_smoketest_network_interface_win_unittest",
+    ":compile_smoketest_platform",
+    ":compile_smoketest_quiche",
+    ":compile_smoketest_time_unittest",
+    ":compile_smoketest_udp_socket_win_integration_unittest",
+  ]
+  if (is_win) {
+    deps += [ ":compile_smoketest_ssize_t_windows_smoketest" ]
+  }
 }

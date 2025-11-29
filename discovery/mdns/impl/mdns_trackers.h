@@ -238,7 +238,7 @@ class MdnsQuestionTracker : public MdnsTracker {
   Clock::duration send_delay_;
 
   // Last time that this tracker's question was asked.
-  mutable Clock::time_point last_send_time_;
+  mutable TrivialClockTraits::time_point last_send_time_;
 
   // Specifies whether this query is intended to be a one-shot query, as defined
   // in RFC 6762 section 5.1.

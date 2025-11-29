@@ -51,7 +51,7 @@ uint64_t GetNextRequestId(const uint64_t instance_id) {
 }  // namespace
 
 UrlAvailabilityRequester::UrlAvailabilityRequester(
-    openscreen::ClockNowFunctionPtr now_function)
+    ClockNowFunctionPtr now_function)
     : now_function_(now_function) {
   OSP_CHECK(now_function_);
 }

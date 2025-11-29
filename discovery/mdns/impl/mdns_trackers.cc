@@ -301,7 +301,7 @@ MdnsQuestionTracker::MdnsQuestionTracker(MdnsQuestion question,
                                       : config.new_query_announcement_count) {
   // Initialize the last send time to time_point::min() so that the next call to
   // SendQuery() is guaranteed to query the network.
-  last_send_time_ = Clock::time_point::min();
+  last_send_time_ = TrivialClockTraits::time_point::min();
 
   // The initial query has to be sent after a random delay of 20-120
   // milliseconds.
@@ -356,7 +356,7 @@ bool MdnsQuestionTracker::SendQuery() const {
   // (such as for different record refreshes or for one record refresh and the
   // periodic re-querying for a continuous query). For this reason, a constant
   // outside of scope of the RFC has been chosen.
-  Clock::time_point now = now_function_();
+  TrivialClockTraits::time_point now = now_function_();
   if (now < last_send_time_ + kMinimumQueryInterval) {
     return true;
   }

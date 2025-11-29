@@ -127,7 +127,6 @@ DateTime AprilFirst2016() {
   return CreateDate(2016, 4, 1);
 }
 
-// Returns 2020-04-01 00:00:00 UTC.
 DateTime AprilFirst2020() {
   return CreateDate(2020, 4, 1);
 }

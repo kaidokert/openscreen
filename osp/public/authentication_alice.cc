@@ -7,10 +7,6 @@
 #include <sstream>
 #include <utility>
 
-#if defined(_WIN32)
-using ssize_t = intptr_t;
-#endif
-
 namespace openscreen::osp {
 
 AuthenticationAlice::AuthenticationAlice(uint64_t instance_id,

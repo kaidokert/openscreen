@@ -1,8 +1,9 @@
 ###
 
-[Current State Analysis](CURRENT_STATE.md) | [Refactoring Plan](REFACTORING_PLAN.md)
+[Current State Analysis](CURRENT_STATE.md) | [Refactoring Plan](REFACTORING_PLAN.md) | [Diff Analysis](DIFF_CATEGORIES.md)
 
-The objective is to port `osp_demo` to Windows.
+The objective is to port `osp_demo` to Windows, clean up the code and get it ready to be uploaded to Chromium project - with minimal friction to
+existing codebase
 
 Our strategy is **layered**, relying heavily on stubs, hacks, and isolation.
 

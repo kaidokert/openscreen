@@ -74,8 +74,7 @@ class MessageDemuxer {
 
   static constexpr size_t kDefaultBufferLimit = 1 << 16;
 
-  MessageDemuxer(openscreen::ClockNowFunctionPtr now_function,
-                 size_t buffer_limit);
+  MessageDemuxer(ClockNowFunctionPtr now_function, size_t buffer_limit);
   MessageDemuxer(const MessageDemuxer&) = delete;
   MessageDemuxer& operator=(const MessageDemuxer&) = delete;
   MessageDemuxer(MessageDemuxer&&) noexcept = delete;
@@ -125,7 +124,7 @@ class MessageDemuxer {
       std::map<msgs::Type, MessageCallback*>* message_callbacks,
       std::vector<uint8_t>& buffer);
 
-  const openscreen::ClockNowFunctionPtr now_function_;
+  const ClockNowFunctionPtr now_function_;
   const size_t buffer_limit_;
   std::map<uint64_t, std::map<msgs::Type, MessageCallback*>> message_callbacks_;
   std::map<msgs::Type, MessageCallback*> default_callbacks_;

@@ -67,7 +67,12 @@ std::string ToString(const TrivialClockTraits::time_point& tp);
 //     using clock_operators::operator<<;
 namespace clock_operators {
 
-// Logging (and gtest pretty-printing) for time_point values.
+// Logging convenience for durations. Outputs a string of the form "123µs".
+std::ostream& operator<<(std::ostream& os,
+                         const TrivialClockTraits::duration& d);
+
+// Logging convenience for time points. Outputs a string of the form
+// "123µs-ticks".
 std::ostream& operator<<(std::ostream& os,
                          const TrivialClockTraits::time_point& tp);
 
@@ -76,7 +81,9 @@ std::ostream& operator<<(std::ostream& os, const std::chrono::hours&);
 std::ostream& operator<<(std::ostream& os, const std::chrono::minutes&);
 std::ostream& operator<<(std::ostream& os, const std::chrono::seconds&);
 std::ostream& operator<<(std::ostream& os, const std::chrono::milliseconds&);
-std::ostream& operator<<(std::ostream& os, const std::chrono::microseconds&);
+std::ostream& operator<<(std::ostream& os, const std::chrono::microseconds& d);
+// Note: The ostream output operator for std::chrono::microseconds is handled by
+// the one for TrivialClockTraits::duration above since they are the same type.
 
 }  // namespace clock_operators
 

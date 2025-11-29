@@ -16,7 +16,7 @@ config("include_dirs") {
 }
 
 # Put defines here that are only used in our internal files and NEVER in
-# external headers that embedders (as chromium and node) might include.
+# external headers that embedders (such as chromium and node) might include.
 config("features") {
   # Only targets in this file and its subdirs can depend on this.
   visibility = [ "./*" ]
@@ -53,7 +53,7 @@ group("gn_all") {
       "discovery:dnssd",
       "discovery:mdns",
       "discovery:public",
-      "osp",  # Conditionally included for !is_win
+      "osp",
       "platform",
 
       # Quiche currently has an issue around logging macros on Windows.

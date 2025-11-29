@@ -33,7 +33,11 @@
 #include "platform/api/network_interface.h"
 #include "platform/api/time.h"
 #include "platform/impl/logging.h"
-#include "platform/impl/platform_client_utils.h"
+#if defined(_WIN32)
+#include "platform/impl/platform_client_win.h"
+#else
+#include "platform/impl/platform_client_posix.h"
+#endif
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
 #include "third_party/getopt/getopt.h"
@@ -41,6 +45,12 @@
 #include "util/trace_logging.h"
 
 namespace {
+
+#if defined(_WIN32)
+using PlatformClient = openscreen::PlatformClientWin;
+#else
+using PlatformClient = openscreen::PlatformClientPosix;
+#endif
 
 constexpr char const* kReceiverLogFilename = "_recv_fifo";
 constexpr char const* kControllerLogFilename = "_cntl_fifo";

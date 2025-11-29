@@ -272,8 +272,6 @@ std::ostream& operator<<(std::ostream& os, const Error::Code& code) {
       return os << "InvalidAnswer";
     case Error::Code::kMessageTimeout:
       return os << "MessageTimeout";
-    case Error::Code::kTimeout:
-      return os << "Timeout";
     case Error::Code::kNone:
       break;
   }

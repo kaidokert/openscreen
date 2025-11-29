@@ -173,7 +173,6 @@ if (!is_ios) {
         "impl/tls_connection_win.cc",
         "impl/udp_socket_reader_win.cc",
         "impl/udp_socket_win.cc",
-        "impl/win_task_waiter.cc",
       ]
       libs = [ "iphlpapi.lib" ]
     }
@@ -274,7 +273,9 @@ openscreen_source_set("unittests") {
   # The socket integration tests assume that you can Bind with UDP sockets,
   # which is simply not true when we are built inside of Chromium.
   if (!build_with_chromium) {
-    sources += [ "api/socket_integration_unittest.cc" ]
+    if (!is_win) {
+      sources += [ "api/socket_integration_unittest.cc" ]
+    }
 
     deps += [ ":standalone_impl" ]
   }

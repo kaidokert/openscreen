@@ -4,13 +4,20 @@
 
 #include "platform/impl/task_runner.h"
 
+#include <csignal>
 #include <thread>
 
 #include "util/osp_logging.h"
 
-#if !defined(_WINDOWS)
-#include <csignal>
+namespace openscreen {
+
 namespace {
+
+// This is mutated by the signal handler installed by RunUntilSignaled(), and is
+// checked by RunUntilStopped().
+//
+// Per the C++14 spec, passing visible changes to memory between a signal
+// handler and a program thread must be done through a volatile variable.
 volatile enum {
   kNotRunning,
   kNotSignaled,
@@ -20,31 +27,16 @@ volatile enum {
 void OnReceivedSignal(int signal) {
   g_signal_state = kSignaled;
 }
-}  // namespace
-#else
-#include "platform/impl/win_task_waiter.h"
-namespace {
-// For Windows, we don't rely on global signal state for TaskRunnerImpl.
-}
-#endif
 
-namespace openscreen {
+}  // namespace
 
 TaskRunnerImpl::TaskRunnerImpl(ClockNowFunctionPtr now_function,
                                TaskWaiter* event_waiter,
                                Clock::duration waiter_timeout)
     : now_function_(now_function),
       is_running_(false),
-#if defined(_WINDOWS)
-      owned_task_waiter_(event_waiter ? nullptr
-                                      : std::make_unique<WinTaskWaiter>()),
-      task_waiter_(event_waiter ? event_waiter : owned_task_waiter_.get()),
-#else
       task_waiter_(event_waiter),
-#endif
-      waiter_timeout_(waiter_timeout) {
-  // Constructor body. No assignment to task_waiter_ here.
-}
+      waiter_timeout_(waiter_timeout) {}
 
 TaskRunnerImpl::~TaskRunnerImpl() {
   // Ensure no thread is currently executing inside RunUntilStopped().
@@ -95,14 +87,21 @@ void TaskRunnerImpl::RunUntilStopped() {
     if (GrabMoreRunnableTasks()) {
       RunRunnableTasks();
     }
-#if !defined(_WINDOWS)
     if (g_signal_state == kSignaled) {
       is_running_ = false;
     }
-#endif
   }
 
   OSP_DVLOG << "Finished running, entering flushing phase...";
+  // Flushing phase: Ensure all immediately-runnable tasks are run before
+  // returning. Since running some tasks might cause more immediately-runnable
+  // tasks to be posted, loop until there is no more work.
+  //
+  // If there is bad code that posts tasks indefinitely, this loop will never
+  // break. However, that also means there is a code path spinning a CPU core at
+  // 100% all the time. Rather than mitigate this problem scenario, purposely
+  // let it manifest here in the hopes that unit testing will reveal it (e.g., a
+  // unit test that never finishes running).
   while (GrabMoreRunnableTasks()) {
     RunRunnableTasks();
   }
@@ -111,7 +110,6 @@ void TaskRunnerImpl::RunUntilStopped() {
 }
 
 void TaskRunnerImpl::RunUntilSignaled() {
-#if !defined(_WINDOWS)
   OSP_CHECK_EQ(g_signal_state, kNotRunning)
       << __func__ << " may not be invoked concurrently.";
   g_signal_state = kNotSignaled;
@@ -121,24 +119,13 @@ void TaskRunnerImpl::RunUntilSignaled() {
   RunUntilStopped();
 
   std::signal(SIGINT, old_sigint_handler);
-  std::signal(SIGterm, old_sigterm_handler);
+  std::signal(SIGTERM, old_sigterm_handler);
   OSP_DVLOG << "Received SIGNIT or SIGTERM, setting state to not running...";
   g_signal_state = kNotRunning;
-#else
-  // On Windows, for now, simply run until stopped. Proper signal handling
-  // would require SetConsoleCtrlHandler or similar.
-  RunUntilStopped();
-#endif
 }
 
 void TaskRunnerImpl::RequestStopSoon() {
-  std::lock_guard<std::mutex> lock(task_mutex_);
-  is_running_ = false;
-  if (task_waiter_) {
-    task_waiter_->OnTaskPosted();
-  } else {
-    run_loop_wakeup_.notify_one();
-  }
+  PostTask([this]() { is_running_ = false; });
 }
 
 void TaskRunnerImpl::RunRunnableTasks() {

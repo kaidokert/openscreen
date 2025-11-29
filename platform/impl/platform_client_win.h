@@ -5,13 +5,14 @@
 #ifndef PLATFORM_IMPL_PLATFORM_CLIENT_WIN_H_
 #define PLATFORM_IMPL_PLATFORM_CLIENT_WIN_H_
 
+#include <winsock2.h>
+
 #include <atomic>
 #include <memory>
 #include <mutex>
 #include <optional>
 #include <thread>
 #include <vector>
-#include <winsock2.h>
 
 #ifdef SendMessage
 #undef SendMessage

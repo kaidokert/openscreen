@@ -13,7 +13,6 @@
 #include "platform/api/time.h"
 #include "platform/base/error.h"
 #include "platform/base/span.h"
-#include "platform/base/trivial_clock_traits.h"
 
 namespace openscreen::osp {
 
@@ -75,7 +74,8 @@ class MessageDemuxer {
 
   static constexpr size_t kDefaultBufferLimit = 1 << 16;
 
-  MessageDemuxer(openscreen::ClockNowFunctionPtr now_function, size_t buffer_limit);
+  MessageDemuxer(openscreen::ClockNowFunctionPtr now_function,
+                 size_t buffer_limit);
   MessageDemuxer(const MessageDemuxer&) = delete;
   MessageDemuxer& operator=(const MessageDemuxer&) = delete;
   MessageDemuxer(MessageDemuxer&&) noexcept = delete;

@@ -9,7 +9,6 @@
 
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
-#include "platform/base/trivial_clock_traits.h"
 
 namespace openscreen {
 
@@ -70,8 +69,7 @@ class Alarm {
   void ScheduleWithTask(TaskRunner::Task task, Clock::time_point alarm_time);
 
   // A special time_point value representing "as soon as possible."
-  static constexpr Clock::time_point kImmediately =
-      Clock::time_point(Clock::duration::min());
+  static constexpr Clock::time_point kImmediately = Clock::time_point::min();
 
  private:
   // A move-only functor that holds a raw pointer back to `this` and can be

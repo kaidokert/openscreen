@@ -21,24 +21,10 @@ std::string ToString(const TrivialClockTraits::time_point& tp) {
          kMicrosecondsTicksUnits;
 }
 
-std::string ToString(const Clock::time_point& tp) {
-  return std::to_string(tp.time_since_epoch().count()) +
-         kMicrosecondsTicksUnits;
-}
-
 namespace clock_operators {
 
 std::ostream& operator<<(std::ostream& os,
-                         const TrivialClockTraits::duration& d) {
-  return os << d.count() << kMicrosecondsUnits;
-}
-
-std::ostream& operator<<(std::ostream& os,
                          const TrivialClockTraits::time_point& tp) {
-  return os << tp.time_since_epoch().count() << kMicrosecondsTicksUnits;
-}
-
-std::ostream& operator<<(std::ostream& os, const Clock::time_point& tp) {
   return os << tp.time_since_epoch().count() << kMicrosecondsTicksUnits;
 }
 
@@ -57,6 +43,11 @@ std::ostream& operator<<(std::ostream& os, const std::chrono::seconds& secs) {
 std::ostream& operator<<(std::ostream& os,
                          const std::chrono::milliseconds& millis) {
   return (os << millis.count() << " ms");
+}
+
+std::ostream& operator<<(std::ostream& os,
+                         const std::chrono::microseconds& micros) {
+  return (os << micros.count() << kMicrosecondsUnits);
 }
 
 }  // namespace clock_operators

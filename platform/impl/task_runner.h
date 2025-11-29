@@ -16,7 +16,6 @@
 #include "platform/api/task_runner.h"
 #include "platform/api/time.h"
 #include "platform/base/error.h"
-#include "platform/base/trivial_clock_traits.h"
 #include "util/trace_logging.h"
 
 namespace openscreen {
@@ -138,10 +137,6 @@ class TaskRunnerImpl : public TaskRunner {
   // task runner.  Otherwise, `run_loop_wakeup_` isn't used and `task_waiter_`
   // is used instead (along with `waiter_timeout_`).
   std::condition_variable run_loop_wakeup_;
-
-  // Owned TaskWaiter, used on platforms like Windows where a default
-  // implementation is provided by the platform/impl layer.
-  std::unique_ptr<TaskWaiter> owned_task_waiter_;
 
   TaskWaiter* const task_waiter_;
   Clock::duration waiter_timeout_;

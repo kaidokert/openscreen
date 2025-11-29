@@ -127,6 +127,7 @@ DateTime AprilFirst2016() {
   return CreateDate(2016, 4, 1);
 }
 
+// Returns 2020-04-01 00:00:00 UTC.
 DateTime AprilFirst2020() {
   return CreateDate(2020, 4, 1);
 }
@@ -599,7 +600,7 @@ TEST(VerifyCastDeviceCertTest, NameConstraintsViolated) {
 
 // Tests reversibility between DateTimeToSeconds and DateTimeFromSeconds
 TEST(VerifyCastDeviceCertTest, TimeDateConversionValidate) {
-  DateTime org_date = AprilFirst2020();
+  DateTime org_date = AprilFirst2016();
   DateTime converted_date = {};
   std::chrono::seconds seconds = DateTimeToSeconds(org_date);
   DateTimeFromSeconds(seconds.count(), &converted_date);

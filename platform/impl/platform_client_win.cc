@@ -5,6 +5,7 @@
 #include "platform/impl/platform_client_win.h"
 
 #include <winsock2.h>
+
 #include <cstdint>
 
 #include "platform/impl/socket_handle_waiter_win.h"
@@ -44,24 +45,25 @@ void PlatformClientWin::SetInstance(PlatformClientWin* client) {
   instance_ = client;
 }
 
-PlatformClientWin::PlatformClientWin(Clock::duration networking_operation_timeout)
-    : PlatformClientWin(networking_operation_timeout, 
-                        std::make_unique<TaskRunnerImpl>(openscreen::Clock::now)) { // Fix 2: Pass Clock::now
+PlatformClientWin::PlatformClientWin(
+    Clock::duration networking_operation_timeout)
+    : PlatformClientWin(
+          networking_operation_timeout,
+          std::make_unique<TaskRunnerImpl>(
+              openscreen::Clock::now)) {  // Fix 2: Pass Clock::now
   task_runner_thread_ = std::make_optional<std::thread>(
       [this]() { task_runner_->RunUntilStopped(); });
 }
 
-PlatformClientWin::PlatformClientWin(Clock::duration networking_operation_timeout,
-                                     std::unique_ptr<TaskRunnerImpl> task_runner)
+PlatformClientWin::PlatformClientWin(
+    Clock::duration networking_operation_timeout,
+    std::unique_ptr<TaskRunnerImpl> task_runner)
     : task_runner_(std::move(task_runner)),
       networking_loop_timeout_(networking_operation_timeout) {
   OSP_DCHECK(task_runner_);
 
-  WSADATA wsaData;
-  int err = WSAStartup(MAKEWORD(2, 2), &wsaData);
-  OSP_CHECK_EQ(err, 0) << "WSAStartup failed: " << err;
-
-  networking_loop_thread_ = std::thread([this]() { RunNetworkLoopUntilStopped(); });
+  networking_loop_thread_ =
+      std::thread([this]() { RunNetworkLoopUntilStopped(); });
 }
 
 PlatformClientWin::~PlatformClientWin() {
@@ -69,20 +71,19 @@ PlatformClientWin::~PlatformClientWin() {
   networking_loop_thread_.join();
 
   if (task_runner_thread_.has_value()) {
-    task_runner_->RequestStopSoon(); // Fix 1: Change Stop() to RequestStopSoon()
+    task_runner_
+        ->RequestStopSoon();  // Fix 1: Change Stop() to RequestStopSoon()
     task_runner_thread_->join();
   }
 
   udp_socket_reader_.reset();
   waiter_.reset();
   task_runner_.reset();
-  
-  WSACleanup();
 }
 
 UdpSocketReaderWin* PlatformClientWin::udp_socket_reader() {
   std::call_once(udp_socket_reader_initialization_, [this]() {
-    OSP_DCHECK(waiter_); // waiter_ must be initialized first.
+    OSP_DCHECK(waiter_);  // waiter_ must be initialized first.
     udp_socket_reader_ = std::make_unique<UdpSocketReaderWin>(*waiter_);
   });
   return udp_socket_reader_.get();
@@ -93,7 +94,8 @@ TaskRunner& PlatformClientWin::GetTaskRunner() {
 }
 
 void PlatformClientWin::RunNetworkLoopUntilStopped() {
-  waiter_ = std::make_unique<SocketHandleWaiterWin>(openscreen::Clock::now); // Fix 3: Instantiate SocketHandleWaiterWin
+  waiter_ = std::make_unique<SocketHandleWaiterWin>(
+      openscreen::Clock::now);  // Fix 3: Instantiate SocketHandleWaiterWin
 
   std::call_once(udp_socket_reader_initialization_, [this]() {
     OSP_DCHECK(waiter_);

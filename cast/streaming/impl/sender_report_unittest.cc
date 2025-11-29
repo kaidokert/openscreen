@@ -8,12 +8,9 @@
 #include "cast/streaming/impl/sender_report_parser.h"
 #include "gtest/gtest.h"
 #include "platform/base/span.h"
-#include "platform/base/trivial_clock_traits.h"
 
 namespace openscreen::cast {
 namespace {
-
-using clock_operators::operator<<;
 
 constexpr Ssrc kSenderSsrc = 1;
 constexpr Ssrc kReceiverSsrc = 2;

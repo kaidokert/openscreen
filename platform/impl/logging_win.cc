@@ -2,6 +2,7 @@
 
 #include <cstdio>
 #include <cstdlib>
+#include <iostream>
 #include <mutex>
 #include <vector>
 
@@ -17,6 +18,22 @@ LogLevel g_log_level = LogLevel::kWarning;
 std::vector<std::string>* g_log_buffer_for_test = nullptr;
 std::mutex g_log_mutex;
 
+const char* MapLogLevelName(LogLevel level) {
+  switch (level) {
+    case LogLevel::kVerbose:
+      return "VERBOSE";
+    case LogLevel::kInfo:
+      return "INFO";
+    case LogLevel::kWarning:
+      return "WARNING";
+    case LogLevel::kError:
+      return "ERROR";
+    case LogLevel::kFatal:
+      return "FATAL";
+  }
+  return "UNKNOWN";
+}
+
 }  // namespace
 
 bool IsLoggingOn(LogLevel level, const std::string_view file) {
@@ -28,16 +45,25 @@ void LogWithLevel(LogLevel level,
                   int line,
                   std::stringstream message) {
   std::string formatted_message;
+  std::string level_name = MapLogLevelName(level);
+
+  // Format: [LEVEL:file:line] message\n
+  std::stringstream ss;
+  ss << "[" << level_name << ":" << file << ":" << line << "] " << message.str()
+     << "\n";
+  formatted_message = ss.str();
+
   if (g_log_buffer_for_test) {
     std::lock_guard<std::mutex> lock(g_log_mutex);
-    formatted_message = "[" + std::string(file) + ":" + std::to_string(line) +
-                        "] " + message.str() + "\n";
     g_log_buffer_for_test->push_back(formatted_message);
-  } else {
-    char log_message_buffer[1024];
-    _snprintf_s(log_message_buffer, sizeof(log_message_buffer), _TRUNCATE,
-                "[%s:%d] %s\n", file, line, message.str().c_str());
-    formatted_message = log_message_buffer;
+  }
+
+  if (!g_log_buffer_for_test || level == LogLevel::kFatal) {
+    // Write to stderr for death tests and console output
+    fputs(formatted_message.c_str(), stderr);
+    fflush(stderr);  // Ensure it's flushed for death tests
+
+    // Also write to debug output for VS
     OutputDebugStringA(formatted_message.c_str());
   }
 

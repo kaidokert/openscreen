@@ -4,6 +4,10 @@
 
 #include "platform/base/location.h"
 
+#if defined(_WIN32)
+#include <intrin.h>
+#endif
+
 #include <sstream>
 
 #include "platform/base/macros.h"
@@ -26,13 +30,15 @@ std::string Location::ToString() const {
   }
 
   std::ostringstream oss;
-  oss << "pc:" << program_counter_;
+  oss << "pc:0x" << std::hex << reinterpret_cast<uintptr_t>(program_counter_);
   return oss.str();
 }
 
-#if defined(__GNUC__)
+#if defined(__GNUC__) || defined(__clang__)
 #define RETURN_ADDRESS() \
   __builtin_extract_return_addr(__builtin_return_address(0))
+#elif defined(_MSC_VER)
+#define RETURN_ADDRESS() _ReturnAddress()
 #else
 #define RETURN_ADDRESS() nullptr
 #endif

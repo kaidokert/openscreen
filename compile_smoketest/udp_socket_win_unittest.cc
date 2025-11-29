@@ -1,5 +1,6 @@
-#include <atomic>
 #include <winsock2.h>
+
+#include <atomic>
 
 #include "gtest/gtest.h"
 #include "platform/api/udp_socket.h"
@@ -15,12 +16,11 @@ class WinsockSetup : public ::testing::Environment {
     ASSERT_EQ(WSAStartup(MAKEWORD(2, 2), &wsaData), 0);
   }
 
-  void TearDown() override {
-    WSACleanup();
-  }
+  void TearDown() override { WSACleanup(); }
 };
 
-::testing::Environment* const winsock_env = ::testing::AddGlobalTestEnvironment(new WinsockSetup);
+::testing::Environment* const winsock_env =
+    ::testing::AddGlobalTestEnvironment(new WinsockSetup);
 
 class MockClient : public UdpSocket::Client {
  public:

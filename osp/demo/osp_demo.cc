@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 #if !defined(WIN32)
-#include <poll.h>
 #include <signal.h>
 #include <unistd.h>
 #endif
@@ -15,6 +14,7 @@
 #include <string_view>
 #include <vector>
 
+#include "osp/demo/demo_command_reader.h"
 #include "osp/msgs/osp_messages.h"
 #include "osp/public/message_demuxer.h"
 #include "osp/public/network_service_manager.h"
@@ -33,11 +33,7 @@
 #include "platform/api/network_interface.h"
 #include "platform/api/time.h"
 #include "platform/impl/logging.h"
-#if defined(_WIN32)
-#include "platform/impl/platform_client_win.h"
-#else
-#include "platform/impl/platform_client_posix.h"
-#endif
+#include "platform/impl/platform_client_utils.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
 #include "third_party/getopt/getopt.h"
@@ -50,6 +46,7 @@ constexpr char const* kReceiverLogFilename = "_recv_fifo";
 constexpr char const* kControllerLogFilename = "_cntl_fifo";
 
 bool g_done = false;
+bool g_uninteractive = false;
 bool g_dump_services = false;
 
 [[maybe_unused]] void sigusr1_dump_services(int) {
@@ -372,43 +369,7 @@ class DemoReceiverDelegate final : public ReceiverDelegate {
   DemoConnectionDelegate connection_delegate_;
 };
 
-struct CommandLineSplit {
-  std::string command;
-  std::string argument_tail;
-};
 
-CommandLineSplit SeparateCommandFromArguments(const std::string& line) {
-  size_t split_index = line.find_first_of(' ');
-  // NOTE: `split_index` can be std::string::npos because not all commands
-  // accept arguments.
-  std::string command = line.substr(0, split_index);
-  std::string argument_tail =
-      split_index < line.size() ? line.substr(split_index + 1) : std::string();
-  return {std::move(command), std::move(argument_tail)};
-}
-
-struct CommandWaitResult {
-  bool done;
-  CommandLineSplit command_line;
-};
-
-#if defined(_WIN32)
-CommandWaitResult WaitForCommand() {
-  HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
-  while (true) {
-    if (g_done) {
-      return {true};
-    }
-    DWORD ret = WaitForSingleObject(hStdin, 10);
-    if (ret == WAIT_OBJECT_0) {
-      std::string line;
-      if (!std::getline(std::cin, line)) {
-        return {true};
-      }
-      return {false, SeparateCommandFromArguments(line)};
-    }
-  }
-}
 
 void RunControllerPollLoop(Controller* controller) {
   DemoReceiverObserver receiver_observer;
@@ -417,85 +378,19 @@ void RunControllerPollLoop(Controller* controller) {
   Controller::ReceiverWatch watch;
   Controller::ConnectRequest connect_request;
 
+  DemoCommandReader reader;
+
   while (true) {
-    std::cout << "$ " << std::flush;
-
-    CommandWaitResult command_result = WaitForCommand();
-    if (command_result.done) {
-      break;
-    }
-
-    if (command_result.command_line.command == "connect") {
-      controller->BuildConnection(command_result.command_line.argument_tail);
-    } else if (command_result.command_line.command == "avail") {
-      watch = controller->RegisterReceiverWatch(
-          {std::string(command_result.command_line.argument_tail)},
-          &receiver_observer);
-    } else if (command_result.command_line.command == "start") {
-      const std::string_view& argument_tail =
-          command_result.command_line.argument_tail;
-      size_t next_split = argument_tail.find_first_of(' ');
-      const std::string& instance_name = receiver_observer.GetInstanceName(
-          std::string(argument_tail.substr(next_split + 1)));
-      const std::string url =
-          static_cast<std::string>(argument_tail.substr(0, next_split));
-      connect_request = controller->StartPresentation(
-          url, instance_name, &request_delegate, &connection_delegate);
-    } else if (command_result.command_line.command == "msg") {
-      request_delegate.connection()->SendString(
-          command_result.command_line.argument_tail);
-    } else if (command_result.command_line.command == "close") {
-      request_delegate.connection()->Close(Connection::CloseReason::kClosed);
-    } else if (command_result.command_line.command == "reconnect") {
-      connect_request = controller->ReconnectConnection(
-          std::move(request_delegate.connection()), &request_delegate);
-    } else if (command_result.command_line.command == "term") {
-      request_delegate.connection()->Terminate(
-          TerminationSource::kController,
-          TerminationReason::kApplicationTerminated);
-    }
-  }
-
-  watch.Reset();
-}
-#else
-CommandWaitResult WaitForCommand(pollfd* pollfd) {
-  while (poll(pollfd, 1, 10) >= 0) {
-    if (g_done) {
-      return {true};
-    }
-
-    if (pollfd->revents == 0) {
+    if (g_uninteractive) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+      if (g_done)
+        break;
       continue;
-    } else if (pollfd->revents & (POLLERR | POLLHUP)) {
-      return {true};
     }
 
-    std::string line;
-    if (!std::getline(std::cin, line)) {
-      return {true};
-    }
+    std::cout << "$ " << std::flush;
 
-    CommandWaitResult result;
-    result.done = false;
-    result.command_line = SeparateCommandFromArguments(line);
-    return result;
-  }
-  return {true};
-}
-
-void RunControllerPollLoop(Controller* controller) {
-  DemoReceiverObserver receiver_observer;
-  DemoRequestDelegate request_delegate;
-  DemoConnectionDelegate connection_delegate;
-  Controller::ReceiverWatch watch;
-  Controller::ConnectRequest connect_request;
-
-  pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
-  while (true) {
-    OSP_CHECK_EQ(write(STDOUT_FILENO, "$ ", 2), 2);
-
-    CommandWaitResult command_result = WaitForCommand(&stdin_pollfd);
+    CommandWaitResult command_result = reader.WaitForCommand(g_done);
     if (command_result.done) {
       break;
     }
@@ -533,52 +428,7 @@ void RunControllerPollLoop(Controller* controller) {
 
   watch.Reset();
 }
-#endif
 
-#if defined(_WIN32)
-void ListenerDemo() {
-  ServiceListener::Config listener_config;
-  ServiceConfig client_config;
-  for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
-    OSP_VLOG << "Found interface: " << interface;
-    if (!interface.addresses.empty() &&
-        interface.type != InterfaceInfo::Type::kLoopback) {
-      listener_config.network_interfaces.push_back(interface);
-      client_config.connection_endpoints.push_back(
-          {interface.addresses[0].address, 0});
-    }
-  }
-  OSP_LOG_IF(WARN, listener_config.network_interfaces.empty())
-      << "No network interfaces had usable addresses for mDNS Listening.";
-
-  DemoConnectionServiceObserver client_observer;
-  auto connection_client = ProtocolConnectionClientFactory::Create(
-      client_config, client_observer,
-      PlatformClientWin::GetInstance()->GetTaskRunner(),
-      MessageDemuxer::kDefaultBufferLimit);
-
-  DemoListenerObserver listener_observer;
-  auto service_listener = ServiceListenerFactory::Create(
-      listener_config, PlatformClientWin::GetInstance()->GetTaskRunner());
-  service_listener->AddObserver(listener_observer);
-  service_listener->AddObserver(*connection_client);
-
-  auto* network_service =
-      NetworkServiceManager::Create(std::move(service_listener), nullptr,
-                                    std::move(connection_client), nullptr);
-  auto controller = std::make_unique<Controller>(Clock::now);
-
-  network_service->GetServiceListener()->Start();
-  network_service->GetProtocolConnectionClient()->Start();
-
-  RunControllerPollLoop(controller.get());
-
-  controller.reset();
-  network_service->GetServiceListener()->Stop();
-  network_service->GetProtocolConnectionClient()->Stop();
-  NetworkServiceManager::Dispose();
-}
-#else
 void ListenerDemo() {
   SignalThings();
 
@@ -586,8 +436,7 @@ void ListenerDemo() {
   ServiceConfig client_config;
   for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
     OSP_VLOG << "Found interface: " << interface;
-    if (!interface.addresses.empty() &&
-        interface.type != InterfaceInfo::Type::kLoopback) {
+    if (!interface.addresses.empty()) {
       listener_config.network_interfaces.push_back(interface);
       client_config.connection_endpoints.push_back(
           {interface.addresses[0].address, 0});
@@ -599,12 +448,12 @@ void ListenerDemo() {
   DemoConnectionServiceObserver client_observer;
   auto connection_client = ProtocolConnectionClientFactory::Create(
       client_config, client_observer,
-      PlatformClientPosix::GetInstance()->GetTaskRunner(),
+      PlatformClient::GetInstance()->GetTaskRunner(),
       MessageDemuxer::kDefaultBufferLimit);
 
   DemoListenerObserver listener_observer;
   auto service_listener = ServiceListenerFactory::Create(
-      listener_config, PlatformClientPosix::GetInstance()->GetTaskRunner());
+      listener_config, PlatformClient::GetInstance()->GetTaskRunner());
   service_listener->AddObserver(listener_observer);
   service_listener->AddObserver(*connection_client);
 
@@ -623,15 +472,21 @@ void ListenerDemo() {
   network_service->GetProtocolConnectionClient()->Stop();
   NetworkServiceManager::Dispose();
 }
-#endif
 
-#if defined(_WIN32)
 void RunReceiverPollLoop(NetworkServiceManager* manager,
                          DemoReceiverDelegate& delegate) {
+  DemoCommandReader reader;
   while (true) {
+    if (g_uninteractive) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+      if (g_done)
+        break;
+      continue;
+    }
+
     std::cout << "$ " << std::flush;
 
-    CommandWaitResult command_result = WaitForCommand();
+    CommandWaitResult command_result = reader.WaitForCommand(g_done);
     if (command_result.done) {
       break;
     }
@@ -661,103 +516,7 @@ void RunReceiverPollLoop(NetworkServiceManager* manager,
     }
   }
 }
-#else
-void RunReceiverPollLoop(NetworkServiceManager* manager,
-                         DemoReceiverDelegate& delegate) {
-  pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
-  while (true) {
-    OSP_CHECK_EQ(write(STDOUT_FILENO, "$ ", 2), 2);
 
-    CommandWaitResult command_result = WaitForCommand(&stdin_pollfd);
-    if (command_result.done) {
-      break;
-    }
-
-    if (command_result.command_line.command == "avail") {
-      ServicePublisher* publisher = manager->GetServicePublisher();
-      OSP_LOG_INFO << "publisher->state() == "
-                   << static_cast<int>(publisher->state());
-
-      if (publisher->state() == ServicePublisher::State::kSuspended) {
-        publisher->Resume();
-      } else {
-        publisher->Suspend();
-      }
-    } else if (command_result.command_line.command == "close") {
-      delegate.connection()->Close(Connection::CloseReason::kClosed);
-    } else if (command_result.command_line.command == "msg") {
-      delegate.connection()->SendString(
-          command_result.command_line.argument_tail);
-    } else if (command_result.command_line.command == "term") {
-      delegate.receiver()->OnPresentationTerminated(
-          delegate.presentation_id(), TerminationSource::kReceiver,
-          TerminationReason::kUserTerminated);
-    } else {
-      OSP_LOG_FATAL << "Received unknown receiver command: "
-                    << command_result.command_line.command;
-    }
-  }
-}
-#endif
-
-#if defined(_WIN32)
-void PublisherDemo(std::string_view friendly_name) {
-  constexpr uint16_t server_port = 6667;
-  ServicePublisher::Config publisher_config = {
-      .instance_name = std::string(friendly_name),
-      .connection_server_port = server_port};
-  ServiceConfig server_config = {.instance_name =
-                                     publisher_config.instance_name};
-  for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
-    OSP_VLOG << "Found interface: " << interface;
-    if (!interface.addresses.empty() &&
-        interface.type != InterfaceInfo::Type::kLoopback) {
-      server_config.connection_endpoints.push_back(
-          IPEndpoint{interface.addresses[0].address, server_port});
-      publisher_config.network_interfaces.push_back(interface);
-    }
-  }
-  OSP_LOG_IF(WARN, publisher_config.network_interfaces.empty())
-      << "No network interfaces had usable addresses for mDNS publishing.";
-
-  DemoConnectionServiceObserver server_observer;
-  auto connection_server = ProtocolConnectionServerFactory::Create(
-      server_config, server_observer,
-      PlatformClientWin::GetInstance()->GetTaskRunner(),
-      MessageDemuxer::kDefaultBufferLimit);
-
-  publisher_config.fingerprint = connection_server->GetAgentFingerprint();
-  OSP_CHECK(!publisher_config.fingerprint.empty());
-  publisher_config.auth_token = connection_server->GetAuthToken();
-  OSP_CHECK(!publisher_config.auth_token.empty());
-
-  DemoPublisherObserver publisher_observer;
-  auto service_publisher = ServicePublisherFactory::Create(
-      publisher_config, PlatformClientWin::GetInstance()->GetTaskRunner());
-  service_publisher->AddObserver(publisher_observer);
-
-  auto* network_service =
-      NetworkServiceManager::Create(nullptr, std::move(service_publisher),
-                                    nullptr, std::move(connection_server));
-  auto receiver = std::make_unique<Receiver>();
-  DemoReceiverDelegate receiver_delegate(receiver.get());
-  receiver->Init();
-  receiver->SetReceiverDelegate(&receiver_delegate);
-
-  network_service->GetServicePublisher()->Start();
-  network_service->GetProtocolConnectionServer()->Start();
-
-  RunReceiverPollLoop(network_service, receiver_delegate);
-
-  receiver_delegate.connection().reset();
-  receiver->SetReceiverDelegate(nullptr);
-  receiver->Deinit();
-
-  network_service->GetServicePublisher()->Stop();
-  network_service->GetProtocolConnectionServer()->Stop();
-  NetworkServiceManager::Dispose();
-}
-#else
 void PublisherDemo(std::string_view friendly_name) {
   SignalThings();
 
@@ -769,8 +528,7 @@ void PublisherDemo(std::string_view friendly_name) {
                                      publisher_config.instance_name};
   for (const InterfaceInfo& interface : GetNetworkInterfaces()) {
     OSP_VLOG << "Found interface: " << interface;
-    if (!interface.addresses.empty() &&
-        interface.type != InterfaceInfo::Type::kLoopback) {
+    if (!interface.addresses.empty()) {
       server_config.connection_endpoints.push_back(
           IPEndpoint{interface.addresses[0].address, server_port});
       publisher_config.network_interfaces.push_back(interface);
@@ -782,7 +540,7 @@ void PublisherDemo(std::string_view friendly_name) {
   DemoConnectionServiceObserver server_observer;
   auto connection_server = ProtocolConnectionServerFactory::Create(
       server_config, server_observer,
-      PlatformClientPosix::GetInstance()->GetTaskRunner(),
+      PlatformClient::GetInstance()->GetTaskRunner(),
       MessageDemuxer::kDefaultBufferLimit);
 
   publisher_config.fingerprint = connection_server->GetAgentFingerprint();
@@ -792,7 +550,7 @@ void PublisherDemo(std::string_view friendly_name) {
 
   DemoPublisherObserver publisher_observer;
   auto service_publisher = ServicePublisherFactory::Create(
-      publisher_config, PlatformClientPosix::GetInstance()->GetTaskRunner());
+      publisher_config, PlatformClient::GetInstance()->GetTaskRunner());
   service_publisher->AddObserver(publisher_observer);
 
   auto* network_service =
@@ -816,7 +574,6 @@ void PublisherDemo(std::string_view friendly_name) {
   network_service->GetProtocolConnectionServer()->Stop();
   NetworkServiceManager::Dispose();
 }
-#endif
 
 }  // namespace openscreen::osp
 
@@ -825,6 +582,7 @@ struct InputArgs {
   bool is_verbose;
   bool is_help;
   bool tracing_enabled;
+  bool is_uninteractive;
 };
 
 void LogUsage(const char* argv0) {
@@ -839,6 +597,8 @@ usage: )" << argv0
 
     -v, --verbose: Enable verbose logging.
 
+    -u, --uninteractive: Run in non-interactive mode (for testing).
+
     -h, --help: Show this help message.
   )";
 }
@@ -851,12 +611,13 @@ InputArgs GetInputArgs(int argc, char** argv) {
   const get_opt::option kArgumentOptions[] = {
       {"tracing", no_argument, nullptr, 't'},
       {"verbose", no_argument, nullptr, 'v'},
+      {"uninteractive", no_argument, nullptr, 'u'},
       {"help", no_argument, nullptr, 'h'},
       {nullptr, 0, nullptr, 0}};
 
   InputArgs args = {};
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "tvh", kArgumentOptions, nullptr)) !=
+  while ((ch = getopt_long(argc, argv, "tvuh", kArgumentOptions, nullptr)) !=
          -1) {
     switch (ch) {
       case 't':
@@ -865,6 +626,10 @@ InputArgs GetInputArgs(int argc, char** argv) {
 
       case 'v':
         args.is_verbose = true;
+        break;
+
+      case 'u':
+        args.is_uninteractive = true;
         break;
 
       case 'h':
@@ -880,17 +645,20 @@ InputArgs GetInputArgs(int argc, char** argv) {
   return args;
 }
 
-#if defined(_WIN32)
 int main(int argc, char** argv) {
   using openscreen::Clock;
   using openscreen::LogLevel;
-  using openscreen::PlatformClientWin;
+  using openscreen::PlatformClient;
 
   InputArgs args = GetInputArgs(argc, argv);
+  std::cerr << "Args: verbose=" << args.is_verbose
+            << ", uninteractive=" << args.is_uninteractive << std::endl;
   if (args.is_help) {
     LogUsage(argv[0]);
     return 1;
   }
+
+  g_uninteractive = args.is_uninteractive;
 
   std::unique_ptr<openscreen::TextTraceLoggingPlatform> trace_logging_platform;
   if (args.tracing_enabled) {
@@ -904,51 +672,13 @@ int main(int argc, char** argv) {
   const bool is_receiver_demo = !args.friendly_server_name.empty();
   [[maybe_unused]] const char* log_filename =
       is_receiver_demo ? kReceiverLogFilename : kControllerLogFilename;
-  // TODO(jophba): Mac on Mojave hangs on this command forever.
-  // openscreen::SetLogFifoOrDie(log_filename); // FIFO not implemented on Windows yet
 
-  PlatformClientWin::Create(std::chrono::milliseconds(50));
-
-  if (is_receiver_demo) {
-    OSP_LOG_INFO << "Running publisher demo...";
-    openscreen::osp::PublisherDemo(args.friendly_server_name);
-  } else {
-    OSP_LOG_INFO << "Running listener demo...";
-    openscreen::osp::ListenerDemo();
-  }
-
-  PlatformClientWin::ShutDown();
-
-  return 0;
-}
-#else
-int main(int argc, char** argv) {
-  using openscreen::Clock;
-  using openscreen::LogLevel;
-  using openscreen::PlatformClientPosix;
-
-  InputArgs args = GetInputArgs(argc, argv);
-  if (args.is_help) {
-    LogUsage(argv[0]);
-    return 1;
-  }
-
-  std::unique_ptr<openscreen::TextTraceLoggingPlatform> trace_logging_platform;
-  if (args.tracing_enabled) {
-    trace_logging_platform =
-        std::make_unique<openscreen::TextTraceLoggingPlatform>();
-  }
-
-  const LogLevel level = args.is_verbose ? LogLevel::kVerbose : LogLevel::kInfo;
-  openscreen::SetLogLevel(level);
-
-  const bool is_receiver_demo = !args.friendly_server_name.empty();
-  const char* log_filename =
-      is_receiver_demo ? kReceiverLogFilename : kControllerLogFilename;
+#if !defined(_WIN32)
   // TODO(jophba): Mac on Mojave hangs on this command forever.
   openscreen::SetLogFifoOrDie(log_filename);
+#endif
 
-  PlatformClientPosix::Create(std::chrono::milliseconds(50));
+  PlatformClient::Create(std::chrono::milliseconds(50));
 
   if (is_receiver_demo) {
     OSP_LOG_INFO << "Running publisher demo...";
@@ -958,8 +688,7 @@ int main(int argc, char** argv) {
     openscreen::osp::ListenerDemo();
   }
 
-  PlatformClientPosix::ShutDown();
+  PlatformClient::ShutDown();
 
   return 0;
 }
-#endif

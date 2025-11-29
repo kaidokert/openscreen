@@ -48,9 +48,9 @@ group("compile_smoketest") {
     ":compile_smoketest_logging_win_unittest",
     ":compile_smoketest_network_interface_win_unittest",
     ":compile_smoketest_platform",
-    ":compile_smoketest_task_runner_win_unittest",
-    ":compile_smoketest_time_unittest",
     ":compile_smoketest_quiche",
+    ":compile_smoketest_time_unittest",
+    ":compile_smoketest_udp_socket_win_integration_unittest",
   ]
 }
 
@@ -79,18 +79,6 @@ executable("compile_smoketest_network_interface_win_unittest") {
   configs -= [ "//build/config/clang:find_bad_constructs" ]
 }
 
-executable("compile_smoketest_task_runner_win_unittest") {
-  testonly = true
-  sources = [ "task_runner_win_unittest.cc" ]
-  deps = [
-    "//platform:api",
-    "//platform:standalone_impl",
-    "//third_party/googletest:gtest",
-    "//third_party/googletest:gtest_main",
-  ]
-  configs -= [ "//build/config/clang:find_bad_constructs" ]
-}
-
 executable("compile_smoketest_time_unittest") {
   testonly = true
   sources = [ "time_unittest.cc" ]
@@ -106,4 +94,17 @@ executable("compile_smoketest_time_unittest") {
 source_set("compile_smoketest_quiche") {
   sources = [ "quiche_smoketest.cc" ]
   deps = [ "//third_party/quiche" ]
+}
+
+executable("compile_smoketest_udp_socket_win_integration_unittest") {
+  testonly = true
+  sources = [ "udp_socket_win_integration_unittest.cc" ]
+  deps = [
+    "//platform:api",
+    "//platform:standalone_impl",
+    "//platform:test",
+    "//third_party/googletest:gtest",
+    "//third_party/googletest:gtest_main",
+  ]
+  configs -= [ "//build/config/clang:find_bad_constructs" ]
 }

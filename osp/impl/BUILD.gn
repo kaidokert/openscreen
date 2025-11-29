@@ -18,39 +18,41 @@ config("impl_internal_config") {
 
 openscreen_source_set("impl") {
   visibility += [ "..:*" ]
-  public = []
-  sources = [
-    "dns_sd_publisher_client.cc",
-    "dns_sd_publisher_client.h",
-    "dns_sd_service_listener_factory.cc",
-    "dns_sd_service_publisher_factory.cc",
-    "dns_sd_watcher_client.cc",
-    "dns_sd_watcher_client.h",
-    "network_service_manager.cc",
-    "presentation/presentation_connection.cc",
-    "presentation/presentation_controller.cc",
-    "presentation/presentation_id.cc",
-    "presentation/presentation_id.h",
-    "presentation/presentation_receiver.cc",
-    "presentation/presentation_utils.cc",
-    "presentation/presentation_utils.h",
-    "presentation/url_availability_requester.cc",
-    "presentation/url_availability_requester.h",
-    "protocol_connection_client_factory.cc",
-    "protocol_connection_server_factory.cc",
-  ]
-  configs = [ ":impl_internal_config" ]
-  public_deps = [
-    "../msgs",
-    "../public",
-  ]
-  deps = [
-    "../../discovery:dnssd",
-    "../../discovery:public",
-    "../../platform",
-    "../../third_party/abseil",
-    "../../util",
-    "quic",
-  ]
-  friend = [ "..:unittests" ]
+  if (!is_win || is_experimental_win_build) {
+    public = []
+    sources = [
+      "dns_sd_publisher_client.cc",
+      "dns_sd_publisher_client.h",
+      "dns_sd_service_listener_factory.cc",
+      "dns_sd_service_publisher_factory.cc",
+      "dns_sd_watcher_client.cc",
+      "dns_sd_watcher_client.h",
+      "network_service_manager.cc",
+      "presentation/presentation_connection.cc",
+      "presentation/presentation_controller.cc",
+      "presentation/presentation_id.cc",
+      "presentation/presentation_id.h",
+      "presentation/presentation_receiver.cc",
+      "presentation/presentation_utils.cc",
+      "presentation/presentation_utils.h",
+      "presentation/url_availability_requester.cc",
+      "presentation/url_availability_requester.h",
+      "protocol_connection_client_factory.cc",
+      "protocol_connection_server_factory.cc",
+    ]
+    configs = [ ":impl_internal_config" ]
+    public_deps = [
+      "../msgs",
+      "../public",
+    ]
+    deps = [
+      "../../discovery:dnssd",
+      "../../discovery:public",
+      "../../platform",
+      "../../third_party/abseil",
+      "../../util",
+      "quic",
+    ]
+    friend = [ "..:unittests" ]
+  }
 }

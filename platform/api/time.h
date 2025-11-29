@@ -7,6 +7,8 @@
 
 #include <chrono>
 
+#include "platform/base/trivial_clock_traits.h"
+
 namespace openscreen {
 
 // The "reasonably high-resolution" source of monotonic time from the embedder,
@@ -17,22 +19,8 @@ namespace openscreen {
 // std::chrono::steady_clock or std::chrono::high_resolution_clock, but an
 // embedder may choose to use a different source of time (e.g., the embedder's
 // time library, a simulated time source, or a mock).
-class Clock {
+class Clock : public TrivialClockTraits {
  public:
-  // Explicitly define clock traits to avoid issues with template deduction
-  // and inheritance from TrivialClockTraits.
-  using duration = std::chrono::microseconds;
-  using rep = duration::rep;
-  using period = duration::period;
-  using kRequiredResolution = std::ratio<1, 10000>;
-  using time_point = std::chrono::time_point<Clock, duration>;
-
-  // Helper method for named requirements.
-  template <typename D>
-  static constexpr duration to_duration(D d) {
-    return std::chrono::duration_cast<duration>(d);
-  }
-
   // Returns the current time.
   static time_point now() noexcept;
 };

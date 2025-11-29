@@ -53,7 +53,7 @@ group("gn_all") {
       "discovery:dnssd",
       "discovery:mdns",
       "discovery:public",
-      "osp", # Conditionally included for !is_win
+      "osp",  # Conditionally included for !is_win
       "platform",
 
       # Quiche currently has an issue around logging macros on Windows.
@@ -62,29 +62,30 @@ group("gn_all") {
     if (!build_with_chromium) {
       deps += [
         "cast/standalone_sender:cast_sender",
-        "osp:osp_demo", # Conditionally included for !is_win
+        "osp:osp_demo",  # Conditionally included for !is_win
         "third_party/protobuf:protoc($host_toolchain)",
         "third_party/zlib",
       ]
     }
-  } else { # is_win
+  } else {  # is_win
     # Windows-specific dependencies
     deps += [
-      "compile_smoketest",
       "cast/streaming:receiver",
       "cast/streaming:sender",
+      "compile_smoketest",
       "discovery:dnssd",
       "discovery:mdns",
       "discovery:public",
-      "osp", # Removed for Windows
+      "osp",  # Removed for Windows
       "platform",
+
       # third_party/quiche is explicitly excluded on Windows due to logging macro issues.
       "third_party/quiche",
     ]
     if (!build_with_chromium) {
       deps += [
         "cast/standalone_sender:cast_sender",
-        "osp:osp_demo", # Removed for Windows
+        "osp:osp_demo",  # Removed for Windows
         "third_party/protobuf:protoc($host_toolchain)",
         "third_party/zlib",
       ]
@@ -120,7 +121,7 @@ openscreen_source_set("openscreen_unittests_all") {
     ]
   }
   public_deps += [ "osp/msgs:unittests" ]
-  if (!is_win) {
+  if (!is_win || is_experimental_win_build) {
     public_deps += [ "osp:unittests" ]
   }
 }

@@ -19,7 +19,6 @@
 #include "osp/public/service_info.h"
 #include "platform/api/time.h"
 #include "platform/base/error.h"
-#include "platform/base/trivial_clock_traits.h"
 
 namespace openscreen::osp {
 
@@ -31,7 +30,8 @@ namespace openscreen::osp {
 // given URL.
 class UrlAvailabilityRequester {
  public:
-  explicit UrlAvailabilityRequester(openscreen::ClockNowFunctionPtr now_function);
+  explicit UrlAvailabilityRequester(
+      openscreen::ClockNowFunctionPtr now_function);
   UrlAvailabilityRequester(const UrlAvailabilityRequester&) = delete;
   UrlAvailabilityRequester& operator=(const UrlAvailabilityRequester&) = delete;
   UrlAvailabilityRequester(UrlAvailabilityRequester&&) noexcept = delete;

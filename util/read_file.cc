@@ -4,12 +4,29 @@
 
 #include "util/read_file.h"
 
+#include <errno.h>  // For errno
 #include <stdio.h>
+
+#include <algorithm>  // For std::replace
+#if defined(_WIN32)
+// clang-format off
+#include <windows.h>  // For MAX_PATH
+
+#include <shlwapi.h>  // For PathFileExistsA
+#include <stdlib.h>   // For _fullpath
+// clang-format on
+#endif
 
 namespace openscreen {
 
 std::string ReadEntireFileToString(std::string_view filename) {
-  FILE* file = fopen(filename.data(), "r");
+#if defined(_WIN32)
+  std::string win_filename(filename);
+  std::replace(win_filename.begin(), win_filename.end(), '/', '\\');
+  FILE* file = fopen(win_filename.c_str(), "rb");
+#else
+  FILE* file = fopen(filename.data(), "rb");
+#endif
   if (file == nullptr) {
     return {};
   }

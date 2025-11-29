@@ -1,31 +1,41 @@
 ###
 
-The objective is to port osp_demo to windows.
+[Current State Analysis](CURRENT_STATE.md) | [Refactoring Plan](REFACTORING_PLAN.md)
 
-Our strategy generally is layered, full of stubs and hacks at every layer
+The objective is to port `osp_demo` to Windows.
 
-1) get GN to execute and produce a build tree
+Our strategy is **layered**, relying heavily on stubs, hacks, and isolation.
 
-Often this requires stubbing out chunks of dependendies and conditionals for build
+**The Golden Rule:** `autoninja -C out\debug` (no target specified) must **ALWAYS** succeed. If a change breaks the default build, it is wrong. Revert or conditionalize it immediately.
 
-2) Get autoninja to compile all code and produce object code
+#### The Battle Plan (5 Layers)
 
-Stub out functions with complex dependency chains, add #ifdef _WIN32 stub block - mark it as TODO: windows
-If something is exceedingly complex, put a tiny target in compile_smoketest that recreates the problem and isolates it in single file. Fix it there and then generalize the solution
-Mark stubs as OSP_UNIMPLEMENTED
+**Layer 0: Platform & Base (The Foundation)**
+- Verify `compile_smoketest` targets (`logging`, `task_runner`, `time`, `udp_socket`).
+- If these fail, stop. Fix them first.
 
-3) Get autoninja to link all relevant targets and produce executables / dynamic libs
+**Layer 1: Third-Party Isolation (The Supply Lines)**
+- Verify `//third_party/getopt` and `//third_party/quiche` compile on Windows.
+- Use `compile_smoketest` entries to isolate these. If `getopt` fails, stub it or fix it before moving up.
 
-Provide link stubs for missing symbols - e.g. just create a stub WindowsFooBar struct, class, function - obviously make them OSP_UNIMPLEMENTED
+**Layer 2: Discovery & Networking (The Hidden Beast)**
+- Verify `//discovery:dnssd` compiles.
+- This pulls in heavy networking logic. Isolate failures here before they pollute OSP.
 
-4) Actually try to run those executables and libs. 
+**Layer 3: OSP Core (The Logic)**
+- Verify `//osp:osp` (`impl` + `public`) compiles.
+- Link the protocol logic. Use `#ifdef _WIN32` stubs liberally. Mark stubs as `OSP_UNIMPLEMENTED`.
 
-Now we are going to run into real issues and can start gradually fixing code. Our key condition is that 
-`autoninja -C out\debug` needs to stay fully working - even as we iterate on crummy / stub code.
+**Layer 4: The Demo (The Summit)**
+- Link `//osp:osp_demo`.
+- **Technique: "The Hollow Demo"**. Modify `osp_demo.cc` to wrap the real logic in `#ifndef _WIN32`.
+- Provide a minimal, "Platform Init Only" `main` for Windows initially.
+- This proves we can link without debugging runtime crashes yet.
 
-Obviously we need to fix unit tests and also add bespoke compile_smoketest/ unit tests to isolate issues
-one by one and plow through the stack, from bottom layers to top ones.
+#### Execution Tactics
+1.  **GN Generation:** Stub out dependencies in `BUILD.gn` files to get `gn gen` to pass.
+2.  **Compilation:** Isolate hard compilation errors into tiny `compile_smoketest` targets. Fix them there, then generalize.
+3.  **Linking:** Provide stub implementations (structs/functions) for missing symbols.
+4.  **Runtime:** Slowly fill in the "Hollow Demo" with real logic.
 
-
-Feel free to always `git diff main` or look at `git diff main -- some_dir` specifically to re-assess the
-extent of committed hacks
+Use `git diff main` frequently to track the extent of your hacks.

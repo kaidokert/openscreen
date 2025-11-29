@@ -7,18 +7,17 @@
 #include <utility>
 
 #include "osp/impl/quic/quic_alarm_factory_impl.h"
-#include "quiche/common/simple_buffer_allocator.h"
 #include "quiche/quic/core/quic_default_clock.h"
 #include "quiche/quic/core/quic_default_connection_helper.h"
 
 namespace openscreen::osp {
 
 QuicConnectionFactoryBase::QuicConnectionFactoryBase(TaskRunner& task_runner)
-    : helper_(std::make_unique<quic::QuicDefaultConnectionHelper>(
-          std::make_unique<quiche::SimpleBufferAllocator>())),
-      alarm_factory_(std::make_unique<QuicAlarmFactoryImpl>(
-          task_runner, quic::QuicDefaultClock::Get())),
-      task_runner_(task_runner) {}
+    : task_runner_(task_runner) {
+  helper_ = std::make_unique<quic::QuicDefaultConnectionHelper>();
+  alarm_factory_ = std::make_unique<QuicAlarmFactoryImpl>(
+      task_runner, quic::QuicDefaultClock::Get());
+}
 
 QuicConnectionFactoryBase::~QuicConnectionFactoryBase() {
   for (auto& it : connections_) {

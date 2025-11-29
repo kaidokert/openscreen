@@ -18,7 +18,8 @@ UdpSocketReaderWin::~UdpSocketReaderWin() = default;
 void UdpSocketReaderWin::OnCreate(UdpSocketWin* socket) {
   std::unique_lock<std::mutex> lock(mutex_);
   sockets_.push_back(socket);
-  waiter_.Subscribe(this, socket->GetHandle(), SocketHandleWaiter::Flags::kReadable);
+  waiter_.Subscribe(this, socket->GetHandle(),
+                    SocketHandleWaiter::Flags::kReadable);
 }
 
 void UdpSocketReaderWin::OnDestroy(UdpSocketWin* socket) {
@@ -26,7 +27,7 @@ void UdpSocketReaderWin::OnDestroy(UdpSocketWin* socket) {
 }
 
 void UdpSocketReaderWin::OnDelete(UdpSocketWin* socket,
-                                   bool disable_locking_for_testing) {
+                                  bool disable_locking_for_testing) {
   if (!disable_locking_for_testing) {
     std::unique_lock<std::mutex> lock(mutex_);
   }
@@ -36,10 +37,12 @@ void UdpSocketReaderWin::OnDelete(UdpSocketWin* socket,
   sockets_.erase(it, sockets_.end());
 
   waiter_.Unsubscribe(this, socket->GetHandle());
-  waiter_.OnHandleDeletion(this, socket->GetHandle(), disable_locking_for_testing);
+  waiter_.OnHandleDeletion(this, socket->GetHandle(),
+                           disable_locking_for_testing);
 }
 
-void UdpSocketReaderWin::ProcessReadyHandle(SocketHandleRef handle, uint32_t flags) {
+void UdpSocketReaderWin::ProcessReadyHandle(SocketHandleRef handle,
+                                            uint32_t flags) {
   OSP_DCHECK(flags & SocketHandleWaiter::Flags::kReadable);
 
   UdpSocketWin* target_socket = nullptr;

@@ -37,8 +37,7 @@ class UdpSocketReaderWin : public SocketHandleWaiter::Subscriber {
   bool IsMappedReadForTesting(UdpSocketWin* socket) const;
 
  private:
-  void OnDelete(UdpSocketWin* socket,
-                bool disable_locking_for_testing = false);
+  void OnDelete(UdpSocketWin* socket, bool disable_locking_for_testing = false);
 
   std::vector<UdpSocketWin*> sockets_;
   mutable std::mutex mutex_;

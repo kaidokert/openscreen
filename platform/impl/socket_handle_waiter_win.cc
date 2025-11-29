@@ -1,9 +1,10 @@
-#include "platform/impl/socket_handle_waiter.h"
 #include "platform/impl/socket_handle_waiter_win.h"
 
 #include <winsock2.h>
+
 #include <thread>
 
+#include "platform/impl/socket_handle_waiter.h"
 #include "platform/impl/socket_handle_win.h"
 #include "util/osp_logging.h"
 
@@ -39,7 +40,8 @@ SocketHandleWaiterWin::AwaitSocketsReady(
   }
 
   struct timeval tv;
-  auto micros = std::chrono::duration_cast<std::chrono::microseconds>(timeout).count();
+  auto micros =
+      std::chrono::duration_cast<std::chrono::microseconds>(timeout).count();
   tv.tv_sec = static_cast<long>(micros / 1000000);
   tv.tv_usec = static_cast<long>(micros % 1000000);
 

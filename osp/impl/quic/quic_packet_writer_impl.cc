@@ -4,6 +4,10 @@
 
 #include "osp/impl/quic/quic_packet_writer_impl.h"
 
+#ifdef SendMessage
+#undef SendMessage
+#endif
+
 #include <limits>
 
 #include "osp/impl/quic/quic_utils.h"

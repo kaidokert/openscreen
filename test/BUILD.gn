@@ -14,7 +14,10 @@ openscreen_source_set("test_main") {
   sources = [ "test_main.cc" ]
 
   if (!build_with_chromium) {
-    defines = [ "ENABLE_PLATFORM_IMPL" ]
+    defines = [
+      "ENABLE_PLATFORM_IMPL",
+      "OSP_USE_LOGGING_API",
+    ]
   }
 
   deps = [

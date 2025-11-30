@@ -598,7 +598,7 @@ TEST(VerifyCastDeviceCertTest, NameConstraintsViolated) {
 
 // Tests reversibility between DateTimeToSeconds and DateTimeFromSeconds
 TEST(VerifyCastDeviceCertTest, TimeDateConversionValidate) {
-  DateTime org_date = AprilFirst2020();
+  DateTime org_date = AprilFirst2016();
   DateTime converted_date = {};
   std::chrono::seconds seconds = DateTimeToSeconds(org_date);
   DateTimeFromSeconds(seconds.count(), &converted_date);

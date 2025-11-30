@@ -89,6 +89,7 @@ std::chrono::seconds DateTimeToSeconds(const DateTime& time) {
   tm.tm_mday = time.day;
   tm.tm_mon = time.month - 1;
   tm.tm_year = time.year - 1900;
+  tm.tm_isdst = 0;  // Explicitly set DST to 0 for UTC conversion.
   time_t sec;
 #if defined(_WIN32)
   sec = _mkgmtime(&tm);

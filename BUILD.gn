@@ -46,7 +46,7 @@ group("gn_all") {
   ]
 
   # TODO(issuetracker.google.com/236163082): implement support on Windows.
-  if (!is_win) {
+  if (!is_win || is_experimental_win_build) {
     deps += [
       "cast/streaming:receiver",
       "cast/streaming:sender",
@@ -55,37 +55,13 @@ group("gn_all") {
       "discovery:public",
       "osp",
       "platform",
-
-      # Quiche currently has an issue around logging macros on Windows.
       "third_party/quiche",
     ]
+
     if (!build_with_chromium) {
       deps += [
         "cast/standalone_sender:cast_sender",
-        "osp:osp_demo",  # Conditionally included for !is_win
-        "third_party/protobuf:protoc($host_toolchain)",
-        "third_party/zlib",
-      ]
-    }
-  } else {  # is_win
-    # Windows-specific dependencies
-    deps += [
-      "cast/streaming:receiver",
-      "cast/streaming:sender",
-      "compile_smoketest",
-      "discovery:dnssd",
-      "discovery:mdns",
-      "discovery:public",
-      "osp",  # Removed for Windows
-      "platform",
-
-      # third_party/quiche is explicitly excluded on Windows due to logging macro issues.
-      "third_party/quiche",
-    ]
-    if (!build_with_chromium) {
-      deps += [
-        "cast/standalone_sender:cast_sender",
-        "osp:osp_demo",  # Removed for Windows
+        "osp:osp_demo",
         "third_party/protobuf:protoc($host_toolchain)",
         "third_party/zlib",
       ]

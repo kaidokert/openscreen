@@ -1,12 +1,9 @@
-// clang-format off
 #include "platform/api/network_interface.h"
 
 #include <windows.h>
 #include <winsock2.h>
 #include <iphlpapi.h>
 #include <ws2tcpip.h>
-
-// clang-format on
 
 #include <vector>
 

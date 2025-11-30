@@ -20,6 +20,14 @@ class Alarm::CancelableFunctor {
 
   ~CancelableFunctor() { Cancel(); }
 
+  // The TaskRunner's PostTaskWithDelay method (which uses std::packaged_task
+  // internally) requires its callable argument to be CopyConstructible on MSVC,
+  // even though it ultimately uses std::move. Marking this = delete causes a
+  // compilation error, so we instead use OSP_NOTREACHED() as a runtime check.
+  CancelableFunctor(const CancelableFunctor& other) : alarm_(other.alarm_) {
+    OSP_NOTREACHED();
+  }
+
   CancelableFunctor(CancelableFunctor&& other) : alarm_(other.alarm_) {
     other.alarm_ = nullptr;
     if (alarm_) {

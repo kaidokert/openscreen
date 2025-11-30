@@ -101,9 +101,11 @@ if (!is_ios) {
     ]
     public = [
       "impl/logging.h",
+      "impl/logging_test.h",
       "impl/network_interface.h",
       "impl/task_runner.h",
       "impl/text_trace_logging_platform.h",
+      "impl/udp_socket_win.h",
     ]
     sources = [
       "impl/network_interface.cc",
@@ -159,6 +161,17 @@ if (!is_ios) {
         "impl/udp_socket_reader_posix.cc",
         "impl/udp_socket_reader_posix.h",
       ]
+    } else if (is_win) {
+      sources += [
+        "impl/logging_win.cc",
+        "impl/network_interface_win.cc",
+        "impl/platform_client_win.cc",
+        "impl/socket_handle_waiter_win.cc",
+        "impl/socket_handle_win.cc",
+        "impl/udp_socket_reader_win.cc",
+        "impl/udp_socket_win.cc",
+      ]
+      libs = [ "iphlpapi.lib" ]
     }
 
     deps = [
@@ -210,6 +223,8 @@ openscreen_source_set("test") {
     sources += [ "test/paths_internal_linux.cc" ]
   } else if (is_mac) {
     sources += [ "test/paths_internal_mac.cc" ]
+  } else if (is_win) {
+    sources += [ "test/paths_win.cc" ]
   } else if (build_with_chromium) {
     # NOTE: This is used to resolve a linking issue when compiling in Chromium
     # for other platforms, but nothing in here is called.
@@ -252,10 +267,16 @@ openscreen_source_set("unittests") {
     "../util",
   ]
 
+  if (is_win) {
+    ldflags = [ "/STACK:8388608" ]  # 8MB stack
+  }
+
   # The socket integration tests assume that you can Bind with UDP sockets,
   # which is simply not true when we are built inside of Chromium.
   if (!build_with_chromium) {
-    sources += [ "api/socket_integration_unittest.cc" ]
+    if (!is_win) {
+      sources += [ "api/socket_integration_unittest.cc" ]
+    }
 
     deps += [ ":standalone_impl" ]
   }
@@ -276,6 +297,11 @@ openscreen_source_set("unittests") {
         "impl/tls_data_router_posix_unittest.cc",
         "impl/tls_write_buffer_unittest.cc",
         "impl/udp_socket_reader_posix_unittest.cc",
+      ]
+    } else if (is_win) {
+      sources += [
+        "impl/logging_unittest.cc",
+        "impl/tls_write_buffer_unittest.cc",
       ]
     }
   }

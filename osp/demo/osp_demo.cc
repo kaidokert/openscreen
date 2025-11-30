@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <poll.h>
+#if !defined(_WIN32)
 #include <signal.h>
 #include <unistd.h>
+#endif
 
 #include <algorithm>
 #include <iostream>
@@ -13,6 +14,7 @@
 #include <string_view>
 #include <vector>
 
+#include "osp/demo/demo_command_reader.h"
 #include "osp/msgs/osp_messages.h"
 #include "osp/public/message_demuxer.h"
 #include "osp/public/network_service_manager.h"
@@ -31,30 +33,52 @@
 #include "platform/api/network_interface.h"
 #include "platform/api/time.h"
 #include "platform/impl/logging.h"
+#if defined(_WIN32)
+#include "platform/impl/platform_client_win.h"
+#else
 #include "platform/impl/platform_client_posix.h"
+#endif
 #include "platform/impl/task_runner.h"
 #include "platform/impl/text_trace_logging_platform.h"
 #include "third_party/getopt/getopt.h"
 #include "third_party/tinycbor/src/src/cbor.h"
 #include "util/trace_logging.h"
 
+#if defined(_WIN32)
+using PlatformClient = openscreen::PlatformClientWin;
+#else
+using PlatformClient = openscreen::PlatformClientPosix;
+#endif
+
 namespace {
 
+#if !defined(_WIN32)
 constexpr char const* kReceiverLogFilename = "_recv_fifo";
 constexpr char const* kControllerLogFilename = "_cntl_fifo";
+#endif
 
 bool g_done = false;
+bool g_uninteractive = false;
+
+#if !defined(_WIN32)
 bool g_dump_services = false;
 
 void sigusr1_dump_services(int) {
   g_dump_services = true;
 }
+#endif
 
+#if !defined(_WIN32)
 void sigint_stop(int) {
   OSP_LOG_INFO << "caught SIGINT, exiting...";
   g_done = true;
 }
+#endif
 
+#if defined(_WIN32)
+// TODO: winport: need to provide equivalent
+void SignalThings() {}
+#else
 void SignalThings() {
   struct sigaction usr1_sa;
   struct sigaction int_sa;
@@ -73,6 +97,7 @@ void SignalThings() {
 
   OSP_LOG_INFO << "signal handlers setup" << std::endl << "pid: " << getpid();
 }
+#endif
 
 }  // namespace
 
@@ -361,50 +386,7 @@ class DemoReceiverDelegate final : public ReceiverDelegate {
   DemoConnectionDelegate connection_delegate_;
 };
 
-struct CommandLineSplit {
-  std::string command;
-  std::string argument_tail;
-};
 
-CommandLineSplit SeparateCommandFromArguments(const std::string& line) {
-  size_t split_index = line.find_first_of(' ');
-  // NOTE: `split_index` can be std::string::npos because not all commands
-  // accept arguments.
-  std::string command = line.substr(0, split_index);
-  std::string argument_tail =
-      split_index < line.size() ? line.substr(split_index + 1) : std::string();
-  return {std::move(command), std::move(argument_tail)};
-}
-
-struct CommandWaitResult {
-  bool done;
-  CommandLineSplit command_line;
-};
-
-CommandWaitResult WaitForCommand(pollfd* pollfd) {
-  while (poll(pollfd, 1, 10) >= 0) {
-    if (g_done) {
-      return {true};
-    }
-
-    if (pollfd->revents == 0) {
-      continue;
-    } else if (pollfd->revents & (POLLERR | POLLHUP)) {
-      return {true};
-    }
-
-    std::string line;
-    if (!std::getline(std::cin, line)) {
-      return {true};
-    }
-
-    CommandWaitResult result;
-    result.done = false;
-    result.command_line = SeparateCommandFromArguments(line);
-    return result;
-  }
-  return {true};
-}
 
 void RunControllerPollLoop(Controller* controller) {
   DemoReceiverObserver receiver_observer;
@@ -413,11 +395,19 @@ void RunControllerPollLoop(Controller* controller) {
   Controller::ReceiverWatch watch;
   Controller::ConnectRequest connect_request;
 
-  pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
-  while (true) {
-    OSP_CHECK_EQ(write(STDOUT_FILENO, "$ ", 2), 2);
+  DemoCommandReader reader;
 
-    CommandWaitResult command_result = WaitForCommand(&stdin_pollfd);
+  while (true) {
+    if (g_uninteractive) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+      if (g_done)
+        break;
+      continue;
+    }
+
+    std::cout << "$ " << std::flush;
+
+    CommandWaitResult command_result = reader.WaitForCommand(g_done);
     if (command_result.done) {
       break;
     }
@@ -476,12 +466,12 @@ void ListenerDemo() {
   DemoConnectionServiceObserver client_observer;
   auto connection_client = ProtocolConnectionClientFactory::Create(
       client_config, client_observer,
-      PlatformClientPosix::GetInstance()->GetTaskRunner(),
+      PlatformClient::GetInstance()->GetTaskRunner(),
       MessageDemuxer::kDefaultBufferLimit);
 
   DemoListenerObserver listener_observer;
   auto service_listener = ServiceListenerFactory::Create(
-      listener_config, PlatformClientPosix::GetInstance()->GetTaskRunner());
+      listener_config, PlatformClient::GetInstance()->GetTaskRunner());
   service_listener->AddObserver(listener_observer);
   service_listener->AddObserver(*connection_client);
 
@@ -503,11 +493,18 @@ void ListenerDemo() {
 
 void RunReceiverPollLoop(NetworkServiceManager* manager,
                          DemoReceiverDelegate& delegate) {
-  pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
+  DemoCommandReader reader;
   while (true) {
-    OSP_CHECK_EQ(write(STDOUT_FILENO, "$ ", 2), 2);
+    if (g_uninteractive) {
+      std::this_thread::sleep_for(std::chrono::milliseconds(500));
+      if (g_done)
+        break;
+      continue;
+    }
 
-    CommandWaitResult command_result = WaitForCommand(&stdin_pollfd);
+    std::cout << "$ " << std::flush;
+
+    CommandWaitResult command_result = reader.WaitForCommand(g_done);
     if (command_result.done) {
       break;
     }
@@ -562,7 +559,7 @@ void PublisherDemo(std::string_view friendly_name) {
   DemoConnectionServiceObserver server_observer;
   auto connection_server = ProtocolConnectionServerFactory::Create(
       server_config, server_observer,
-      PlatformClientPosix::GetInstance()->GetTaskRunner(),
+      PlatformClient::GetInstance()->GetTaskRunner(),
       MessageDemuxer::kDefaultBufferLimit);
 
   publisher_config.fingerprint = connection_server->GetAgentFingerprint();
@@ -572,7 +569,7 @@ void PublisherDemo(std::string_view friendly_name) {
 
   DemoPublisherObserver publisher_observer;
   auto service_publisher = ServicePublisherFactory::Create(
-      publisher_config, PlatformClientPosix::GetInstance()->GetTaskRunner());
+      publisher_config, PlatformClient::GetInstance()->GetTaskRunner());
   service_publisher->AddObserver(publisher_observer);
 
   auto* network_service =
@@ -604,6 +601,7 @@ struct InputArgs {
   bool is_verbose;
   bool is_help;
   bool tracing_enabled;
+  bool is_uninteractive;
 };
 
 void LogUsage(const char* argv0) {
@@ -618,6 +616,8 @@ usage: )" << argv0
 
     -v, --verbose: Enable verbose logging.
 
+    -u, --uninteractive: Run in non-interactive mode (for testing).
+
     -h, --help: Show this help message.
   )";
 }
@@ -630,12 +630,13 @@ InputArgs GetInputArgs(int argc, char** argv) {
   const get_opt::option kArgumentOptions[] = {
       {"tracing", no_argument, nullptr, 't'},
       {"verbose", no_argument, nullptr, 'v'},
+      {"uninteractive", no_argument, nullptr, 'u'},
       {"help", no_argument, nullptr, 'h'},
       {nullptr, 0, nullptr, 0}};
 
   InputArgs args = {};
   int ch = -1;
-  while ((ch = getopt_long(argc, argv, "tvh", kArgumentOptions, nullptr)) !=
+  while ((ch = getopt_long(argc, argv, "tvuh", kArgumentOptions, nullptr)) !=
          -1) {
     switch (ch) {
       case 't':
@@ -644,6 +645,10 @@ InputArgs GetInputArgs(int argc, char** argv) {
 
       case 'v':
         args.is_verbose = true;
+        break;
+
+      case 'u':
+        args.is_uninteractive = true;
         break;
 
       case 'h':
@@ -662,13 +667,16 @@ InputArgs GetInputArgs(int argc, char** argv) {
 int main(int argc, char** argv) {
   using openscreen::Clock;
   using openscreen::LogLevel;
-  using openscreen::PlatformClientPosix;
 
   InputArgs args = GetInputArgs(argc, argv);
+  std::cerr << "Args: verbose=" << args.is_verbose
+            << ", uninteractive=" << args.is_uninteractive << std::endl;
   if (args.is_help) {
     LogUsage(argv[0]);
     return 1;
   }
+
+  g_uninteractive = args.is_uninteractive;
 
   std::unique_ptr<openscreen::TextTraceLoggingPlatform> trace_logging_platform;
   if (args.tracing_enabled) {
@@ -680,12 +688,16 @@ int main(int argc, char** argv) {
   openscreen::SetLogLevel(level);
 
   const bool is_receiver_demo = !args.friendly_server_name.empty();
+
+#if !defined(_WIN32)
   const char* log_filename =
       is_receiver_demo ? kReceiverLogFilename : kControllerLogFilename;
+
   // TODO(jophba): Mac on Mojave hangs on this command forever.
   openscreen::SetLogFifoOrDie(log_filename);
+#endif
 
-  PlatformClientPosix::Create(std::chrono::milliseconds(50));
+  PlatformClient::Create(std::chrono::milliseconds(50));
 
   if (is_receiver_demo) {
     OSP_LOG_INFO << "Running publisher demo...";
@@ -695,7 +707,7 @@ int main(int argc, char** argv) {
     openscreen::osp::ListenerDemo();
   }
 
-  PlatformClientPosix::ShutDown();
+  PlatformClient::ShutDown();
 
   return 0;
 }

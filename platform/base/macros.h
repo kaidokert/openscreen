@@ -40,4 +40,9 @@
 #define OSP_NOINLINE __attribute__((noinline))
 #endif
 
+#if defined(_WIN32)
+// Windows doesn't define ssize_t, but uses ptrdiff_t for similar purposes.
+using ssize_t = intptr_t;
+#endif
+
 #endif  // PLATFORM_BASE_MACROS_H_

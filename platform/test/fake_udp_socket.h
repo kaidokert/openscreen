@@ -14,6 +14,11 @@
 #include "platform/test/fake_clock.h"
 #include "util/osp_logging.h"
 
+// Windows defines a SendMessage macro that conflicts with our method name.
+#if defined(SendMessage)
+#undef SendMessage
+#endif
+
 namespace openscreen {
 
 class FakeUdpSocket : public UdpSocket {

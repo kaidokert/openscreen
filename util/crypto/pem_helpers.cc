@@ -10,14 +10,18 @@
 #include <stdio.h>
 #include <string.h>
 
+#include <algorithm>  // For std::replace
+
 #include "util/osp_logging.h"
+#include "util/read_file.h"  // Added
 #include "util/string_util.h"
 
 namespace openscreen {
 
 std::vector<std::string> ReadCertificatesFromPemFile(
     std::string_view filename) {
-  FILE* fp = fopen(filename.data(), "r");
+  FILE* fp = OpenFile(filename, "rb");  // Replaced logic
+
   if (!fp) {
     return {};
   }
@@ -39,7 +43,8 @@ std::vector<std::string> ReadCertificatesFromPemFile(
 }
 
 bssl::UniquePtr<EVP_PKEY> ReadKeyFromPemFile(std::string_view filename) {
-  FILE* fp = fopen(filename.data(), "r");
+  FILE* fp = OpenFile(filename, "rb");  // Replaced logic
+
   if (!fp) {
     return nullptr;
   }

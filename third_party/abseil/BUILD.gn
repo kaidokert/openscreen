@@ -265,6 +265,8 @@ if (build_with_chromium) {
       "src/absl/synchronization/internal/waiter.h",
       "src/absl/synchronization/internal/waiter_base.cc",
       "src/absl/synchronization/internal/waiter_base.h",
+      "src/absl/synchronization/internal/win32_waiter.cc",
+      "src/absl/synchronization/internal/win32_waiter.h",
     ]
 
     deps = [ ":abseil" ]

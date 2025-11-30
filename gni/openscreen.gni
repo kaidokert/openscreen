@@ -16,7 +16,8 @@ declare_args() {
   # Enable monolithic static library for embedders.
   openscreen_monolithic = false
 
-  # EXPERIMENTAL: Enable Windows build support.
+  # EXPERIMENTAL: Enable Windows build support. This is used to reduce GN
+  # reformatting around is_win blocks, to make initial reviews easier.
   is_experimental_win_build = false
 }
 

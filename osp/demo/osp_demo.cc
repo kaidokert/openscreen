@@ -77,7 +77,7 @@ void sigint_stop(int) {
 
 #if defined(_WIN32)
 // TODO: winport: need to provide equivalent
-[[maybe_unused]] void SignalThings() {}
+void SignalThings() {}
 #else
 void SignalThings() {
   struct sigaction usr1_sa;

@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The Chromium Authors
+// Copyright 2025 The Chromium Authors
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -7,6 +7,7 @@
 #include <winsock2.h>
 
 #include <cstdint>
+#include <utility>
 
 #include "platform/impl/socket_handle_waiter_win.h"
 #include "platform/impl/task_runner.h"

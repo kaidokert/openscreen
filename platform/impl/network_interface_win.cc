@@ -1,12 +1,17 @@
+// Copyright 2025 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 #include "platform/api/network_interface.h"
 
+#include <iphlpapi.h>
 #include <windows.h>
 #include <winsock2.h>
-#include <iphlpapi.h>
 #include <ws2tcpip.h>
 
 #include <vector>
 
+#include "platform/api/network_interface.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {

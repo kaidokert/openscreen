@@ -1,3 +1,7 @@
+// Copyright 2025 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 #include "platform/impl/udp_socket_win.h"
 
 #include <winsock2.h>
@@ -7,6 +11,7 @@
 #include <memory>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "platform/api/task_runner.h"
@@ -82,21 +87,28 @@ bool UdpSocketWin::IsIPv6() const {
   return local_endpoint_.address.IsV6();
 }
 
+// Gets the local endpoint for this socket.
+// NOTE: This is a const method, but it may modify the mutable
+// |local_endpoint_| member if the port number needs to be queried from the
+// OS via getsockname().
 IPEndpoint UdpSocketWin::GetLocalEndpoint() const {
   if (local_endpoint_.port == 0 && handle_.handle != INVALID_SOCKET) {
     sockaddr_storage addr;
     int len = sizeof(addr);
-    if (getsockname(handle_.handle, (sockaddr*)&addr, &len) == 0) {
+    if (getsockname(handle_.handle, reinterpret_cast<sockaddr*>(&addr), &len) ==
+        0) {
       if (addr.ss_family == AF_INET) {
-        sockaddr_in* sin = (sockaddr_in*)&addr;
+        sockaddr_in* sin = reinterpret_cast<sockaddr_in*>(&addr);
         local_endpoint_.port = ntohs(sin->sin_port);
         local_endpoint_.address =
-            IPAddress(IPAddress::Version::kV4, (uint8_t*)&sin->sin_addr);
+            IPAddress(IPAddress::Version::kV4,
+                      reinterpret_cast<uint8_t*>(&sin->sin_addr));
       } else if (addr.ss_family == AF_INET6) {
-        sockaddr_in6* sin6 = (sockaddr_in6*)&addr;
+        sockaddr_in6* sin6 = reinterpret_cast<sockaddr_in6*>(&addr);
         local_endpoint_.port = ntohs(sin6->sin6_port);
         local_endpoint_.address =
-            IPAddress(IPAddress::Version::kV6, (uint8_t*)&sin6->sin6_addr);
+            IPAddress(IPAddress::Version::kV6,
+                      reinterpret_cast<uint8_t*>(&sin6->sin6_addr));
       }
     }
   }
@@ -110,22 +122,24 @@ void UdpSocketWin::Bind() {
   }
 
   BOOL opt = TRUE;
-  setsockopt(handle_.handle, SOL_SOCKET, SO_REUSEADDR, (const char*)&opt,
-             sizeof(opt));
+  setsockopt(handle_.handle, SOL_SOCKET, SO_REUSEADDR,
+             reinterpret_cast<const char*>(&opt), sizeof(opt));
 
   int res = SOCKET_ERROR;
   if (IsIPv4()) {
     sockaddr_in sin;
     sin.sin_family = AF_INET;
     sin.sin_port = htons(local_endpoint_.port);
-    local_endpoint_.address.CopyToV4((uint8_t*)&sin.sin_addr);
-    res = bind(handle_.handle, (sockaddr*)&sin, sizeof(sin));
+    local_endpoint_.address.CopyToV4(reinterpret_cast<uint8_t*>(&sin.sin_addr));
+    res = bind(handle_.handle, reinterpret_cast<sockaddr*>(&sin), sizeof(sin));
   } else {
     sockaddr_in6 sin6;
     sin6.sin6_family = AF_INET6;
     sin6.sin6_port = htons(local_endpoint_.port);
-    local_endpoint_.address.CopyToV6((uint8_t*)&sin6.sin6_addr);
-    res = bind(handle_.handle, (sockaddr*)&sin6, sizeof(sin6));
+    local_endpoint_.address.CopyToV6(
+        reinterpret_cast<uint8_t*>(&sin6.sin6_addr));
+    res =
+        bind(handle_.handle, reinterpret_cast<sockaddr*>(&sin6), sizeof(sin6));
   }
 
   if (res == SOCKET_ERROR) {
@@ -150,12 +164,12 @@ void UdpSocketWin::SetMulticastOutboundInterface(
     return;
 
   if (IsIPv4()) {
-    // TODO: Implement proper IPv4 interface selection using IP
+    // TODO(b/264188032): Implement proper IPv4 interface selection using IP
     OSP_UNIMPLEMENTED();
   } else {
     DWORD index = static_cast<DWORD>(ifindex);
     setsockopt(handle_.handle, IPPROTO_IPV6, IPV6_MULTICAST_IF,
-               (const char*)&index, sizeof(index));
+               reinterpret_cast<const char*>(&index), sizeof(index));
   }
 }
 
@@ -166,16 +180,16 @@ void UdpSocketWin::JoinMulticastGroup(const IPAddress& address,
 
   if (IsIPv4()) {
     struct ip_mreq mreq;
-    address.CopyToV4((uint8_t*)&mreq.imr_multiaddr);
+    address.CopyToV4(reinterpret_cast<uint8_t*>(&mreq.imr_multiaddr));
     mreq.imr_interface.s_addr = htonl(INADDR_ANY);
     setsockopt(handle_.handle, IPPROTO_IP, IP_ADD_MEMBERSHIP,
-               (const char*)&mreq, sizeof(mreq));
+               reinterpret_cast<const char*>(&mreq), sizeof(mreq));
   } else {
     struct ipv6_mreq mreq;
-    address.CopyToV6((uint8_t*)&mreq.ipv6mr_multiaddr);
+    address.CopyToV6(reinterpret_cast<uint8_t*>(&mreq.ipv6mr_multiaddr));
     mreq.ipv6mr_interface = static_cast<unsigned int>(ifindex);
     setsockopt(handle_.handle, IPPROTO_IPV6, IPV6_ADD_MEMBERSHIP,
-               (const char*)&mreq, sizeof(mreq));
+               reinterpret_cast<const char*>(&mreq), sizeof(mreq));
   }
 }
 
@@ -195,14 +209,16 @@ void UdpSocketWin::SendMessage(ByteView data, const IPEndpoint& dest) {
     sockaddr_in sin;
     sin.sin_family = AF_INET;
     sin.sin_port = htons(dest.port);
-    dest.address.CopyToV4((uint8_t*)&sin.sin_addr);
-    res = sendto(handle_.handle, buf, len, 0, (sockaddr*)&sin, sizeof(sin));
+    dest.address.CopyToV4(reinterpret_cast<uint8_t*>(&sin.sin_addr));
+    res = sendto(handle_.handle, buf, len, 0, reinterpret_cast<sockaddr*>(&sin),
+                 sizeof(sin));
   } else {
     sockaddr_in6 sin6;
     sin6.sin6_family = AF_INET6;
     sin6.sin6_port = htons(dest.port);
-    dest.address.CopyToV6((uint8_t*)&sin6.sin6_addr);
-    res = sendto(handle_.handle, buf, len, 0, (sockaddr*)&sin6, sizeof(sin6));
+    dest.address.CopyToV6(reinterpret_cast<uint8_t*>(&sin6.sin6_addr));
+    res = sendto(handle_.handle, buf, len, 0,
+                 reinterpret_cast<sockaddr*>(&sin6), sizeof(sin6));
   }
 
   if (res == SOCKET_ERROR) {
@@ -226,7 +242,7 @@ void UdpSocketWin::ReceiveMessage() {
   int src_len = sizeof(src_addr);
 
   int bytes = recvfrom(handle_.handle, buffer, sizeof(buffer), 0,
-                       (sockaddr*)&src_addr, &src_len);
+                       reinterpret_cast<sockaddr*>(&src_addr), &src_len);
 
   if (bytes == SOCKET_ERROR) {
     // WSAGetLastError could be checked here
@@ -240,15 +256,15 @@ void UdpSocketWin::ReceiveMessage() {
 
   IPEndpoint source_endpoint;
   if (src_addr.ss_family == AF_INET) {
-    sockaddr_in* sin = (sockaddr_in*)&src_addr;
+    sockaddr_in* sin = reinterpret_cast<sockaddr_in*>(&src_addr);
     source_endpoint.port = ntohs(sin->sin_port);
-    source_endpoint.address =
-        IPAddress(IPAddress::Version::kV4, (uint8_t*)&sin->sin_addr);
+    source_endpoint.address = IPAddress(
+        IPAddress::Version::kV4, reinterpret_cast<uint8_t*>(&sin->sin_addr));
   } else if (src_addr.ss_family == AF_INET6) {
-    sockaddr_in6* sin6 = (sockaddr_in6*)&src_addr;
+    sockaddr_in6* sin6 = reinterpret_cast<sockaddr_in6*>(&src_addr);
     source_endpoint.port = ntohs(sin6->sin6_port);
-    source_endpoint.address =
-        IPAddress(IPAddress::Version::kV6, (uint8_t*)&sin6->sin6_addr);
+    source_endpoint.address = IPAddress(
+        IPAddress::Version::kV6, reinterpret_cast<uint8_t*>(&sin6->sin6_addr));
   }
   packet.set_source(source_endpoint);
 

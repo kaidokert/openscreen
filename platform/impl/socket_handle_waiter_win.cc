@@ -1,3 +1,7 @@
+// Copyright 2025 The Chromium Authors
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
 #include "platform/impl/socket_handle_waiter_win.h"
 
 #include <winsock2.h>
@@ -42,8 +46,8 @@ SocketHandleWaiterWin::AwaitSocketsReady(
   struct timeval tv;
   auto micros =
       std::chrono::duration_cast<std::chrono::microseconds>(timeout).count();
-  tv.tv_sec = static_cast<long>(micros / 1000000);
-  tv.tv_usec = static_cast<long>(micros % 1000000);
+  tv.tv_sec = static_cast<int64_t>(micros / 1000000);
+  tv.tv_usec = static_cast<int>(micros % 1000000);
 
   int res = select(0, &read_fds, &write_fds, nullptr, &tv);
 

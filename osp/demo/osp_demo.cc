@@ -161,16 +161,28 @@ class DemoListenerObserver final : public ServiceListener::Observer {
 
 class DemoPublisherObserver final : public ServicePublisher::Observer {
  public:
-  DemoPublisherObserver() = default;
+  explicit DemoPublisherObserver(const ServicePublisher::Config& config) : config_(config) {}
   DemoPublisherObserver(const DemoPublisherObserver&) = delete;
   DemoPublisherObserver& operator=(const DemoPublisherObserver&) = delete;
   DemoPublisherObserver(DemoPublisherObserver&&) noexcept = delete;
   DemoPublisherObserver& operator=(DemoPublisherObserver&&) noexcept = delete;
   ~DemoPublisherObserver() override = default;
 
-  void OnStarted() override { OSP_LOG_INFO << "publisher started!"; }
+  void OnStarted() override {
+    OSP_LOG_INFO << "publisher started!";
+    // Log connection info for automated testing (parseable format)
+    OSP_LOG_WARN << "=== OSP RECEIVER INFO ===";
+    OSP_LOG_WARN << "Instance Name: " << config_.instance_name;
+    OSP_LOG_WARN << "Port: " << config_.connection_server_port;
+    OSP_LOG_WARN << "Fingerprint: " << config_.fingerprint;
+    OSP_LOG_WARN << "Auth Token: " << config_.auth_token;
+    OSP_LOG_WARN << "=========================";
+  }
   void OnStopped() override { OSP_LOG_INFO << "publisher stopped!"; }
   void OnSuspended() override { OSP_LOG_INFO << "publisher suspended!"; }
+
+ private:
+  const ServicePublisher::Config& config_;
 
   void OnError(const Error& error) override {
     OSP_LOG_ERROR << "publisher error: " << error;
@@ -415,7 +427,10 @@ void RunControllerPollLoop(Controller* controller) {
 
   pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
   while (true) {
-    OSP_CHECK_EQ(write(STDOUT_FILENO, "$ ", 2), 2);
+    // Only write prompt if STDOUT is a terminal (not redirected)
+    if (isatty(STDOUT_FILENO)) {
+      OSP_CHECK_EQ(write(STDOUT_FILENO, "$ ", 2), 2);
+    }
 
     CommandWaitResult command_result = WaitForCommand(&stdin_pollfd);
     if (command_result.done) {
@@ -505,7 +520,10 @@ void RunReceiverPollLoop(NetworkServiceManager* manager,
                          DemoReceiverDelegate& delegate) {
   pollfd stdin_pollfd{STDIN_FILENO, POLLIN};
   while (true) {
-    OSP_CHECK_EQ(write(STDOUT_FILENO, "$ ", 2), 2);
+    // Only write prompt if STDOUT is a terminal (not redirected)
+    if (isatty(STDOUT_FILENO)) {
+      OSP_CHECK_EQ(write(STDOUT_FILENO, "$ ", 2), 2);
+    }
 
     CommandWaitResult command_result = WaitForCommand(&stdin_pollfd);
     if (command_result.done) {
@@ -539,6 +557,7 @@ void RunReceiverPollLoop(NetworkServiceManager* manager,
 }
 
 void PublisherDemo(std::string_view friendly_name) {
+  OSP_LOG_WARN << "CLAUDE: Entering PublisherDemo with name: " << friendly_name;
   SignalThings();
 
   constexpr uint16_t server_port = 6667;
@@ -559,18 +578,24 @@ void PublisherDemo(std::string_view friendly_name) {
   OSP_LOG_IF(WARN, publisher_config.network_interfaces.empty())
       << "No network interfaces had usable addresses for mDNS publishing.";
 
+  OSP_LOG_WARN << "CLAUDE: Creating connection server";
   DemoConnectionServiceObserver server_observer;
   auto connection_server = ProtocolConnectionServerFactory::Create(
       server_config, server_observer,
       PlatformClientPosix::GetInstance()->GetTaskRunner(),
       MessageDemuxer::kDefaultBufferLimit);
 
+  OSP_LOG_WARN << "CLAUDE: Connection server created";
+
+  // NOTE: GetAgentFingerprint() blocks until certificate is generated
+  // We'll get it after Start() is called via the OnStarted() callback
   publisher_config.fingerprint = connection_server->GetAgentFingerprint();
   OSP_CHECK(!publisher_config.fingerprint.empty());
+
   publisher_config.auth_token = connection_server->GetAuthToken();
   OSP_CHECK(!publisher_config.auth_token.empty());
 
-  DemoPublisherObserver publisher_observer;
+  DemoPublisherObserver publisher_observer(publisher_config);
   auto service_publisher = ServicePublisherFactory::Create(
       publisher_config, PlatformClientPosix::GetInstance()->GetTaskRunner());
   service_publisher->AddObserver(publisher_observer);
@@ -684,6 +709,9 @@ int main(int argc, char** argv) {
       is_receiver_demo ? kReceiverLogFilename : kControllerLogFilename;
   // TODO(jophba): Mac on Mojave hangs on this command forever.
   openscreen::SetLogFifoOrDie(log_filename);
+
+  // Marker to confirm Claude's modifications took effect
+  OSP_LOG_WARN << "=== CLAUDE_MODIFIED_BUILD_2025_11_30 ===";
 
   PlatformClientPosix::Create(std::chrono::milliseconds(50));
 

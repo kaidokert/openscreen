@@ -84,8 +84,12 @@ std::ostream& operator<<(std::ostream& out, InterfaceInfo::Type type) {
 
 std::ostream& operator<<(std::ostream& out, const InterfaceInfo& info) {
   out << '{' << info.index << " (a.k.a. " << info.name
-      << "); media_type=" << info.type << "; MAC=" << std::hex
-      << static_cast<int>(info.hardware_address[0]);
+      << "); media_type=" << info.type << "; MAC=";
+  if (!info.hardware_address.empty()) {
+    out << std::hex << static_cast<int>(info.hardware_address[0]);
+  } else {
+    out << "N/A";
+  }
   for (size_t i = 1; i < info.hardware_address.size(); ++i) {
     out << ':' << static_cast<int>(info.hardware_address[i]);
   }

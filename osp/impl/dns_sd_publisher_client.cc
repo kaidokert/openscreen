@@ -48,8 +48,12 @@ void DnsSdPublisherClient::StartPublisher(
   StartPublisherInternal(config);
   Error result = dns_sd_publisher_->Register(config);
   if (result.ok()) {
+    OSP_LOG_INFO << "mDNS publisher registration succeeded";
     SetState(State::kRunning);
   } else {
+    OSP_LOG_ERROR << "mDNS publisher registration FAILED";
+    OSP_LOG_ERROR << "  Error code: " << static_cast<int>(result.code());
+    OSP_LOG_ERROR << "  Error message: " << result.message();
     SetState(State::kStopped);
   }
 }

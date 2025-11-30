@@ -4,14 +4,15 @@
 
 #include "platform/api/network_interface.h"
 
+// clang-format off
+#include <winsock2.h>
 #include <iphlpapi.h>
 #include <windows.h>
-#include <winsock2.h>
 #include <ws2tcpip.h>
+// clang-format on
 
 #include <vector>
 
-#include "platform/api/network_interface.h"
 #include "util/osp_logging.h"
 
 namespace openscreen {

@@ -36,17 +36,53 @@ DemoCommandReader::DemoCommandReader() {
 DemoCommandReader::~DemoCommandReader() = default;
 
 CommandWaitResult DemoCommandReader::WaitForCommand(const bool& stop_flag) {
+  HANDLE input = static_cast<HANDLE>(input_handle_);
+  HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+  DWORD original_mode = 0;
+  GetConsoleMode(input, &original_mode);
+  // Disable line input and echo so we can process events manually.
+  // ENABLE_PROCESSED_INPUT ensures Ctrl-C is still handled by the system.
+  SetConsoleMode(input, ENABLE_PROCESSED_INPUT);
+
+  std::string buffer;
   while (true) {
     if (stop_flag) {
+      SetConsoleMode(input, original_mode);
       return {true};
     }
-    DWORD ret = WaitForSingleObject(static_cast<HANDLE>(input_handle_), 10);
+
+    // Wait for input or timeout to check stop_flag.
+    DWORD ret = WaitForSingleObject(input, 50);
     if (ret == WAIT_OBJECT_0) {
-      std::string line;
-      if (!std::getline(std::cin, line)) {
-        return {true};
+      DWORD num_events = 0;
+      GetNumberOfConsoleInputEvents(input, &num_events);
+
+      // Process all available events.
+      for (DWORD i = 0; i < num_events; ++i) {
+        INPUT_RECORD record;
+        DWORD read = 0;
+        if (!ReadConsoleInputA(input, &record, 1, &read) || read == 0) {
+          break;
+        }
+
+        if (record.EventType == KEY_EVENT && record.Event.KeyEvent.bKeyDown) {
+          char c = record.Event.KeyEvent.uChar.AsciiChar;
+          if (c == '\r') {  // Enter
+            WriteConsoleA(output, "\n", 1, NULL, NULL);
+            SetConsoleMode(input, original_mode);
+            return {false, SeparateCommandFromArguments(buffer)};
+          } else if (c == '\b') {  // Backspace
+            if (!buffer.empty()) {
+              buffer.pop_back();
+              // Erase character from console: Backspace, Space, Backspace.
+              WriteConsoleA(output, "\b \b", 3, NULL, NULL);
+            }
+          } else if (c >= 32) {  // Printable characters
+            buffer.push_back(c);
+            WriteConsoleA(output, &c, 1, NULL, NULL);
+          }
+        }
       }
-      return {false, SeparateCommandFromArguments(line)};
     }
   }
 }

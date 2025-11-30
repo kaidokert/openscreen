@@ -4,7 +4,8 @@
 
 #include "platform/impl/text_trace_logging_platform.h"
 
-#include <cmath>
+#include <limits>
+#include <sstream>
 
 #include "platform/impl/logging.h"
 #include "util/chrono_helpers.h"

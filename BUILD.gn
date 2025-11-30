@@ -55,9 +55,10 @@ group("gn_all") {
       "discovery:public",
       "osp",
       "platform",
+
+      # Quiche currently has an issue around logging macros on Windows.
       "third_party/quiche",
     ]
-
     if (!build_with_chromium) {
       deps += [
         "cast/standalone_sender:cast_sender",

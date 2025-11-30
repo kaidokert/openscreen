@@ -5,7 +5,7 @@
 import("../../../gni/openscreen.gni")  #
 
 if (!is_win || is_experimental_win_build) {
-  visibility = [ "//osp/impl/quic/*" ]
+  visibility = [ "./*" ]
 
   config("quic_internal_config") {
     cflags = []
@@ -99,13 +99,13 @@ if (!is_win || is_experimental_win_build) {
       ":quic",
       "../../../platform",
       "../../../platform:test",
-      "../../../third_party/quiche",
       "../../public",
     ]
 
     deps = [
       "../../../third_party/abseil",
       "../../../third_party/googletest:gmock",
+      "../../../third_party/quiche",
       "../../../util",
       "../../msgs",
     ]

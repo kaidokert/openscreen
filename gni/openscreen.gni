@@ -17,7 +17,7 @@ declare_args() {
   openscreen_monolithic = false
 
   # EXPERIMENTAL: Enable Windows build support.
-  is_experimental_win_build = true
+  is_experimental_win_build = false
 }
 
 # Points to // in openscreen stand-alone or to //third_party/openscreen/src in

@@ -21,7 +21,7 @@ FILE* OpenFile(std::string_view filename, const char* mode) {
 
 std::string ReadEntireFileToString(std::string_view filename) {
   FILE* file = OpenFile(filename, "rb");
-  if (file == nullptr) {
+  if (!file) {
     return {};
   }
   fseek(file, 0, SEEK_END);

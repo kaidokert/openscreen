@@ -18,7 +18,7 @@
 namespace openscreen {
 
 class UdpSocketReaderWin;
-class PlatformClientWin;  // Forward declaration
+class PlatformClientWin;
 
 class UdpSocketWin : public UdpSocket {
  public:

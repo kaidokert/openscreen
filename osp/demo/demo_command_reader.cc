@@ -18,7 +18,7 @@ namespace openscreen::osp {
 namespace {
 
 CommandLineSplit SeparateCommandFromArguments(const std::string& line) {
-  size_t split_index = line.find_first_of(' ');
+  const size_t split_index = line.find_first_of(' ');
   std::string command = line.substr(0, split_index);
   std::string argument_tail =
       split_index < line.size() ? line.substr(split_index + 1) : std::string();
@@ -36,8 +36,8 @@ DemoCommandReader::DemoCommandReader() {
 DemoCommandReader::~DemoCommandReader() = default;
 
 CommandWaitResult DemoCommandReader::WaitForCommand(const bool& stop_flag) {
-  HANDLE input = static_cast<HANDLE>(input_handle_);
-  HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+  const auto input = static_cast<HANDLE>(input_handle_);
+  const auto output = GetStdHandle(STD_OUTPUT_HANDLE);
   DWORD original_mode = 0;
   GetConsoleMode(input, &original_mode);
   // Disable line input and echo so we can process events manually.
@@ -68,18 +68,18 @@ CommandWaitResult DemoCommandReader::WaitForCommand(const bool& stop_flag) {
         if (record.EventType == KEY_EVENT && record.Event.KeyEvent.bKeyDown) {
           char c = record.Event.KeyEvent.uChar.AsciiChar;
           if (c == '\r') {  // Enter
-            WriteConsoleA(output, "\n", 1, NULL, NULL);
+            WriteConsoleA(output, "\n", 1, nullptr, nullptr);
             SetConsoleMode(input, original_mode);
             return {false, SeparateCommandFromArguments(buffer)};
           } else if (c == '\b') {  // Backspace
             if (!buffer.empty()) {
               buffer.pop_back();
               // Erase character from console: Backspace, Space, Backspace.
-              WriteConsoleA(output, "\b \b", 3, NULL, NULL);
+              WriteConsoleA(output, "\b \b", 3, nullptr, nullptr);
             }
           } else if (c >= 32) {  // Printable characters
             buffer.push_back(c);
-            WriteConsoleA(output, &c, 1, NULL, NULL);
+            WriteConsoleA(output, &c, 1, nullptr, nullptr);
           }
         }
       }

@@ -45,7 +45,7 @@ IPAddress GetIPAddressFromSockAddr(const sockaddr* sa) {
     // Actually IPAddress(Version::kV6, const uint8_t* bytes) exists.
     return IPAddress(IPAddress::Version::kV6, b);
   }
-  return IPAddress();  // Invalid/Unknown
+  return {};  // Invalid/Unknown
 }
 
 }  // namespace
@@ -54,7 +54,7 @@ std::vector<InterfaceInfo> GetNetworkInterfaces() {
   std::vector<InterfaceInfo> interfaces;
   ULONG out_buf_len = 15000;
   std::vector<unsigned char> out_buf(out_buf_len);
-  PIP_ADAPTER_ADDRESSES pAddresses =
+  PIP_ADAPTER_ADDRESSES addresses =
       reinterpret_cast<PIP_ADAPTER_ADDRESSES>(out_buf.data());
 
   // GetAdaptersAddresses generally recommends running it once to get size,
@@ -63,15 +63,15 @@ std::vector<InterfaceInfo> GetNetworkInterfaces() {
       GetAdaptersAddresses(AF_UNSPEC,
                            GAA_FLAG_SKIP_ANYCAST | GAA_FLAG_SKIP_MULTICAST |
                                GAA_FLAG_SKIP_DNS_SERVER,
-                           NULL, pAddresses, &out_buf_len);
+                           nullptr, addresses, &out_buf_len);
 
   if (ret == ERROR_BUFFER_OVERFLOW) {
     out_buf.resize(out_buf_len);
-    pAddresses = reinterpret_cast<PIP_ADAPTER_ADDRESSES>(out_buf.data());
+    addresses = reinterpret_cast<PIP_ADAPTER_ADDRESSES>(out_buf.data());
     ret = GetAdaptersAddresses(AF_UNSPEC,
                                GAA_FLAG_SKIP_ANYCAST | GAA_FLAG_SKIP_MULTICAST |
                                    GAA_FLAG_SKIP_DNS_SERVER,
-                               NULL, pAddresses, &out_buf_len);
+                               nullptr, addresses, &out_buf_len);
   }
 
   if (ret != NO_ERROR) {
@@ -79,42 +79,41 @@ std::vector<InterfaceInfo> GetNetworkInterfaces() {
     return interfaces;
   }
 
-  for (PIP_ADAPTER_ADDRESSES pCurrAddresses = pAddresses;
-       pCurrAddresses != NULL; pCurrAddresses = pCurrAddresses->Next) {
+  for (PIP_ADAPTER_ADDRESSES curr_address = addresses;
+       curr_address != nullptr; curr_address = curr_address->Next) {
     InterfaceInfo info;
 
     // Windows IfIndex is unsigned long, Open Screen uses InterfaceIndex (int
     // usually). Ensure we handle casting safely or accept truncation if indices
     // are small. On Windows, IfIndex is usually small index.
-    info.index = static_cast<NetworkInterfaceIndex>(pCurrAddresses->IfIndex);
+    info.index = static_cast<NetworkInterfaceIndex>(curr_address->IfIndex);
 
-    info.type = GetInterfaceType(pCurrAddresses->IfType);
+    info.type = GetInterfaceType(curr_address->IfType);
 
-    if (pCurrAddresses->PhysicalAddressLength > 0 &&
-        pCurrAddresses->PhysicalAddressLength <=
+    if (curr_address->PhysicalAddressLength > 0 &&
+        curr_address->PhysicalAddressLength <=
             sizeof(info.hardware_address)) {
-      std::copy(pCurrAddresses->PhysicalAddress,
-                pCurrAddresses->PhysicalAddress +
-                    pCurrAddresses->PhysicalAddressLength,
+      std::copy(curr_address->PhysicalAddress,
+                curr_address->PhysicalAddress +
+                    curr_address->PhysicalAddressLength,
                 std::back_inserter(info.hardware_address));
     }
 
-    info.name = pCurrAddresses->AdapterName ? pCurrAddresses->AdapterName : "";
+    info.name = curr_address->AdapterName ? curr_address->AdapterName : "";
 
-    PIP_ADAPTER_UNICAST_ADDRESS pUnicast = pCurrAddresses->FirstUnicastAddress;
-    while (pUnicast) {
-      if (pUnicast->Address.lpSockaddr) {
-        IPAddress ip = GetIPAddressFromSockAddr(pUnicast->Address.lpSockaddr);
+    const PIP_ADAPTER_UNICAST_ADDRESS unicast = curr_address->FirstUnicastAddress;
+    for (auto* addr = unicast; addr != nullptr; addr = addr->Next) {
+      if (const auto* sockaddr = addr->Address.lpSockaddr) {
+        const IPAddress ip = GetIPAddressFromSockAddr(sockaddr);
         // Skip invalid/unknown addresses
         if (ip.version() == IPAddress::Version::kV4 ||
             ip.version() == IPAddress::Version::kV6) {
           // OnLinkPrefixLength available since Windows Vista.
-          int8_t prefix_length =
-              static_cast<int8_t>(pUnicast->OnLinkPrefixLength);
+          const int8_t prefix_length =
+              static_cast<int8_t>(addr->OnLinkPrefixLength);
           info.addresses.emplace_back(ip, prefix_length);
         }
       }
-      pUnicast = pUnicast->Next;
     }
 
     interfaces.push_back(info);

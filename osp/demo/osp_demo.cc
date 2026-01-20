@@ -76,7 +76,7 @@ void sigint_stop(int) {
 #endif
 
 #if defined(_WIN32)
-// TODO(b/264188032): winport: need to provide equivalent
+// TODO(crbug.com/264188032): winport: need to provide equivalent
 void SignalThings() {}
 #else
 void SignalThings() {

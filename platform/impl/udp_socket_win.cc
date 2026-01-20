@@ -47,9 +47,9 @@ ErrorOr<std::unique_ptr<UdpSocket>> UdpSocket::Create(
     TaskRunner& task_runner,
     Client* client,
     const IPEndpoint& local_endpoint) {
-  int domain = (local_endpoint.address.version() == UdpSocket::Version::kV6)
-                   ? AF_INET6
-                   : AF_INET;
+  const int domain = (local_endpoint.address.version() == UdpSocket::Version::kV6)
+                         ? AF_INET6
+                         : AF_INET;
   auto result = CreateNonBlockingUdpSocket(domain);
   if (result.is_error()) {
     return result.error();
@@ -98,17 +98,19 @@ IPEndpoint UdpSocketWin::GetLocalEndpoint() const {
     if (getsockname(handle_.handle, reinterpret_cast<sockaddr*>(&addr), &len) ==
         0) {
       if (addr.ss_family == AF_INET) {
-        sockaddr_in* sin = reinterpret_cast<sockaddr_in*>(&addr);
+        const auto* sin = reinterpret_cast<const sockaddr_in*>(&addr);
         local_endpoint_.port = ntohs(sin->sin_port);
         local_endpoint_.address =
             IPAddress(IPAddress::Version::kV4,
-                      reinterpret_cast<uint8_t*>(&sin->sin_addr));
+                      reinterpret_cast<uint8_t*>(
+                          const_cast<in_addr*>(&sin->sin_addr)));
       } else if (addr.ss_family == AF_INET6) {
-        sockaddr_in6* sin6 = reinterpret_cast<sockaddr_in6*>(&addr);
+        const auto* sin6 = reinterpret_cast<const sockaddr_in6*>(&addr);
         local_endpoint_.port = ntohs(sin6->sin6_port);
         local_endpoint_.address =
             IPAddress(IPAddress::Version::kV6,
-                      reinterpret_cast<uint8_t*>(&sin6->sin6_addr));
+                      reinterpret_cast<uint8_t*>(
+                          const_cast<in6_addr*>(&sin6->sin6_addr)));
       }
     }
   }
@@ -175,8 +177,9 @@ void UdpSocketWin::SetMulticastOutboundInterface(
 
 void UdpSocketWin::JoinMulticastGroup(const IPAddress& address,
                                       NetworkInterfaceIndex ifindex) {
-  if (handle_.handle == INVALID_SOCKET)
+  if (handle_.handle == INVALID_SOCKET) {
     return;
+  }
 
   if (IsIPv4()) {
     struct ip_mreq mreq;
@@ -201,7 +204,7 @@ void UdpSocketWin::SendMessage(ByteView data, const IPEndpoint& dest) {
   }
 
   const char* buf = reinterpret_cast<const char*>(data.data());
-  int len = static_cast<int>(data.size());
+  const int len = static_cast<int>(data.size());
 
   int res = SOCKET_ERROR;
 
@@ -241,8 +244,8 @@ void UdpSocketWin::ReceiveMessage() {
   sockaddr_storage src_addr;
   int src_len = sizeof(src_addr);
 
-  int bytes = recvfrom(handle_.handle, buffer, sizeof(buffer), 0,
-                       reinterpret_cast<sockaddr*>(&src_addr), &src_len);
+  const int bytes = recvfrom(handle_.handle, buffer, sizeof(buffer), 0,
+                              reinterpret_cast<sockaddr*>(&src_addr), &src_len);
 
   if (bytes == SOCKET_ERROR) {
     // WSAGetLastError could be checked here

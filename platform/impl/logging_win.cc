@@ -76,7 +76,7 @@ void LogWithLevel(LogLevel level,
   }
 }
 
-void Break() {
+[[noreturn]] void Break() {
   if (IsDebuggerPresent()) {
     __debugbreak();
   }

@@ -19,7 +19,6 @@
 #endif
 
 #include "platform/api/time.h"
-#include "platform/base/macros.h"
 #include "platform/impl/socket_handle_waiter.h"
 #include "platform/impl/task_runner.h"
 #include "platform/impl/udp_socket_reader_win.h"
@@ -48,6 +47,9 @@ class PlatformClientWin {
   PlatformClientWin(Clock::duration networking_operation_timeout,
                     std::unique_ptr<TaskRunnerImpl> task_runner);
 
+  PlatformClientWin(const PlatformClientWin&) = delete;
+  PlatformClientWin& operator=(const PlatformClientWin&) = delete;
+
   void RunNetworkLoopUntilStopped();
 
   std::unique_ptr<TaskRunnerImpl> task_runner_;
@@ -65,8 +67,6 @@ class PlatformClientWin {
   std::optional<std::thread> task_runner_thread_;
 
   static PlatformClientWin* instance_;
-
-  OSP_DISALLOW_COPY_AND_ASSIGN(PlatformClientWin);
 };
 
 }  // namespace openscreen

@@ -31,7 +31,8 @@ class UdpSocketReaderWin : public SocketHandleWaiter::Subscriber {
   void ProcessReadyHandle(SocketHandleRef handle, uint32_t flags) override;
   bool HasPendingWrite(SocketHandleRef handle) override;
 
-  OSP_DISALLOW_COPY_AND_ASSIGN(UdpSocketReaderWin);
+  UdpSocketReaderWin(const UdpSocketReaderWin&) = delete;
+  UdpSocketReaderWin& operator=(const UdpSocketReaderWin&) = delete;
 
  protected:
   bool IsMappedReadForTesting(UdpSocketWin* socket) const;

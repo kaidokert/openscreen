@@ -1,0 +1,12 @@
+Name: double-conversion
+Short Name: double-conversion
+URL: http://libcxx.llvm.org/
+Version: 1.0
+License: Apache License 2.0
+License File: src/LICENSE.TXT
+Security Critical: no
+Shipped: noe
+
+Description:
+
+Double conversion

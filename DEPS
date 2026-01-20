@@ -87,6 +87,13 @@ deps = {
     'condition': 'not build_with_chromium',
   },
 
+  # double-conversion library needed by googleurl for Windows builds
+  'third_party/double_conversion/src': {
+    'url': Var('github') + '/google/double-conversion.git' +
+      '@' + '9dd6227ee3e29807183e56877f0282aeb40b8b1e', #v3.4.0
+    'condition': 'not build_with_chromium',
+  },
+
   'third_party/clang-format/script': {
     'url': Var('chromium_git') +
       '/external/github.com/llvm/llvm-project/clang/tools/clang-format.git' +

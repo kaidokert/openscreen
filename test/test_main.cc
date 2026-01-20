@@ -2,11 +2,29 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#if defined(_WIN32)
+#include <winsock2.h>
+#endif
+
 #include <iostream>
 #include <string>
 
 #include "gtest/gtest.h"
 #include "third_party/getopt/getopt.h"
+#include "util/osp_logging.h"
+
+#if defined(_WIN32)
+class WinsockSetup : public ::testing::Environment {
+ public:
+  void SetUp() override {
+    WSADATA wsaData;
+    ASSERT_EQ(WSAStartup(MAKEWORD(2, 2), &wsaData), 0);
+  }
+  void TearDown() override { WSACleanup(); }
+};
+::testing::Environment* const winsock_env =
+    ::testing::AddGlobalTestEnvironment(new WinsockSetup);
+#endif
 
 // The test main must toggle logging and trace logging features because
 // tests will be run in environments that support them (in which case we

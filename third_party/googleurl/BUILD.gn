@@ -34,6 +34,11 @@ if (build_with_chromium) {
 
     public_deps = [ "//third_party/abseil" ]
 
+    # Windows string conversion functions need double_conversion
+    if (is_win) {
+      public_deps += [ "//base/third_party/double_conversion" ]
+    }
+
     configs += [ ":private_googleurl_config" ]
     public_configs = [ ":googleurl_config" ]
   }

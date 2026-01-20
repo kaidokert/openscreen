@@ -4,13 +4,24 @@
 
 #include "util/read_file.h"
 
-#include <stdio.h>
+#include <algorithm>
+#include <cstdio>
 
 namespace openscreen {
 
+FILE* OpenFile(std::string_view filename, const char* mode) {
+#if defined(_WIN32)
+  std::string win_filename(filename);
+  std::replace(win_filename.begin(), win_filename.end(), '/', '\\');
+  return fopen(win_filename.c_str(), mode);
+#else
+  return fopen(filename.data(), mode);
+#endif
+}
+
 std::string ReadEntireFileToString(std::string_view filename) {
-  FILE* file = fopen(filename.data(), "r");
-  if (file == nullptr) {
+  FILE* file = OpenFile(filename, "rb");
+  if (!file) {
     return {};
   }
   fseek(file, 0, SEEK_END);

@@ -7,7 +7,12 @@
 #include <algorithm>
 #include <atomic>
 
+#if defined(_WIN32)
+#include "platform/impl/socket_handle_win.h"
+#else
 #include "platform/impl/socket_handle_posix.h"
+#endif
+
 #include "util/osp_logging.h"
 #include "util/std_util.h"
 
